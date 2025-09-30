@@ -11,11 +11,16 @@ Before starting, make sure you’ve completed the [React Native environment setu
 2. Start the Metro bundler:
 
    ```bash
-   npx react-native start
+   npm run start
    ```
 
 3. In a new terminal, run the app on an Android emulator **or** a connected device (ensure **Debug Mode** is enabled):
 
    ```bash
-   npx react-native run-android
+   npm start android
+   ```
+
+4. Install pre-commit hooks:
+   ```bash
+   npm run prepare // or npx husky install
    ```

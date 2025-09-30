@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "npx react-native run-android",
     "ios": "react-native run-ios",
-    "lint": "eslint .",
-    "start": "react-native start",
-    "test": "jest"
+    "lint": "eslint . --fix",
+    "start": "npx react-native start",
+    "test": "npx jest",
+    "prepare": "npx husky install",
+    "format": "npx eslint . --fix && npx prettier -w ."
   },
   "dependencies": {
     "@react-native/new-app-screen": "0.81.4",
@@ -38,6 +40,7 @@
     "@types/react": "^19.1.0",
     "@types/react-test-renderer": "^19.1.0",
     "eslint": "^8.19.0",
+    "husky": "^9.1.7",
     "jest": "^29.6.3",
     "react-test-renderer": "19.1.0",
     "typescript": "^5.8.3"

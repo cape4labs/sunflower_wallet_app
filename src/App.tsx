@@ -6,10 +6,7 @@
  */
 
 import '../global.css';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { RootNavigator } from './navigation/RootNavigator.tsx';
 
 function App() {
