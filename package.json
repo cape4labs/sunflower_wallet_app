@@ -9,7 +9,8 @@
     "start": "npx react-native start",
     "test": "npx jest",
     "prepare": "npx husky install",
-    "format": "npx eslint . --fix && npx prettier -w ."
+    "format": "npx eslint . --fix && npx prettier -w .",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@react-native/new-app-screen": "0.81.4",
