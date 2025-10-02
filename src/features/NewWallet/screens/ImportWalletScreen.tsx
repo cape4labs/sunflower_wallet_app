@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 
-export function StoreSecretPhraseScreen() {
+export function ImportWalletScreen() {
   const navigation = useNavigation();
   return (
     <View className="">

@@ -10,7 +10,7 @@ export function LogoScreen() {
       <Text className="m-auto">Sunflower wallet</Text>
       <Text className="m-auto">Your BTCfi tool</Text>
 
-      <Button onPress={() => navigation.navigate('NameWalletScreen')} text={'Next'} />
+      <Button onPress={() => navigation.navigate('ImportCreateScreen')} text={'Next'} />
     </View>
   );
 }
