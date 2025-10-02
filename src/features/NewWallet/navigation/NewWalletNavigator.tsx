@@ -3,8 +3,8 @@ import { LogoScreen } from '../screens/LogoScreen.tsx';
 import { ImportCreateScreen } from '../screens/ImportCreateScreen.tsx';
 import { NameWalletScreen } from '../screens/NameWalletScreen.tsx';
 import { SuccessScreen } from '../screens/SuccessScreen.tsx';
-import { StoreSecretPhraseScreen } from '../screens/StoreSecretPhraseScreen.tsx';
-import { WriteSecretPhraseScreen } from '../screens/WriteSecretPhraseScreen.tsx';
+import { CreateWalletScreen } from '../screens/CreateWalletScreen.tsx';
+import { ImportWalletScreen } from '../screens/ImportWalletScreen.tsx';
 
 export const NewWalletNavigator = createNativeStackNavigator({
   initialRouteName: 'LogoScreen',
@@ -12,8 +12,8 @@ export const NewWalletNavigator = createNativeStackNavigator({
     ImportCreateScreen: ImportCreateScreen,
     LogoScreen: LogoScreen,
     NameWalletScreen: NameWalletScreen,
-    StoreSecretPhraseScreen: StoreSecretPhraseScreen,
+    CreateWalletScreen: CreateWalletScreen,
     SuccessScreen: SuccessScreen,
-    WriteSecretPhraseScreen: WriteSecretPhraseScreen,
+    ImportWalletScreen: ImportWalletScreen,
   },
 });

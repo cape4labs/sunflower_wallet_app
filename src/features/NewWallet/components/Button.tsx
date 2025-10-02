@@ -7,7 +7,7 @@ type ButtonType = {
 
 export function Button({ onPress, text }: ButtonType) {
   return (
-    <Pressable onPress={onPress} className="bg-black w-full h-32 text-2x1 m-auto">
+    <Pressable onPress={onPress} className="justify-center items-center bg-black w-full h-24 text-xl m-auto">
       <Text className="text-white">{text}</Text>
     </Pressable>
   );

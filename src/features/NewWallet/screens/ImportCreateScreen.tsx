@@ -7,8 +7,8 @@ export function ImportCreateScreen() {
 
   return (
     <View>
-      <Button onPress={() => navigation.navigate('ImportScreen')} text="Import a wallet" />
-      <Button onPress={() => navigation.navigate('CreateScreen')} text="Create a wallet" />
+      <Button onPress={() => navigation.navigate('ImportWalletScreen')} text="Import a wallet" />
+      <Button onPress={() => navigation.navigate('CreateWalletScreen')} text="Create a wallet" />
     </View>
   );
 }

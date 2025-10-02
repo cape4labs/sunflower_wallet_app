@@ -1,6 +1,7 @@
 import { View, Text, TextInput } from 'react-native';
 import { Button } from '../components/Button.tsx';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export function NameWalletScreen() {
   const navigation = useNavigation();
