@@ -2,7 +2,8 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 message="$(cat $1)"
-requiredPattern="^(feat|fix|docs|style|refactor|test|chore): .*$"
+requiredPattern="^(feat|fix|docs|style|refactor|test|chore)(\([^)]+\))?: .*$"
+
 if ! [[ $message =~ $requiredPattern ]];
 then
   echo "-"
@@ -10,7 +11,7 @@ then
   echo "-"
   echo "🚨 Wrong commit message! 😕"
   echo "The commit message must have this format:"
-  echo "<verb><semicolon> <short headline of what changed>"
+  echo "<verb><optional scope><semicolon> <short headline of what changed>"
   echo "Allowed verbs: add, remove, update, fix, docs, style, refactor, test, chore"
   echo "Example: feat: login button"
   echo "-"
