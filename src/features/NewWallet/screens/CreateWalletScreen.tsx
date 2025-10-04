@@ -1,4 +1,4 @@
-import { Text, View, Pressable } from 'react-native';
+import { Text, View, Pressable, Image } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { generateMnemonic } from '../../../../shared/crypto/src/keychain';
@@ -9,6 +9,7 @@ import { Toggle } from '../components/Toggle';
 
 export function CreateWalletScreen() {
   // TODO hide mnemonic
+  // TODO add steps (it's step 2)
   const navigation = useNavigation();
   const [mnemonic, setMnemonic] = useState<string | null>(null);
   const isHidden = false;
@@ -19,15 +20,17 @@ export function CreateWalletScreen() {
   }, []);
 
   return (
-    <View className="items-center">
-      <Text className="text-2xl text-white">Store your secret phrase</Text>
-      <Text className="text-white text-center mt-2">This is your secret phare, make</Text>
-      <Text className="text-white text-center">sure you store it safely</Text>
+    <View className="flex-col justify-end items-center">
+      <View className=''>
+        <Text className="text-2xl text-white text-center">Store your secret phrase</Text>
+        <Text className="text-white text-center mt-2">This is your secret phare, make</Text>
+        <Text className="text-white text-center">sure you store it safely</Text>
+      </View>
       <MnemonicDisplay mnemonic={mnemonic} />
       {isHidden && <Button onPress={() => navigation.goBack()} text={'Go back'} accent={false} />}
       {!isHidden && (
         <View className="items-center">
-          <View className="flex-row gap-2">
+          <View className="flex-row justify-start align-middle">
             <View className="flex-row items-center">
               <Toggle />
               <View className="flex-col">
@@ -35,17 +38,23 @@ export function CreateWalletScreen() {
                 <Text className="text-white"> recovery phrase</Text>
               </View>
             </View>
-            <Pressable onPress={() => copyToClipboard(mnemonic)} className="">
-              <Text className="text-white text-xl">Copy</Text>
-            </Pressable>
+            <View className="flex-row items-center gap-10">
+              <Pressable onPress={() => copyToClipboard(mnemonic)} className="">
+                <Image
+                  source={require('../../../../assets/icons/copy_icon.svg')}
+                  className="h-1 w-1"
+                />
+                <Text className="text-white text-xl">Copy</Text>
+              </Pressable>
+            </View>
           </View>
-          <View className="flex-row h-14">
-            <Button onPress={() => navigation.goBack()} text={'Back'} customStyle={'w-[45%]'} />
+          <View className="flex-row my-5 bg-custom_border p-1 rounded-xl">
+            <Button onPress={() => navigation.goBack()} text={'Back'} customStyle={'w-[40%]'} />
             <Button
               onPress={() => navigation.navigate('NameWalletScreen')}
               accent={true}
               text={'Next'}
-              customStyle={'w-[45%] bg-white'}
+              customStyle={'w-[40%] bg-white'}
             />
           </View>
         </View>
