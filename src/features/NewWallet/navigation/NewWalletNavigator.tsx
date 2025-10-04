@@ -16,4 +16,10 @@ export const NewWalletNavigator = createNativeStackNavigator({
     SuccessScreen: SuccessScreen,
     ImportWalletScreen: ImportWalletScreen,
   },
+  screenOptions: {
+    headerShown: false,
+    contentStyle: {
+      backgroundColor: '#292928',
+    },
+  },
 });

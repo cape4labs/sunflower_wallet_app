@@ -6,15 +6,10 @@
  */
 
 import '../global.css';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { RootNavigator } from './navigation/RootNavigator.tsx';
+import { RootNavigator } from './navigation/RootNavigator';
 
 function App() {
-  return (
-    <SafeAreaProvider>
-      <RootNavigator />
-    </SafeAreaProvider>
-  );
+  return <RootNavigator />;
 }
 
 export default App;

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 export function NameWalletScreen() {
   const navigation = useNavigation();
   const [walletName, setWalletName] = useState('');
-
+  // TODO add steps (it's step 3)
   return (
     <View>
       <Text>Pick a name for your walelt</Text>
