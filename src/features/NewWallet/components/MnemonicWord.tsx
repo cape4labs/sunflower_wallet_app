@@ -8,16 +8,11 @@ type MnemonicWordType = {
 // A component used for displaying words that are part of a mnemonic
 export function MnemonicWord({ idx, word }: MnemonicWordType) {
   return (
-    <View className="grow-1">
+    <View className="flex-1 w-1/2 bg-custom_border items-center justify-center rounded-lg">
       {/*TODO adjust height and weight*/}
-      <View className="flex-row items-center h-20 min-w-64">
-        <View className="w-12 justify-center items-center">
-          <Text>{idx}.</Text>
-        </View>
-        <View className="justify-center items-start">
-          <Text>{word}</Text>
-        </View>
-      </View>
+      <Text className="text-white">
+        {idx}. {word}
+      </Text>
     </View>
   );
 }
