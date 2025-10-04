@@ -1,11 +1,12 @@
 import { Text, View } from 'react-native';
 
-type SecretPhraseWord = {
+type MnemonicWordType = {
   idx: number;
   word: string;
 };
 
-export function SecretWord({ idx, word }: SecretPhraseWord) {
+// A component used for displaying words that are part of a mnemonic
+export function MnemonicWord({ idx, word }: MnemonicWordType) {
   return (
     <View className="grow-1">
       {/*TODO adjust height and weight*/}
