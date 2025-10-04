@@ -1,25 +1,25 @@
 import { View } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
-import Clipboard from '@react-native-clipboard/clipboard';
-import {MnemonicWord } from '../components/MnemonicWord';
+import { generateMnemonic } from '../../../../shared/crypto2/src/keychain';
+import { useEffect, useState } from 'react';
+import { MnemonicDisplay } from '../components/MnemonicDisplay';
+import { CopyToClipboard as copyToClipboard } from '../../../utils/copyToClipboard';
 
 export function CreateWalletScreen() {
+  // TODO hide mnemonic
   const navigation = useNavigation();
+  const [mnemonic, setMnemonic] = useState<string | null>(null);
 
-  // Mock mnemonic
-  const mnemonic = "word word word word word word word word word word word word";
-
-  const mnemonicSplit = mnemonic.split(' ');
+  useEffect(() => {
+    const tmpMnemonic = generateMnemonic();
+    setMnemonic(tmpMnemonic);
+  }, []);
 
   return (
     <View>
-      <View className="flex-col flex-wrap gap-2 h-2/3">
-          {mnemonicSplit.map((word, idx) => (
-            <MnemonicWord key={word + idx} idx={idx + 1} word={word} />
-          ))}
-      </View>
-      <Button onPress={() => Clipboard.setString(mnemonic)} text={'Copy'} />
+      <MnemonicDisplay mnemonic={mnemonic} />
+      <Button onPress={() => copyToClipboard(mnemonic)} text={'Copy'} />
       <Button onPress={() => navigation.goBack()} text={'Go back'} />
       <Button onPress={() => navigation.navigate('NameWalletScreen')} text={'Next'} />
     </View>

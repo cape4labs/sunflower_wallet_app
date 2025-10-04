@@ -24,3 +24,4 @@ Before starting, make sure you’ve completed the [React Native environment setu
    ```bash
    npm run prepare
    ```
+
