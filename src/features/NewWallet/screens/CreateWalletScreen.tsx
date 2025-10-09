@@ -21,7 +21,7 @@ export function CreateWalletScreen() {
 
   return (
     <View className="flex-col justify-end items-center">
-      <View className=''>
+      <View className="">
         <Text className="text-2xl text-white text-center">Store your secret phrase</Text>
         <Text className="text-white text-center mt-2">This is your secret phare, make</Text>
         <Text className="text-white text-center">sure you store it safely</Text>

@@ -1,9 +1,8 @@
-import { Text, View, Pressable, Image } from 'react-native';
-import { Button } from '../components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { Text, View } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
 
 export function ImportWalletScreen() {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   return (
     <View className="flex-col justify-end items-center w-[80%]">
       <View className="flex-col ">

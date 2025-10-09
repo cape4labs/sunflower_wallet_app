@@ -7,7 +7,7 @@ export function NameWalletScreen() {
   const navigation = useNavigation();
   const [walletName, setWalletName] = useState('');
   // TODO add steps (it's step 3)
-  return ( 
+  return (
     <View>
       <Text>Pick a name for your walelt</Text>
       <Text>For example: Main Wallet</Text>
