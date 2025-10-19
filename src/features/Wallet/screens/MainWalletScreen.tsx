@@ -1,6 +1,6 @@
 import { Text, View, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
-import { getMnemonic, getWalletList } from '../../../../shared/crypto/keychain';
+import { getMnemonic, getWalletList } from '../../../../shared/crypto/mnemonic';
 import { Wrapper } from '../components/Wrapper';
 
 export function MainWalletScreen() {

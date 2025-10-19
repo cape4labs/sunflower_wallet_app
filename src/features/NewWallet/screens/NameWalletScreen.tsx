@@ -4,14 +4,21 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { Wrapper } from '../components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
-import { saveMnemonic } from '../../../../shared/crypto/keychain';
+import { saveMnemonic } from '../../../../shared/crypto/mnemonic';
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type RouteParams = {
   mnemonic?: string;
 };
 
+type NameWalletScreenNavigationProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'NameWalletScreen'
+>;
+
 export function NameWalletScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NameWalletScreenNavigationProp>();
   const route = useRoute();
   const { mnemonic } = route.params as RouteParams;
   const [walletName, setWalletName] = useState('');

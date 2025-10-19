@@ -2,9 +2,16 @@ import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '../components/Button';
 import { Wrapper } from '../components/Wrapper';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+
+type LogoScreenNavigationProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'LogoScreen'
+>;
 
 export function LogoScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<LogoScreenNavigationProp>();
 
   return (
     <Wrapper>
