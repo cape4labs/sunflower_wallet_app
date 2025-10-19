@@ -100,7 +100,7 @@ export function CreateWalletScreen() {
               onPress={handleNext}
               accent={true}
               text={'Next'}
-              customStyle={isSaved ? 'bg-custom_accent w-[50%]' : 'bg-white w-[50%]'}
+              customStyle={`w-[50%] ${isSaved ? 'bg-custom_accent' : 'bg-white '}`}
             />
           </View>
         )}
