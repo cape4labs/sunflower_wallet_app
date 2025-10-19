@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 128 = 12 words; 256 = 24 words;
 const MNEMONIC_STRENGTH = 128;
-const WALLET_LIST_KEY = 'walletList'; // Ключ для списка имен
+const WALLET_LIST_KEY = 'walletList';
 
 export function generateMnemonic() {
   return scureGenerateMnemonic(wordlist, MNEMONIC_STRENGTH);
@@ -19,7 +19,7 @@ export async function saveMnemonic(mnemonic: string, walletName: string): Promis
       accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET_OR_DEVICE_PASSCODE,
     });
     console.log(`Mnemonic saved successfully for ${walletName}`);
-    await addWalletName(walletName); // Добавляем имя в список
+    await addWalletName(walletName);
   } catch (error) {
     console.error(`Error saving mnemonic for ${walletName}:`, error);
     throw error;
@@ -42,14 +42,13 @@ export async function clearMnemonic(walletName: string): Promise<void> {
     const service = `SunflowerWallet_${walletName}`;
     await Keychain.resetGenericPassword({ service });
     console.log(`Mnemonic cleared for ${walletName}`);
-    await removeWalletName(walletName); // Удаляем имя из списка
+    await removeWalletName(walletName);
   } catch (error) {
     console.error(`Error clearing mnemonic for ${walletName}:`, error);
     throw error;
   }
 }
 
-// Функции для списка имен кошельков в AsyncStorage
 export async function addWalletName(walletName: string): Promise<void> {
   try {
     let walletList = await getWalletList();
