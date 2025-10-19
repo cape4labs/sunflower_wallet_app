@@ -23,7 +23,7 @@ export default async function PasteMnemonic({ mnemonicLength, setMnemonic }: Pas
 
     const fullMnemonic = words.join(' ');
     if (!validateMnemonic(fullMnemonic, wordlist)) {
-      console.error('Ivalid mnemonic phrase');
+      console.error('Invalid mnemonic phrase');
       return;
     }
 
