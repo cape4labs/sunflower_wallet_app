@@ -2,11 +2,16 @@ import { Text, View, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getMnemonic, getWalletList } from '../../../../shared/crypto/keychain';
 import { Wrapper } from '../components/Wrapper';
+import { generateWallet } from '@stacks/wallet-sdk';
+import { StacksMainnet } from '@stacks/network';
+import { fetchAccountBalance } from '@stacks/blockchain-api-client';
 
 export function MainWalletScreen() {
   const [walletList, setWalletList] = useState<string[]>([]);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
   const [mnemonic, setMnemonic] = useState<string | null>(null);
+  const [address, setAddress] = useState<string | null>(null);
+  const [balance, setBalance] = useState<string | null>(null);
 
   useEffect(() => {
     const loadWallets = async () => {
@@ -20,6 +25,27 @@ export function MainWalletScreen() {
     const retrievedMnemonic = await getMnemonic(walletName);
     setSelectedWallet(walletName);
     setMnemonic(retrievedMnemonic);
+
+    if (retrievedMnemonic) {
+      try {
+        // Дериваем адрес из мнемоники
+        const wallet = await generateWallet({
+          secretKey: retrievedMnemonic,
+          password: '', // Пароль не требуется, если мнемоника уже восстановлена
+        });
+        const stxAddress = wallet.accounts[0].address; // Адрес первого аккаунта
+        setAddress(stxAddress);
+
+        // Получаем баланс с блокчейна
+        const network = new StacksMainnet();
+        const balanceData = await fetchAccountBalance({ principal: stxAddress, network });
+        setBalance((balanceData.stx.balance / 1e6).toString()); // Конвертируем из микростаков в STX
+      } catch (error) {
+        console.error('Error fetching wallet info:', error);
+        setAddress('Ошибка получения адреса');
+        setBalance('0');
+      }
+    }
   };
 
   return (
@@ -29,7 +55,7 @@ export function MainWalletScreen() {
         {walletList.length === 0 ? (
           <Text className="text-white text-center mt-5">Нет кошельков. Создайте новый.</Text>
         ) : (
-          walletList.map(walletName => (
+          walletList.map((walletName) => (
             <Pressable
               key={walletName}
               onPress={() => handleSelectWallet(walletName)}
@@ -42,8 +68,8 @@ export function MainWalletScreen() {
         {selectedWallet && mnemonic && (
           <View className="mt-10 w-full">
             <Text className="text-2xl text-white text-center">Кошелёк: {selectedWallet}</Text>
-            <Text className="text-white text-center mt-5">Мнемоника: {mnemonic}</Text>
-            {/* Здесь можно добавить баланс, адрес и т.д. */}
+            <Text className="text-white text-center mt-5">Адрес: {address || 'Загрузка...'}</Text>
+            <Text className="text-white text-center mt-5">Баланс: {balance !== null ? `${balance} STX` : 'Загрузка...'}</Text>
           </View>
         )}
       </View>

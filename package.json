@@ -19,6 +19,8 @@
     "@react-navigation/native": "^7.1.17",
     "@react-navigation/native-stack": "^7.3.26",
     "@scure/bip39": "^2.0.0",
+    "@stacks/blockchain-api-client": "^8.13.1",
+    "@stacks/network": "^7.2.0",
     "@stacks/transactions": "^7.2.0",
     "@stacks/wallet-sdk": "^7.2.0",
     "nativewind": "^4.2.1",

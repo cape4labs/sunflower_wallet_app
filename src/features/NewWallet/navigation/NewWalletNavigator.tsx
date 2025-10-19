@@ -6,6 +6,7 @@ import { SuccessScreen } from '../screens/SuccessScreen.tsx';
 import { CreateWalletScreen } from '../screens/CreateWalletScreen.tsx';
 import { ImportWalletScreen } from '../screens/ImportWalletScreen.tsx';
 import { ChooseLengthScreen } from '../screens/ChooseLengthScreen.tsx';
+import { MainWalletScreen } from '../../Wallet/screens/MainWalletScreen.tsx';
 
 export const NewWalletNavigator = createNativeStackNavigator({
   initialRouteName: 'LogoScreen',
@@ -17,11 +18,13 @@ export const NewWalletNavigator = createNativeStackNavigator({
     SuccessScreen: SuccessScreen,
     ImportWalletScreen: ImportWalletScreen,
     ChooseLengthScreen: ChooseLengthScreen,
+    MainWalletScreen: MainWalletScreen,
   },
   screenOptions: {
     headerShown: false,
     contentStyle: {
       backgroundColor: '#292928',
+      fontFamily: 'Montserrat-VariableFont_wght',
     },
   },
 });
