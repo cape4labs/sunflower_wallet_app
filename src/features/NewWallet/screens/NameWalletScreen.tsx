@@ -40,7 +40,9 @@ export function NameWalletScreen() {
     <Wrapper>
       <View className="flex-1 flex-col w-full">
         <View className="flex-col items-center w-full px-5">
-          <Text className="text-2xl text-white text-center font-bold mt-5">Pick a name for your wallet</Text>
+          <Text className="text-2xl text-white text-center font-bold mt-5">
+            Pick a name for your wallet
+          </Text>
           <Text className="text-white text-center mt-2">For example: Main Wallet</Text>
           <View className="w-full border-custom_border bg-custom_complement items-center border-[6px] flex-row justify-between rounded-2xl mt-10 px-5">
             <Text className="text-white">{'>>'}</Text>
@@ -60,7 +62,11 @@ export function NameWalletScreen() {
               onPress={handleNext}
               accent={true}
               text="Next"
-              customStyle={walletName.trim().length > 0 ? "bg-custom_accent w-full mt-2" : "bg-white w-full mt-2"}
+              customStyle={
+                walletName.trim().length > 0
+                  ? 'bg-custom_accent w-full mt-2'
+                  : 'bg-white w-full mt-2'
+              }
             />
           </View>
         </View>

@@ -13,7 +13,7 @@ export function SuccessScreen() {
   const { walletName } = route.params as RouteParams;
   const navigation = useNavigation();
 
-  // Автоматический переход через 2 секунды (опционально)
+  // Auto navigate to main screen
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('MainWalletScreen');
@@ -21,22 +21,17 @@ export function SuccessScreen() {
     return () => clearTimeout(timer);
   }, [navigation]);
 
-  return(
+  return (
     <Wrapper>
-      <View className='flex-1'>
-        <Text className='text-2xl text-white text-center font-bold mt-5'>Success!</Text>
-        <Text className='text-white text-center mt-2'>{`Welcome to the: ${walletName} wallet`}</Text>
+      <View className="flex-1">
+        <Text className="text-2xl text-white text-center font-bold mt-5">Success!</Text>
+        <Text className="text-white text-center mt-2">{`Welcome to the: ${walletName} wallet`}</Text>
       </View>
-      <View className='flex-1'>
-        <Image 
-        source={require('../../../../assets/icons/success.png')}
-        />
+      <View className="flex-1">
+        <Image source={require('../../../../assets/icons/success.png')} />
       </View>
-    
-      <StepIndicator totalSteps={5} currentStep={5}/>
-    </Wrapper>
 
-  );  
-  
-  
+      <StepIndicator totalSteps={5} currentStep={5} />
+    </Wrapper>
+  );
 }

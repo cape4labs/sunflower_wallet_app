@@ -1,11 +1,9 @@
 import { Text, View, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { getMnemonic, getWalletList } from '../../../../shared/crypto/keychain';
 import { Wrapper } from '../components/Wrapper';
 
 export function MainWalletScreen() {
-  const navigation = useNavigation();
   const [walletList, setWalletList] = useState<string[]>([]);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
   const [mnemonic, setMnemonic] = useState<string | null>(null);
@@ -31,7 +29,7 @@ export function MainWalletScreen() {
         {walletList.length === 0 ? (
           <Text className="text-white text-center mt-5">Нет кошельков. Создайте новый.</Text>
         ) : (
-          walletList.map((walletName) => (
+          walletList.map(walletName => (
             <Pressable
               key={walletName}
               onPress={() => handleSelectWallet(walletName)}

@@ -16,7 +16,9 @@ export function MnemonicDisplay({ mnemonic, className }: MnemonicDisplayType) {
   const rightColumn = words.slice(half);
 
   return (
-    <View className={`flex-row h-auto border-[6px] border-custom_border rounded-xl bg-custom_complement my-5 ${className}`}>
+    <View
+      className={`flex-row h-auto border-[6px] border-custom_border rounded-xl bg-custom_complement my-5 ${className}`}
+    >
       <View className="flex-1 flex-col justify-between m-2">
         {leftColumn.map((word, idx) => (
           <MnemonicWord key={word + idx} idx={idx + 1} word={word} />
