@@ -1,16 +1,19 @@
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '../components/Button';
 import { Wrapper } from '../components/Wrapper';
+import { StepIndicator } from '../components/StepIndicator';
 
 export function ImportCreateScreen() {
   const navigation = useNavigation();
-  //TODO add steps (it's step 1)
   return (
     <Wrapper>
-      <View className="flex-1 justify-end">
-        <View className="items-center justify-end">
-          <Button onPress={() => navigation.navigate('ImportWalletScreen')} text="Import Wallet" />
+      <View className="flex-1 justify-center align-middle items-center">
+        <Image source={require('../../../../assets/icons/logo.png')} />
+      </View>
+      <View className="flex-1 justify-end w-full">
+        <View className="justify-end">
+          <Button onPress={() => navigation.navigate('ChooseLengthScreen')} text="Import Wallet" />
           <Button
             onPress={() => navigation.navigate('CreateWalletScreen')}
             text="Create Wallet"
@@ -18,6 +21,7 @@ export function ImportCreateScreen() {
             customStyle={'mt-2'}
           />
         </View>
+        <StepIndicator totalSteps={5} currentStep={2} />
       </View>
     </Wrapper>
   );
