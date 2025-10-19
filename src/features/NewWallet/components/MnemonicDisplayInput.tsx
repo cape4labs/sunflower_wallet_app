@@ -8,27 +8,41 @@ type MnemonicDisplayType = {
   initialWords?: string[];
 };
 
-export function MnemonicDisplayInput({ mnemonicLength, onChange, initialWords }: MnemonicDisplayType) {
-  if (!mnemonicLength) return null;
-
+export function MnemonicDisplayInput({
+  mnemonicLength,
+  onChange,
+  initialWords,
+}: MnemonicDisplayType) {
+  // Init state
   const [words, setWords] = useState<string[]>(() => {
     console.log('Initializing words with:', initialWords);
-    return initialWords && initialWords.length === mnemonicLength ? [...initialWords] : Array.from({ length: mnemonicLength }, () => '');
+    return initialWords && mnemonicLength && initialWords.length === mnemonicLength
+      ? [...initialWords]
+      : Array.from({ length: mnemonicLength || 0 }, () => '');
   });
 
-  // Синхронизация с initialWords только при изменении
+  // Sync with initialWords for pasted words
   useEffect(() => {
-    if (initialWords && initialWords.length === mnemonicLength && JSON.stringify(initialWords) !== JSON.stringify(words)) {
+    if (
+      mnemonicLength &&
+      initialWords &&
+      initialWords.length === mnemonicLength &&
+      JSON.stringify(initialWords) !== JSON.stringify(words)
+    ) {
       console.log('Syncing words with initialWords:', initialWords);
       setWords([...initialWords]);
     }
-  }, [initialWords, mnemonicLength]); 
+  }, [initialWords, mnemonicLength, words]);
 
+  // If words was changed
   useEffect(() => {
     console.log('Words updated in effect:', words);
-    if (onChange) onChange(words);
-  }, [words, onChange]);
+    if (onChange && mnemonicLength) onChange(words);
+  }, [words, onChange, mnemonicLength]);
 
+  if (!mnemonicLength) return null;
+
+  // Two columns
   const half = mnemonicLength / 2;
   const leftColumn = words.slice(0, half);
   const rightColumn = words.slice(half);
@@ -46,7 +60,7 @@ export function MnemonicDisplayInput({ mnemonicLength, onChange, initialWords }:
           <MnemonicInput
             key={`left-${idx}`}
             idx={idx + 1}
-            onChange={(text) => handleChange(text, idx)}
+            onChange={text => handleChange(text, idx)}
             value={words[idx] || ''}
           />
         ))}
@@ -56,7 +70,7 @@ export function MnemonicDisplayInput({ mnemonicLength, onChange, initialWords }:
           <MnemonicInput
             key={`right-${idx}`}
             idx={idx + 1 + half}
-            onChange={(text) => handleChange(text, idx + half)}
+            onChange={text => handleChange(text, idx + half)}
             value={words[idx + half] || ''}
           />
         ))}
