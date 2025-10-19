@@ -5,6 +5,7 @@ import { NameWalletScreen } from '../screens/NameWalletScreen.tsx';
 import { SuccessScreen } from '../screens/SuccessScreen.tsx';
 import { CreateWalletScreen } from '../screens/CreateWalletScreen.tsx';
 import { ImportWalletScreen } from '../screens/ImportWalletScreen.tsx';
+import { ChooseLengthScreen } from '../screens/ChooseLengthScreen.tsx';
 
 export const NewWalletNavigator = createNativeStackNavigator({
   initialRouteName: 'LogoScreen',
@@ -15,6 +16,7 @@ export const NewWalletNavigator = createNativeStackNavigator({
     CreateWalletScreen: CreateWalletScreen,
     SuccessScreen: SuccessScreen,
     ImportWalletScreen: ImportWalletScreen,
+    ChooseLengthScreen: ChooseLengthScreen,
   },
   screenOptions: {
     headerShown: false,
