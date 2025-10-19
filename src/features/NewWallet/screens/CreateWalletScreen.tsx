@@ -10,7 +10,6 @@ import { Wrapper } from '../components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 
 export function CreateWalletScreen() {
-  // TODO hide mnemonic
   const navigation = useNavigation();
   const [mnemonic, setMnemonic] = useState<string | null>(null);
   const [isHidden, setIsHidden] = useState(true);
