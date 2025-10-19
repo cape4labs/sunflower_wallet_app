@@ -1,16 +1,23 @@
 import { Text, View, Pressable, Image } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
-import { generateMnemonic } from '../../../../shared/crypto/keychain';
+import { generateMnemonic } from '../../../../shared/crypto/mnemonic';
 import { useEffect, useState } from 'react';
 import { MnemonicDisplay } from '../components/MnemonicDisplay';
 import { CopyToClipboard as copyToClipboard } from '../../../../shared/utils/copyToClipboard';
 import { Toggle } from '../components/Toggle';
 import { Wrapper } from '../components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type CreateWalletScreenNavigationProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'CreateWalletScreen'
+>;
 
 export function CreateWalletScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<CreateWalletScreenNavigationProp>();
   const [mnemonic, setMnemonic] = useState<string | null>(null);
   const [isHidden, setIsHidden] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
