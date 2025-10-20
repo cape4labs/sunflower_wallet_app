@@ -23,7 +23,7 @@ export function Toggle({ onToggle }: { onToggle?: (isActivated: boolean) => void
     }
   };
 
-  // Animate toogle by x axis
+  // Animate toggle by x axis
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: translateX.value }],

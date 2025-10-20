@@ -1,23 +1,30 @@
 import { Text, View, Image, Pressable } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useState, useEffect } from 'react'; // Добавили useEffect
+import { useState, useEffect } from 'react';
 import { ScrollableWrapper } from '../components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { MnemonicDisplayInput } from '../components/MnemonicDisplayInput';
 import PasteMnemonic from '../../../../shared/utils/pasteFromClipboard';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+
+type ImportWalletScreenNavigationProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'ImportWalletScreen'
+>;
 
 type RouteParams = {
   mnemonicLength: number | null;
 };
 
 export function ImportWalletScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ImportWalletScreenNavigationProp>();
   const route = useRoute();
   const { mnemonicLength } = route.params as RouteParams;
   const [mnemonic, setMnemonic] = useState<string[]>([]);
 
-  //Check is all fields are filled in
+  // Check if all fields are filled in
   const isAllFilled =
     mnemonic.length === mnemonicLength && mnemonic.every(word => word.trim().length > 0);
 

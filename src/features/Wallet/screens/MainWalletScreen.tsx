@@ -1,6 +1,6 @@
 import { Text, View, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
-import { getMnemonic, getWalletList } from '../../../../shared/crypto/keychain';
+import { getMnemonic, getWalletList } from '../../../../shared/crypto/mnemonic';
 import { Wrapper } from '../components/Wrapper';
 import { generateWallet } from '@stacks/wallet-sdk';
 import { StacksMainnet } from '@stacks/network';
@@ -51,9 +51,9 @@ export function MainWalletScreen() {
   return (
     <Wrapper>
       <View className="flex-col items-center w-full">
-        <Text className="text-2xl text-white text-center font-bold">Ваши кошельки</Text>
+        <Text className="text-2xl text-white text-center font-bold">Your wallet </Text>
         {walletList.length === 0 ? (
-          <Text className="text-white text-center mt-5">Нет кошельков. Создайте новый.</Text>
+          <Text className="text-white text-center mt-5">No added wallets. Create a new one.</Text>
         ) : (
           walletList.map((walletName) => (
             <Pressable
@@ -67,9 +67,8 @@ export function MainWalletScreen() {
         )}
         {selectedWallet && mnemonic && (
           <View className="mt-10 w-full">
-            <Text className="text-2xl text-white text-center">Кошелёк: {selectedWallet}</Text>
-            <Text className="text-white text-center mt-5">Адрес: {address || 'Загрузка...'}</Text>
-            <Text className="text-white text-center mt-5">Баланс: {balance !== null ? `${balance} STX` : 'Загрузка...'}</Text>
+            <Text className="text-2xl text-white text-center">Wallet: {selectedWallet}</Text>
+            <Text className="text-white text-center mt-5">Mnemonic: {mnemonic}</Text>
           </View>
         )}
       </View>

@@ -3,9 +3,16 @@ import { Wrapper } from '../components/Wrapper';
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { StepIndicator } from '../components/StepIndicator';
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type ChooseLengthScreenNavigationProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'ChooseLengthScreen'
+>;
 
 export function ChooseLengthScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ChooseLengthScreenNavigationProp>();
 
   return (
     <Wrapper>

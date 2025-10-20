@@ -13,5 +13,10 @@
     ".husky",
     ".git",
     ".bundle"
-  ]
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true ,
+    "moduleResolution": "bundler"
+  }
 }

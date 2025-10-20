@@ -3,15 +3,22 @@ import { StepIndicator } from '../components/StepIndicator';
 import { Wrapper } from '../components/Wrapper';
 import { View, Text, Image } from 'react-native';
 import { useEffect } from 'react';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 
 type RouteParams = {
   walletName?: string;
 };
 
+type SuccessScreenNavigationProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'SuccessScreen'
+>;
+
 export function SuccessScreen() {
   const route = useRoute();
   const { walletName } = route.params as RouteParams;
-  const navigation = useNavigation();
+  const navigation = useNavigation<SuccessScreenNavigationProp>();
 
   // Auto navigate to main screen
   useEffect(() => {
