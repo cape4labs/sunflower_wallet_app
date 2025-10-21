@@ -2,7 +2,7 @@ import { View, Text, TextInput, ActivityIndicator } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import { Wrapper } from '../components/Wrapper';
+import { Wrapper } from '../../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { createAndSaveWallet } from '../../../../shared/crypto/mnemonic';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';

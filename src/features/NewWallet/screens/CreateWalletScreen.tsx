@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { MnemonicDisplay } from '../components/MnemonicDisplay';
 import { CopyToClipboard as copyToClipboard } from '../../../../shared/utils/copyToClipboard';
 import { Toggle } from '../components/Toggle';
-import { Wrapper } from '../components/Wrapper';
+import { Wrapper } from '../../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';

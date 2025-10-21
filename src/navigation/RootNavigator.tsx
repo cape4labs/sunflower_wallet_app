@@ -9,6 +9,8 @@ import { ImportWalletScreen } from '../features/NewWallet/screens/ImportWalletSc
 import { ChooseLengthScreen } from '../features/NewWallet/screens/ChooseLengthScreen.tsx';
 import { MainWalletScreen } from '../features/Wallet/screens/MainWalletScreen.tsx';
 import { createStaticNavigation } from '@react-navigation/native';
+import SettingsScreen from '../features/Wallet/screens/SettingsScreen.tsx';
+import InfoScreen from '../features/Wallet/screens/InfoScreen.tsx';
 
 const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>({
   initialRouteName: 'LogoScreen',
@@ -21,6 +23,8 @@ const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>
     ImportWalletScreen: ImportWalletScreen,
     ChooseLengthScreen: ChooseLengthScreen,
     MainWalletScreen: MainWalletScreen,
+    SettingsScreen: SettingsScreen,
+    InfoScreen: InfoScreen,
   },
   screenOptions: {
     headerShown: false,

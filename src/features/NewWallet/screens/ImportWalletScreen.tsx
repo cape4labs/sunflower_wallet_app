@@ -2,7 +2,7 @@ import { Text, View, Image, Pressable } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import { ScrollableWrapper } from '../components/Wrapper';
+import { ScrollableWrapper } from '../../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { MnemonicDisplayInput } from '../components/MnemonicDisplayInput';
 import PasteMnemonic from '../../../../shared/utils/pasteFromClipboard';

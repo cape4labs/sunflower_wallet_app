@@ -1,3 +1,4 @@
+
 export type RootNavigatorTypeParamListType = {
   ImportCreateScreen: undefined;
   LogoScreen: undefined;
@@ -6,5 +7,7 @@ export type RootNavigatorTypeParamListType = {
   SuccessScreen: { walletName: string };
   ImportWalletScreen: { mnemonicLength: number };
   ChooseLengthScreen: undefined;
-  MainWalletScreen: undefined;
+  MainWalletScreen: {walletName: string};
+  InfoScreen: undefined;
+  SettingsScreen: undefined;
 };

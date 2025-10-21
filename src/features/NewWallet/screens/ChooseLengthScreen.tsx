@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import { Wrapper } from '../components/Wrapper';
+import { Wrapper } from '../../../../shared/components/Wrapper';
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { StepIndicator } from '../components/StepIndicator';
