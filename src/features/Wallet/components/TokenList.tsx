@@ -1,38 +1,65 @@
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, ActivityIndicator, FlatList, Image } from 'react-native';
 
 interface Token {
   name: string;
-  change: string;
-  amount: string;
-  value: string;
+  symbol: string;
+  balance: string;
 }
 
 interface TokenListProps {
   tokens: Token[];
+  isLoading: boolean;
+  error: string | null;
 }
 
-const renderTokenItem = ({ item }: { item: Token }) => (
-  <View className="flex-row justify-between items-center p-4 bg-gray-800 rounded-lg mb-2">
-    <View>
-      <Text className="text-white text-lg">{item.name}</Text>
-      <Text className="text-green-500 text-sm">{item.change}</Text>
-    </View>
-    <View className="items-end">
-      <Text className="text-white text-lg">{item.amount}</Text>
-      <Text className="text-white text-sm">{item.value}</Text>
-    </View>
-  </View>
-);
+export function TokenList({ tokens, isLoading, error }: TokenListProps) {
+  if (isLoading) {
+    return <ActivityIndicator size="large" color="#fff" />;
+  }
 
-export function TokenList({ tokens }: TokenListProps) {
+  if (error) {
+    return <Text className="text-red-500">{error}</Text>;
+  }
+
+  const getIcon = (symbol: string) => {
+    switch (symbol.toUpperCase()) {
+      case 'BTC':
+        return require('../../../../assets/icons/bitcoin.png');
+      case 'STX':
+        return require('../../../../assets/icons/stacks.png');
+    }
+  };
+
   return (
-    <View className="bg-gray-700 p-4 rounded-lg">
-      <Text className="text-white text-xl mb-2">Tokens</Text>
+    <View className="flex-col h-full bg-custom_complement px-4 border-[6px] border-custom_border rounded-2xl">
       <FlatList
         data={tokens}
-        renderItem={renderTokenItem}
-        keyExtractor={item => item.name}
-        showsVerticalScrollIndicator={false}
+        keyExtractor={item => item.symbol}
+        renderItem={({ item }) => (
+          <View className="flex-row justify-between mt-3">
+            <View className="flex-row justify-center items-center">
+              <View>
+                <Image source={getIcon(item.symbol)} />
+              </View>
+              <View className="ml-2">
+                <View className="flex-row justify-center items-center">
+                  <Text className="text-white text-xl">{item.name}</Text>
+                  <Text className="text-green-500 ml-1">+1.27%</Text>
+                </View>
+                <View>
+                  <Text className="text-gray-400">${item.balance}</Text>
+                </View>
+              </View>
+            </View>
+            <View className="flex-col items-end">
+              <Text className="text-white text-xl">
+                {item.balance} {item.symbol}
+              </Text>
+              <Text className="text-gray-400">${item.balance}</Text>
+            </View>
+          </View>
+        )}
+        ListEmptyComponent={<Text className="text-white">No tokens available</Text>}
       />
     </View>
   );

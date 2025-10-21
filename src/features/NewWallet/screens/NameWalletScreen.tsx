@@ -2,7 +2,7 @@ import { View, Text, TextInput, ActivityIndicator } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import { Wrapper } from '../components/Wrapper';
+import { Wrapper } from '../../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { createAndSaveWallet } from '../../../../shared/crypto/mnemonic';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
@@ -48,6 +48,13 @@ export function NameWalletScreen() {
     }
   };
 
+  useEffect(() => {
+    if (!mnemonic) {
+      console.log('No mnemonic passed to NameWalletScreen');
+      navigation.goBack();
+    }
+  }, [mnemonic, navigation]);
+  
   return (
     <Wrapper>
       <View className="flex-1 flex-col w-full">

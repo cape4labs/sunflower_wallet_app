@@ -1,7 +1,7 @@
 import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '../components/Button';
-import { Wrapper } from '../components/Wrapper';
+import { Wrapper } from '../../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
