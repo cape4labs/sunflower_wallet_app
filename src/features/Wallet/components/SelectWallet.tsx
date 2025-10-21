@@ -29,10 +29,7 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
   };
 
   const renderWalletItem = ({ item }: { item: string }) => (
-    <Pressable
-      className="p-4 bg-gray-700 rounded-lg mb-2"
-      onPress={() => handleSelectWallet(item)}
-    >
+    <Pressable className="p-4 bg-gray-700 rounded-lg mb-2" onPress={() => handleSelectWallet(item)}>
       <Text className="text-white text-center text-lg">{item}</Text>
     </Pressable>
   );
@@ -43,7 +40,9 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
         className="bg-custom_accent rounded-xl py-2 px-4 mb-4 self-center border-[6px] border-custom_border"
         onPress={handlePress}
       >
-        <Text className="text-black font-bold text-center text-lg w-[150px]">{selectedWallet || 'Select Wallet'}</Text>
+        <Text className="text-black font-bold text-center text-lg w-[150px]">
+          {selectedWallet || 'Select Wallet'}
+        </Text>
       </Pressable>
       <Modal
         animationType="slide"
@@ -56,7 +55,7 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
             <FlatList
               data={walletList}
               renderItem={renderWalletItem}
-              keyExtractor={(item) => item}
+              keyExtractor={item => item}
               showsVerticalScrollIndicator={false}
             />
             <Pressable

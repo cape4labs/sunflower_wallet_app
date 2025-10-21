@@ -21,7 +21,7 @@ export function LogoScreen() {
       if (wallets.length > 0) {
         const firstWalletName = wallets[0];
         if (firstWalletName) {
-          navigation.navigate("MainWalletScreen", { walletName: firstWalletName })
+          navigation.navigate('MainWalletScreen', { walletName: firstWalletName });
         }
       }
     };

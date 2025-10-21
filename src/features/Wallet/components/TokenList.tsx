@@ -34,7 +34,7 @@ export function TokenList({ tokens, isLoading, error }: TokenListProps) {
     <View className="flex-col h-full bg-custom_complement px-4 border-[6px] border-custom_border rounded-2xl">
       <FlatList
         data={tokens}
-        keyExtractor={(item) => item.symbol}
+        keyExtractor={item => item.symbol}
         renderItem={({ item }) => (
           <View className="flex-row justify-between mt-3">
             <View className="flex-row justify-center items-center">
@@ -44,16 +44,18 @@ export function TokenList({ tokens, isLoading, error }: TokenListProps) {
               <View className="ml-2">
                 <View className="flex-row justify-center items-center">
                   <Text className="text-white text-xl">{item.name}</Text>
-                  <Text className="text-green-500 ml-1">+1.27%</Text> 
+                  <Text className="text-green-500 ml-1">+1.27%</Text>
                 </View>
                 <View>
-                  <Text className="text-gray-400">${item.balance}</Text> 
+                  <Text className="text-gray-400">${item.balance}</Text>
                 </View>
               </View>
             </View>
             <View className="flex-col items-end">
-              <Text className="text-white text-xl">{item.balance} {item.symbol}</Text>
-              <Text className="text-gray-400">${item.balance}</Text> 
+              <Text className="text-white text-xl">
+                {item.balance} {item.symbol}
+              </Text>
+              <Text className="text-gray-400">${item.balance}</Text>
             </View>
           </View>
         )}

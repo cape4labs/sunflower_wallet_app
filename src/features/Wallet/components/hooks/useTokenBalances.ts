@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 interface Token {
   name: string;
   symbol: string;
-  balance: string; 
+  balance: string;
 }
 
 interface TokenBalancesState {
@@ -12,7 +12,10 @@ interface TokenBalancesState {
   isLoading: boolean;
 }
 
-export function useTokenBalances(walletData: { stxAddress: string | null; btcAddress: string | null }) {
+export function useTokenBalances(walletData: {
+  stxAddress: string | null;
+  btcAddress: string | null;
+}) {
   const [state, setState] = useState<TokenBalancesState>({
     tokens: [],
     error: null,
@@ -24,11 +27,11 @@ export function useTokenBalances(walletData: { stxAddress: string | null; btcAdd
       const { stxAddress, btcAddress } = walletData;
 
       if (!stxAddress && !btcAddress) {
-        setState((prev) => ({ ...prev, tokens: [], error: 'No addresses provided' }));
+        setState(prev => ({ ...prev, tokens: [], error: 'No addresses provided' }));
         return;
       }
 
-      setState((prev) => ({ ...prev, isLoading: true, error: null }));
+      setState(prev => ({ ...prev, isLoading: true, error: null }));
 
       try {
         let stxBalance = '0.00';
@@ -41,7 +44,7 @@ export function useTokenBalances(walletData: { stxAddress: string | null; btcAdd
               headers: {
                 Accept: 'application/json',
               },
-            }
+            },
           );
 
           if (!stxResponse.ok) {
@@ -50,10 +53,9 @@ export function useTokenBalances(walletData: { stxAddress: string | null; btcAdd
 
           const stxData = await stxResponse.json();
           stxBalance = stxData.stx?.balance
-            ? (Number('0x' + stxData.stx.balance) / 1e6).toFixed(2) 
+            ? (Number('0x' + stxData.stx.balance) / 1e6).toFixed(2)
             : '0.00';
         }
-
 
         // I think that isn't work, but need check
         if (btcAddress) {
@@ -64,11 +66,12 @@ export function useTokenBalances(walletData: { stxAddress: string | null; btcAdd
           }
 
           const btcData = await btcResponse.json();
-          const totalSatoshi = btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum;
-          btcBalance = (totalSatoshi / 1e8).toFixed(2); 
+          const totalSatoshi =
+            btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum;
+          btcBalance = (totalSatoshi / 1e8).toFixed(2);
         }
 
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
           tokens: [
             { name: 'Stacks', symbol: 'STX', balance: stxBalance },
@@ -77,7 +80,7 @@ export function useTokenBalances(walletData: { stxAddress: string | null; btcAdd
           isLoading: false,
         }));
       } catch (err) {
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
           error: `Error fetching token balances: ${err instanceof Error ? err.message : 'Unknown error'}`,
           isLoading: false,

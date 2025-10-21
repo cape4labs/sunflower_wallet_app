@@ -14,7 +14,7 @@ type TextButtonType = {
   text: string;
   customStyle?: string;
   accent?: boolean;
-}
+};
 
 // A general button used in this feature
 export function Button({
@@ -32,10 +32,10 @@ export function Button({
       break;
     case 'recieve.png':
       imageSourcePath = require('../../../../assets/icons/recieve.png');
-      break; 
+      break;
   }
 
-  // If you want to add some btns, add path to icon into switch/case 
+  // If you want to add some btns, add path to icon into switch/case
 
   return (
     <Pressable
@@ -51,16 +51,11 @@ export function Button({
   );
 }
 
-export function TextButton({
-  onPress,
-  text,
-  customStyle,
-  accent = false,
-}: TextButtonType) {
+export function TextButton({ onPress, text, customStyle, accent = false }: TextButtonType) {
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center py-3 px-8 border-b-2 flex-row overflow-hidden ${accent ? 'border-white' : 'border-gray-500' } ${customStyle ?? ''}`}
+      className={`justify-center items-center py-3 px-8 border-b-2 flex-row overflow-hidden ${accent ? 'border-white' : 'border-gray-500'} ${customStyle ?? ''}`}
     >
       <Text className={`text-xl ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>{text}</Text>
     </Pressable>

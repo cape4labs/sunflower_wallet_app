@@ -24,7 +24,7 @@ type MainWalletScreenProp = NativeStackNavigationProp<
 
 export function MainWalletScreen() {
   const navigation = useNavigation<MainWalletScreenProp>();
-  console.log(navigation)
+  console.log(navigation);
   // const route = useRoute();
   const [walletData, setWalletData] = useState<WalletData | undefined>(undefined);
   // const { walletName } = route.params as RouteParams;
@@ -34,13 +34,16 @@ export function MainWalletScreen() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(error, isLoading)
+  console.log(error, isLoading);
 
-  const { tokens: tokenBalances, error: tokenError, isLoading: tokenLoading } = useTokenBalances({
+  const {
+    tokens: tokenBalances,
+    error: tokenError,
+    isLoading: tokenLoading,
+  } = useTokenBalances({
     stxAddress: walletData?.stxAddress || null,
     btcAddress: walletData?.btcAddress || null,
   });
-
 
   // TODO: think how to get wallet data if user already had an account or it's new user
   useEffect(() => {
@@ -113,62 +116,36 @@ export function MainWalletScreen() {
         <View className="w-full p-2 bg-custom_border relative mt-0 rounded-lg">
           <UserGraph />
           <View className="flex-row mt-1">
-            <Button
-              text="Send"
-              customStyle="w-1/2"
-              imageSource="send.png"
-            />
-            <Button
-              text="Recieve"
-              customStyle="w-1/2"
-              accent={true}
-              imageSource="recieve.png"
-            />
+            <Button text="Send" customStyle="w-1/2" imageSource="send.png" />
+            <Button text="Recieve" customStyle="w-1/2" accent={true} imageSource="recieve.png" />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
-            <Text
-              className="text-4xl text-white font-bold z-1 items-center justify-center"
-            >
+            <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
               ${walletBalance || '0.00'}
             </Text>
             <Pressable
               onPress={() => CopyToClipboard(walletData?.stxAddress || null)}
               className="flex-row gap-2 justify-center items-center"
             >
-              <Text
-                className="text-sm text-yellow-50 z-20 items-center justify-center"
-              >
+              <Text className="text-sm text-yellow-50 z-20 items-center justify-center">
                 {shortenAddress(walletData?.stxAddress)}
               </Text>
-              <Image
-                source={require('../../../../assets/icons/Copy.png')}
-              />
+              <Image source={require('../../../../assets/icons/Copy.png')} />
             </Pressable>
           </View>
         </View>
 
         {/* Implement switching around window */}
         <View className="flex-row mt-4">
-          <TextButton
-            text="Tokens"
-            customStyle="w-1/3"
-            accent
-          />
-          <TextButton
-            text="Actions"
-            customStyle="w-1/3"
-          />
-          <TextButton
-            text="NFT"
-            customStyle="w-1/3"
-          />
+          <TextButton text="Tokens" customStyle="w-1/3" accent />
+          <TextButton text="Actions" customStyle="w-1/3" />
+          <TextButton text="NFT" customStyle="w-1/3" />
         </View>
 
         <View className="mt-4">
           <TokenList tokens={tokenBalances} isLoading={tokenLoading} error={tokenError} />
         </View>
       </View>
-
     </Wrapper>
   );
 }
