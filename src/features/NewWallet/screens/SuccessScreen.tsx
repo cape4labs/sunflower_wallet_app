@@ -32,7 +32,7 @@ export function SuccessScreen() {
     <Wrapper>
       <View className="flex-1">
         <Text className="text-2xl text-white text-center font-bold mt-5">Success!</Text>
-        <Text className="text-white text-center mt-2">{`Welcome to the: ${walletName} wallet`}</Text>
+        <Text className="text-white text-center mt-2">{`Welcome to the: ${walletName}`}</Text>
       </View>
       <View className="flex-1">
         <Image source={require('../../../../assets/icons/success.png')} />

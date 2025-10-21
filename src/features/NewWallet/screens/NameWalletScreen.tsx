@@ -1,10 +1,10 @@
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { Wrapper } from '../components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
-import { saveMnemonic } from '../../../../shared/crypto/mnemonic';
+import { createAndSaveWallet } from '../../../../shared/crypto/mnemonic';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -22,6 +22,7 @@ export function NameWalletScreen() {
   const route = useRoute();
   const { mnemonic } = route.params as RouteParams;
   const [walletName, setWalletName] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Creating wallet state
 
   useEffect(() => {
     if (!mnemonic) {
@@ -31,12 +32,16 @@ export function NameWalletScreen() {
   }, [mnemonic, navigation]);
 
   const handleNext = async () => {
+    setIsLoading(true);
+
     if (walletName.trim().length > 0 && mnemonic) {
       try {
-        await saveMnemonic(mnemonic, walletName);
+        await createAndSaveWallet(mnemonic, walletName);
         navigation.navigate('SuccessScreen', { walletName });
       } catch (error) {
         console.error('Failed to save mnemonic with name:', error);
+      } finally {
+        setIsLoading(false);
       }
     } else {
       console.log('Please enter a wallet name');
@@ -59,18 +64,31 @@ export function NameWalletScreen() {
               placeholderTextColor="white"
               value={walletName}
               onChangeText={input => setWalletName(input)}
+              editable={!isLoading}
             />
           </View>
+          {isLoading && (
+            <View className="mt-5 flex-row items-center">
+              <ActivityIndicator size="large" color="#ffffff" />
+              <Text className="text-white ml-2">Creating wallet...</Text>
+            </View>
+          )}
         </View>
-        <View className="w-full mt-auto ">
+        <View className="w-full mt-auto">
           <View className="flex-col px-5 pb-5">
-            <Button onPress={() => navigation.goBack()} text="Back" customStyle="w-full" />
+            <Button
+              onPress={() => navigation.goBack()}
+              text="Back"
+              customStyle="w-full"
+              disable={isLoading}
+            />
             <Button
               onPress={handleNext}
               accent={true}
-              text="Next"
+              text={isLoading ? 'Creating...' : 'Next'}
+              disable={isLoading}
               customStyle={
-                walletName.trim().length > 0
+                walletName.trim().length > 0 && !isLoading
                   ? 'bg-custom_accent w-full mt-2'
                   : 'bg-white w-full mt-2'
               }
