@@ -14,7 +14,8 @@ import { useTokenBalances } from '../components/hooks/useTokenBalances';
 
 type MainWalletScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
-  'MainWalletScreen'
+  'WalletTabs',
+  'MainWallet'
 >;
 
 // type RouteParams = {

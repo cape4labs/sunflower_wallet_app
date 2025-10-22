@@ -1,12 +1,15 @@
 export type RootNavigatorTypeParamListType = {
-  ImportCreateScreen: undefined;
   LogoScreen: undefined;
-  NameWalletScreen: { mnemonic: string };
-  CreateWalletScreen: undefined;
-  SuccessScreen: { walletName: string };
-  ImportWalletScreen: { mnemonicLength: number };
+  ImportCreateScreen: undefined; 
+  NameWalletScreen: undefined; 
+  CreateWalletScreen: undefined; 
+  SuccessScreen: undefined;
+  ImportWalletScreen: undefined;
   ChooseLengthScreen: undefined;
-  MainWalletScreen: { walletName: string };
-  InfoScreen: undefined;
-  SettingsScreen: undefined;
+  WalletTabs: {
+    screen: 'MainWallet' | 'History' | 'Settings';
+    params: {
+      walletName?: string; 
+    };
+  };
 };
