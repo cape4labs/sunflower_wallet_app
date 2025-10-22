@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wrapper snapshot 1`] = `
+<RNCSafeAreaView
+  className="flex-1 items-center justify-center m-8"
+  edges={
+    {
+      "bottom": "additive",
+      "left": "additive",
+      "right": "additive",
+      "top": "additive",
+    }
+  }
+>
+  <Text />
+</RNCSafeAreaView>
+`;
