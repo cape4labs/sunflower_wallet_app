@@ -21,9 +21,9 @@ export default function LogoScreen() {
       if (wallets.length > 0) {
         const firstWalletName = wallets[0];
         if (firstWalletName) {
-          navigation.navigate('WalletTabs', { 
-            screen: 'MainWallet', 
-            params: { walletName: firstWalletName } 
+          navigation.navigate('WalletTabs', {
+            screen: 'MainWallet',
+            params: { walletName: firstWalletName },
           });
         }
       }

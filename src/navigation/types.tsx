@@ -1,15 +1,15 @@
 export type RootNavigatorTypeParamListType = {
   LogoScreen: undefined;
-  ImportCreateScreen: undefined; 
-  NameWalletScreen: undefined; 
-  CreateWalletScreen: undefined; 
+  ImportCreateScreen: undefined;
+  NameWalletScreen: undefined;
+  CreateWalletScreen: undefined;
   SuccessScreen: undefined;
   ImportWalletScreen: undefined;
   ChooseLengthScreen: undefined;
   WalletTabs: {
     screen: 'MainWallet' | 'History' | 'Settings';
     params: {
-      walletName?: string; 
+      walletName?: string;
     };
   };
 };

@@ -18,7 +18,6 @@ export function WalletTabs() {
           height: 70,
           paddingBottom: 5,
           borderTopColor: '#1F1612',
-          
         },
         tabBarActiveTintColor: '#FF4800',
         tabBarInactiveTintColor: '#8b8b8b',
@@ -34,7 +33,7 @@ export function WalletTabs() {
         component={MainWalletScreen}
         options={{
           title: '',
-          sceneStyle:{
+          sceneStyle: {
             backgroundColor: '#362F2E',
           },
           tabBarIcon: ({ color }) => (
@@ -50,7 +49,7 @@ export function WalletTabs() {
         component={HistoryScreen}
         options={{
           title: '',
-          sceneStyle:{
+          sceneStyle: {
             backgroundColor: '#362F2E',
           },
           tabBarIcon: ({ color }) => (
@@ -66,7 +65,7 @@ export function WalletTabs() {
         component={SettingsScreen}
         options={{
           title: '',
-          sceneStyle:{
+          sceneStyle: {
             backgroundColor: '#362F2E',
           },
           tabBarIcon: ({ color }) => (

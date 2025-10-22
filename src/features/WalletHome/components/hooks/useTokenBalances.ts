@@ -42,27 +42,22 @@ export function useTokenBalances(walletData: {
             { headers: { Accept: 'application/json' } },
           );
 
-          if (!stxResponse.ok)
-            throw new Error(`HTTP error for STX! status: ${stxResponse.status}`);
+          if (!stxResponse.ok) throw new Error(`HTTP error for STX! status: ${stxResponse.status}`);
 
           const stxData = await stxResponse.json();
           const balanceRaw = stxData.stx?.balance;
           if (balanceRaw) {
-            const parsed =
-              balanceRaw.startsWith('0x')
-                ? parseInt(balanceRaw, 16)
-                : Number(balanceRaw);
+            const parsed = balanceRaw.startsWith('0x')
+              ? parseInt(balanceRaw, 16)
+              : Number(balanceRaw);
             stxBalance = (parsed / 1e6).toFixed(2);
           }
         }
 
         // Must check
         if (btcAddress) {
-          const btcResponse = await fetch(
-            `https://blockstream.info/api/address/${btcAddress}`,
-          );
-          if (!btcResponse.ok)
-            throw new Error(`HTTP error for BTC! status: ${btcResponse.status}`);
+          const btcResponse = await fetch(`https://blockstream.info/api/address/${btcAddress}`);
+          if (!btcResponse.ok) throw new Error(`HTTP error for BTC! status: ${btcResponse.status}`);
 
           const btcData = await btcResponse.json();
           const totalSatoshi =
@@ -81,9 +76,7 @@ export function useTokenBalances(walletData: {
       } catch (err) {
         setState(prev => ({
           ...prev,
-          error: `Error fetching balances: ${
-            err instanceof Error ? err.message : 'Unknown error'
-          }`,
+          error: `Error fetching balances: ${err instanceof Error ? err.message : 'Unknown error'}`,
           isLoading: false,
         }));
       }

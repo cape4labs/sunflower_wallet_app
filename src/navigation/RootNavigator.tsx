@@ -20,9 +20,9 @@ const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>
     SuccessScreen: SuccessScreen,
     ImportWalletScreen: ImportWalletScreen,
     ChooseLengthScreen: ChooseLengthScreen,
-    WalletTabs: { 
+    WalletTabs: {
       screen: WalletTabs,
-      options: { headerShown: false }
+      options: { headerShown: false },
     },
   },
   screenOptions: {

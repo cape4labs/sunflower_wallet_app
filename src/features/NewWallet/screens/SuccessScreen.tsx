@@ -25,9 +25,9 @@ export default function SuccessScreen() {
       if (!walletName) return;
 
       const timer = setTimeout(() => {
-        navigation.navigate('WalletTabs', { 
-          screen: 'MainWallet', 
-          params: { walletName: walletName } 
+        navigation.navigate('WalletTabs', {
+          screen: 'MainWallet',
+          params: { walletName: walletName },
         });
       }, 2000);
 

@@ -4,9 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
 import { Text } from 'react-native';
 
-type HistoryScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 
-'WalletTabs',
-'HistoryScreen'
+type HistoryScreenProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'WalletTabs',
+  'HistoryScreen'
 >;
 
 export default function HistoryScreen() {
