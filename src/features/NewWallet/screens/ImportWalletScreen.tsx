@@ -2,10 +2,10 @@ import { Text, View, Image, Pressable } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import { ScrollableWrapper } from '../../../../shared/components/Wrapper';
+import ScrollableWrapper from '../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { MnemonicDisplayInput } from '../components/MnemonicDisplayInput';
-import PasteMnemonic from '../../../../shared/utils/pasteFromClipboard';
+import PasteMnemonic from '../../../shared/utils/pasteFromClipboard';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 
@@ -18,7 +18,7 @@ type RouteParams = {
   mnemonicLength: number | null;
 };
 
-export function ImportWalletScreen() {
+export default function ImportWalletScreen() {
   const navigation = useNavigation<ImportWalletScreenNavigationProp>();
   const route = useRoute();
   const { mnemonicLength } = route.params as RouteParams;

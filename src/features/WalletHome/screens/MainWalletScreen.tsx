@@ -1,15 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Wrapper } from '../../../../shared/components/Wrapper';
+import Wrapper from '../../../shared/components/Wrapper';
 import { View, Pressable, Image, Text } from 'react-native';
 import { useState, useEffect } from 'react';
-import { getWalletData, WalletData } from '../../../../shared/crypto/mnemonic';
+import { getWalletList, getWalletData, WalletData } from '../../../shared/walletPersitance';
 import { SelectWallet } from '../components/SelectWallet';
-import { getWalletList } from '../../../../shared/crypto/mnemonic';
 import UserGraph from '../components/UserGraph';
 import { Button, TextButton } from '../components/Button';
-import { CopyToClipboard } from '../../../../shared/utils/copyToClipboard';
+import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
 import { TokenList } from '../components/TokenList';
 import { useTokenBalances } from '../components/hooks/useTokenBalances';
 
@@ -22,7 +21,7 @@ type MainWalletScreenProp = NativeStackNavigationProp<
 //   walletName: string;
 // };
 
-export function MainWalletScreen() {
+export default function MainWalletScreen() {
   const navigation = useNavigation<MainWalletScreenProp>();
   console.log(navigation);
   // const route = useRoute();

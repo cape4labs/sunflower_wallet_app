@@ -2,9 +2,9 @@ import { View, Text, TextInput, ActivityIndicator } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import { Wrapper } from '../../../../shared/components/Wrapper';
+import Wrapper from '../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
-import { createAndSaveWallet } from '../../../../shared/crypto/mnemonic';
+import { createAndSaveWallet } from '../../../shared/walletPersitance';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -17,7 +17,7 @@ type NameWalletScreenNavigationProp = NativeStackNavigationProp<
   'NameWalletScreen'
 >;
 
-export function NameWalletScreen() {
+export default function NameWalletScreen() {
   const navigation = useNavigation<NameWalletScreenNavigationProp>();
   const route = useRoute();
   const { mnemonic } = route.params as RouteParams;
@@ -54,7 +54,7 @@ export function NameWalletScreen() {
       navigation.goBack();
     }
   }, [mnemonic, navigation]);
-  
+
   return (
     <Wrapper>
       <View className="flex-1 flex-col w-full">

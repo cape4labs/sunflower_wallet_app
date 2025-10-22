@@ -1,10 +1,10 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StepIndicator } from '../components/StepIndicator';
-import { Wrapper } from '../../../../shared/components/Wrapper';
 import { View, Text, Image } from 'react-native';
 import { useEffect } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import Wrapper from '../../../shared/components/Wrapper';
 
 type RouteParams = {
   walletName?: string;
@@ -15,7 +15,7 @@ type SuccessScreenNavigationProp = NativeStackNavigationProp<
   'SuccessScreen'
 >;
 
-export function SuccessScreen() {
+export default function SuccessScreen() {
   const route = useRoute();
   const { walletName } = route.params as RouteParams;
   const navigation = useNavigation<SuccessScreenNavigationProp>();

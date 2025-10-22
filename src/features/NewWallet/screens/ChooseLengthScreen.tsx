@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import { Wrapper } from '../../../../shared/components/Wrapper';
+import Wrapper from '../../../shared/components/Wrapper';
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { StepIndicator } from '../components/StepIndicator';
@@ -11,7 +11,7 @@ type ChooseLengthScreenNavigationProp = NativeStackNavigationProp<
   'ChooseLengthScreen'
 >;
 
-export function ChooseLengthScreen() {
+export default function ChooseLengthScreen() {
   const navigation = useNavigation<ChooseLengthScreenNavigationProp>();
 
   return (
