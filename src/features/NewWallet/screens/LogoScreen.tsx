@@ -2,17 +2,17 @@ import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { Button } from '../components/Button';
-import { Wrapper } from '../../../../shared/components/Wrapper';
+import Wrapper from '../../../shared/components/Wrapper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
-import { getWalletList } from '../../../../shared/crypto/mnemonic';
+import { getWalletList } from '../../../shared/walletPersitance';
 
 type LogoScreenNavigationProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
   'LogoScreen'
 >;
 
-export function LogoScreen() {
+export default function LogoScreen() {
   const navigation = useNavigation<LogoScreenNavigationProp>();
 
   useEffect(() => {

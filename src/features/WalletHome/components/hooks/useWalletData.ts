@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getWalletData, WalletData } from '../../../../../shared/crypto/mnemonic';
+import { getWalletData, WalletData } from '../../../../shared/walletPersitance';
 
 export function useWalletData(walletName: string) {
   const [walletData, setWalletData] = useState<WalletData | null>(null);

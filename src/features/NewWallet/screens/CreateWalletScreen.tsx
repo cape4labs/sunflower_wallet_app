@@ -4,9 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { generateMnemonic } from '../../../../shared/crypto/mnemonic';
 import { useEffect, useState } from 'react';
 import { MnemonicDisplay } from '../components/MnemonicDisplay';
-import { CopyToClipboard as copyToClipboard } from '../../../../shared/utils/copyToClipboard';
+import { CopyToClipboard as copyToClipboard } from '../../../shared/utils/copyToClipboard';
 import { Toggle } from '../components/Toggle';
-import { Wrapper } from '../../../../shared/components/Wrapper';
+import Wrapper from '../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -16,7 +16,7 @@ type CreateWalletScreenNavigationProp = NativeStackNavigationProp<
   'CreateWalletScreen'
 >;
 
-export function CreateWalletScreen() {
+export default function CreateWalletScreen() {
   const navigation = useNavigation<CreateWalletScreenNavigationProp>();
   const [mnemonic, setMnemonic] = useState<string | null>(null);
   const [isHidden, setIsHidden] = useState(true);
