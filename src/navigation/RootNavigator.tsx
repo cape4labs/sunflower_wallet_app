@@ -8,9 +8,7 @@ import SuccessScreen from '../features/NewWallet/screens/SuccessScreen.tsx';
 import CreateWalletScreen from '../features/NewWallet/screens/CreateWalletScreen.tsx';
 import ImportWalletScreen from '../features/NewWallet/screens/ImportWalletScreen.tsx';
 import ChooseLengthScreen from '../features/NewWallet/screens/ChooseLengthScreen.tsx';
-import MainWalletScreen from '../features/WalletHome/screens/MainWalletScreen.tsx';
-import SettingsScreen from '../features/WalletHome/screens/SettingsScreen.tsx';
-import InfoScreen from '../features/WalletHome/screens/InfoScreen.tsx';
+import { WalletTabs } from '../features/WalletHome/navigation/WalletBottomNavigation.tsx';
 
 const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>({
   initialRouteName: 'LogoScreen',
@@ -22,9 +20,10 @@ const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>
     SuccessScreen: SuccessScreen,
     ImportWalletScreen: ImportWalletScreen,
     ChooseLengthScreen: ChooseLengthScreen,
-    MainWalletScreen: MainWalletScreen,
-    SettingsScreen: SettingsScreen,
-    InfoScreen: InfoScreen,
+    WalletTabs: {
+      screen: WalletTabs,
+      options: { headerShown: false },
+    },
   },
   screenOptions: {
     headerShown: false,

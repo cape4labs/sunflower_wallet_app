@@ -5,6 +5,7 @@ import Wrapper from '../../../shared/components/Wrapper';
 import { Text } from 'react-native';
 type SettingsScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
+  'WalletTabs',
   'SettingsScreen'
 >;
 

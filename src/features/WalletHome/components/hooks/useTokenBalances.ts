@@ -23,13 +23,12 @@ export function useTokenBalances(walletData: {
   });
 
   useEffect(() => {
+    if (!walletData.stxAddress && !walletData.btcAddress) return;
+
+    let intervalId: number | undefined;
+
     const fetchTokenBalances = async () => {
       const { stxAddress, btcAddress } = walletData;
-
-      if (!stxAddress && !btcAddress) {
-        setState(prev => ({ ...prev, tokens: [], error: 'No addresses provided' }));
-        return;
-      }
 
       setState(prev => ({ ...prev, isLoading: true, error: null }));
 
@@ -40,30 +39,25 @@ export function useTokenBalances(walletData: {
         if (stxAddress) {
           const stxResponse = await fetch(
             `https://api.hiro.so/extended/v1/address/${stxAddress}/balances?unanchored=true`,
-            {
-              headers: {
-                Accept: 'application/json',
-              },
-            },
+            { headers: { Accept: 'application/json' } },
           );
 
-          if (!stxResponse.ok) {
-            throw new Error(`HTTP error for STX! status: ${stxResponse.status}`);
-          }
+          if (!stxResponse.ok) throw new Error(`HTTP error for STX! status: ${stxResponse.status}`);
 
           const stxData = await stxResponse.json();
-          stxBalance = stxData.stx?.balance
-            ? (Number('0x' + stxData.stx.balance) / 1e6).toFixed(2)
-            : '0.00';
+          const balanceRaw = stxData.stx?.balance;
+          if (balanceRaw) {
+            const parsed = balanceRaw.startsWith('0x')
+              ? parseInt(balanceRaw, 16)
+              : Number(balanceRaw);
+            stxBalance = (parsed / 1e6).toFixed(2);
+          }
         }
 
-        // I think that isn't work, but need check
+        // Must check
         if (btcAddress) {
           const btcResponse = await fetch(`https://blockstream.info/api/address/${btcAddress}`);
-
-          if (!btcResponse.ok) {
-            throw new Error(`HTTP error for BTC! status: ${btcResponse.status}`);
-          }
+          if (!btcResponse.ok) throw new Error(`HTTP error for BTC! status: ${btcResponse.status}`);
 
           const btcData = await btcResponse.json();
           const totalSatoshi =
@@ -71,24 +65,30 @@ export function useTokenBalances(walletData: {
           btcBalance = (totalSatoshi / 1e8).toFixed(2);
         }
 
-        setState(prev => ({
-          ...prev,
+        setState({
           tokens: [
             { name: 'Stacks', symbol: 'STX', balance: stxBalance },
             { name: 'Bitcoin', symbol: 'BTC', balance: btcBalance },
           ],
+          error: null,
           isLoading: false,
-        }));
+        });
       } catch (err) {
         setState(prev => ({
           ...prev,
-          error: `Error fetching token balances: ${err instanceof Error ? err.message : 'Unknown error'}`,
+          error: `Error fetching balances: ${err instanceof Error ? err.message : 'Unknown error'}`,
           isLoading: false,
         }));
       }
     };
 
     fetchTokenBalances();
+
+    intervalId = setInterval(fetchTokenBalances, 1 * 60 * 1000);
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [walletData, walletData.stxAddress, walletData.btcAddress]);
 
   return state;
