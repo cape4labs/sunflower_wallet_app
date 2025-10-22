@@ -48,6 +48,26 @@ export function NameWalletScreen() {
     }
   };
 
+  useEffect(() => {
+    if (!mnemonic) {
+      console.log('No mnemonic passed to NameWalletScreen');
+      navigation.goBack();
+    }
+  }, [mnemonic, navigation]);
+
+  const handleNext = async () => {
+    if (walletName.trim().length > 0 && mnemonic) {
+      try {
+        await saveMnemonic(mnemonic, walletName);
+        navigation.navigate('SuccessScreen', { walletName });
+      } catch (error) {
+        console.error('Failed to save mnemonic with name:', error);
+      }
+    } else {
+      console.log('Please enter a wallet name');
+    }
+  };
+
   return (
     <Wrapper>
       <View className="flex-1 flex-col w-full">
@@ -64,6 +84,7 @@ export function NameWalletScreen() {
               placeholderTextColor="white"
               value={walletName}
               onChangeText={input => setWalletName(input)}
+<<<<<<< HEAD
               editable={!isLoading}
             />
           </View>
@@ -89,6 +110,20 @@ export function NameWalletScreen() {
               disable={isLoading}
               customStyle={
                 walletName.trim().length > 0 && !isLoading
+=======
+            />
+          </View>
+        </View>
+        <View className="w-full mt-auto ">
+          <View className="flex-col px-5 pb-5">
+            <Button onPress={() => navigation.goBack()} text="Back" customStyle="w-full" />
+            <Button
+              onPress={handleNext}
+              accent={true}
+              text="Next"
+              customStyle={
+                walletName.trim().length > 0
+>>>>>>> 96963dadb96d0f3c77a1fb6d292f91fab066170a
                   ? 'bg-custom_accent w-full mt-2'
                   : 'bg-white w-full mt-2'
               }
