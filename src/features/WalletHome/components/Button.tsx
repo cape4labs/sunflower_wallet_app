@@ -1,4 +1,5 @@
-import { Pressable, Text, Image } from 'react-native';
+import { Pressable, Text } from 'react-native';
+import { Send, Upload } from 'lucide-react-native';
 
 type ButtonType = {
   onPress?: () => void;
@@ -6,7 +7,7 @@ type ButtonType = {
   customStyle?: string;
   accent?: boolean;
   disable?: boolean;
-  imageSource: string;
+  iconName: 'Send' | 'Upload'; 
 };
 
 type TextButtonType = {
@@ -16,26 +17,15 @@ type TextButtonType = {
   accent?: boolean;
 };
 
-// A general button used in this feature
 export function Button({
   onPress,
   text,
   customStyle,
   accent = false,
   disable = false,
-  imageSource,
+  iconName,
 }: ButtonType) {
-  let imageSourcePath;
-  switch (imageSource) {
-    case 'send.png':
-      imageSourcePath = require('../../../../assets/icons/send.png');
-      break;
-    case 'recieve.png':
-      imageSourcePath = require('../../../../assets/icons/recieve.png');
-      break;
-  }
-
-  // If you want to add some btns, add path to icon into switch/case
+  const IconComponent = iconName === 'Send' ? Send : Upload;
 
   return (
     <Pressable
@@ -43,10 +33,14 @@ export function Button({
       className={`justify-center items-center py-3 px-12 border-2 flex-row gap-3 border-custom_border rounded-2xl relative overflow-hidden ${
         accent ? 'bg-custom_accent' : 'bg-custom_complement'
       } ${customStyle ?? ''}`}
-      disabled={disable ? true : false}
+      disabled={disable}
     >
       <Text className={`text-lg ${accent ? 'text-black' : 'text-white'} z-10`}>{text}</Text>
-      <Image source={imageSourcePath} />
+      <IconComponent
+        color={accent ? 'black' : 'white'}
+        size={20}
+        strokeWidth={1.5}
+      />
     </Pressable>
   );
 }
@@ -55,9 +49,13 @@ export function TextButton({ onPress, text, customStyle, accent = false }: TextB
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center py-3 px-8 border-b-2 flex-row overflow-hidden ${accent ? 'border-white' : 'border-gray-500'} ${customStyle ?? ''}`}
+      className={`justify-center items-center py-3 px-8 border-b-2 flex-row overflow-hidden ${
+        accent ? 'border-white' : 'border-gray-500'
+      } ${customStyle ?? ''}`}
     >
-      <Text className={`text-xl ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>{text}</Text>
+      <Text className={`text-xl ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>
+        {text}
+      </Text>
     </Pressable>
   );
 }
