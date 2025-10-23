@@ -6,10 +6,7 @@ import { Token } from '../../WalletHome/screens/MainWalletScreen';
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
 
-type SendScreenProp = NativeStackNavigationProp<
-  RootNavigatorTypeParamListType,
-  'SendScreen'
->;
+type SendScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'SendScreen'>;
 
 type RouteParams = {
   token: Token;
@@ -27,10 +24,7 @@ export default function SendScreen() {
       <Wrapper>
         <View className="flex-col flex-1 p-4">
           <Text className="text-white text-xl mb-4">No token selected</Text>
-          <Pressable
-            onPress={() => navigation.goBack()}
-            className="p-2 bg-gray-700 rounded-lg"
-          >
+          <Pressable onPress={() => navigation.goBack()} className="p-2 bg-gray-700 rounded-lg">
             <Text className="text-white text-center">Back</Text>
           </Pressable>
         </View>
@@ -40,7 +34,7 @@ export default function SendScreen() {
 
   const handleSend = () => {
     console.log(`Sending ${amount} ${token.symbol} to ${recipient}`);
-    navigation.goBack(); 
+    navigation.goBack();
   };
 
   return (
@@ -48,15 +42,14 @@ export default function SendScreen() {
       <View className="flex-col flex-1 p-4">
         <View className="flex-row justify-between items-center mb-4">
           <Text className="text-white text-2xl">Send {token.symbol}</Text>
-          <Pressable
-            onPress={() => navigation.goBack()}
-            className="p-2 bg-gray-700 rounded-lg"
-          >
+          <Pressable onPress={() => navigation.goBack()} className="p-2 bg-gray-700 rounded-lg">
             <Text className="text-white">Back</Text>
           </Pressable>
         </View>
         <View className="mb-4">
-          <Text className="text-white mb-2">Available: {token.balance} {token.symbol}</Text>
+          <Text className="text-white mb-2">
+            Available: {token.balance} {token.symbol}
+          </Text>
           <Text className="text-gray-400 mb-2">(${token.balanceUsd})</Text>
           <TextInput
             className="bg-gray-800 text-white p-2 rounded-lg"

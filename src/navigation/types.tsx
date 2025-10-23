@@ -1,4 +1,4 @@
-import { Token } from "../features/WalletHome/screens/MainWalletScreen";
+import { Token } from '../features/WalletHome/screens/MainWalletScreen';
 
 export type RootNavigatorTypeParamListType = {
   LogoScreen: undefined;
@@ -14,6 +14,6 @@ export type RootNavigatorTypeParamListType = {
       walletName?: string;
     };
   };
-  ChooseCoinScreen: {tokens: Token[]};
-  SendScreen: {token: Token}
+  ChooseCoinScreen: { tokens: Token[] };
+  SendScreen: { token: Token };
 };

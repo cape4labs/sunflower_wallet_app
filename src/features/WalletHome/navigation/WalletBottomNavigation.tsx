@@ -80,7 +80,6 @@ export function WalletTabs() {
           },
         }}
       />
-
     </Tab.Navigator>
   );
 }

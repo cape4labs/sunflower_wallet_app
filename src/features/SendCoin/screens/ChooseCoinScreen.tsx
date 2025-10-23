@@ -29,10 +29,7 @@ export default function ChooseCoinScreen() {
       <Wrapper>
         <View className="flex-col flex-1 p-4">
           <Text className="text-white text-xl mb-4">No tokens available</Text>
-          <Pressable
-            onPress={() => navigation.goBack()}
-            className="p-2 bg-gray-700 rounded-lg"
-          >
+          <Pressable onPress={() => navigation.goBack()} className="p-2 bg-gray-700 rounded-lg">
             <Text className="text-white text-center">Back</Text>
           </Pressable>
         </View>
@@ -45,13 +42,10 @@ export default function ChooseCoinScreen() {
       <View className="flex-col w-full h-full">
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft
-              color={'#FF5500'}
-              size={'30px'}
-            />
+            <ArrowLeft color={'#FF5500'} size={'30px'} />
           </Pressable>
           <Text className="text-white text-2xl">Choose crypto</Text>
-          <Text></Text>
+          <Text />
         </View>
         <TokenList
           tokens={tokens}

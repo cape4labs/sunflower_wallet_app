@@ -19,7 +19,14 @@ const formatNumber = (value: string): string => {
   return parts.join(',');
 };
 
-export function TokenList({ tokens, isLoading, error, onTokenPress, inMainScreen = true, customStyle }: TokenListProps) {
+export function TokenList({
+  tokens,
+  isLoading,
+  error,
+  onTokenPress,
+  inMainScreen = true,
+  customStyle,
+}: TokenListProps) {
   if (isLoading) {
     return <Text className="text-white">Loading...</Text>;
   }
@@ -40,7 +47,9 @@ export function TokenList({ tokens, isLoading, error, onTokenPress, inMainScreen
   };
 
   return (
-    <View className={`flex-col w-full bg-custom_complement p-4 border-[6px] border-custom_border rounded-2xl ${customStyle}`}>
+    <View
+      className={`flex-col w-full bg-custom_complement p-4 border-[6px] border-custom_border rounded-2xl ${customStyle}`}
+    >
       <FlatList
         data={tokens}
         keyExtractor={item => item.symbol}

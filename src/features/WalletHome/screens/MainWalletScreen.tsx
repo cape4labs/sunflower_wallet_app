@@ -192,12 +192,12 @@ export default function MainWalletScreen() {
     }
   };
 
- const handleSend = (tokens: Token[]) => {
+  const handleSend = (tokens: Token[]) => {
     if (tokens.length === 0) {
       setError('No tokens available to send');
       return;
     }
-    navigation.navigate('ChooseCoinScreen', { tokens });  
+    navigation.navigate('ChooseCoinScreen', { tokens });
   };
 
   const shortenAddress = (address: string | undefined) => {
@@ -209,7 +209,11 @@ export default function MainWalletScreen() {
     <Wrapper>
       <View className="flex-col flex-1">
         <View className="flex-row justify-around items-center gap-10">
-          <Pressable onPress={() => walletData && fetchTokensCosts(walletData.stxAddress, walletData.btcAddress)}>
+          <Pressable
+            onPress={() =>
+              walletData && fetchTokensCosts(walletData.stxAddress, walletData.btcAddress)
+            }
+          >
             <Image source={require('../../../../assets/icons/refresh.png')} />
           </Pressable>
           <View className="mb-0 rounded-t-xl bg-custom_border">
@@ -224,7 +228,12 @@ export default function MainWalletScreen() {
         <View className="w-full p-2 bg-custom_border relative mt-0 rounded-lg">
           <UserGraph />
           <View className="flex-row mt-1">
-            <Button onPress={() => handleSend(tokens)} text="Send" customStyle="w-1/2" iconName="Send" />
+            <Button
+              onPress={() => handleSend(tokens)}
+              text="Send"
+              customStyle="w-1/2"
+              iconName="Send"
+            />
             <Button text="Receive" customStyle="w-1/2" accent={true} iconName="Upload" />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
@@ -251,7 +260,12 @@ export default function MainWalletScreen() {
           {isLoading ? (
             <ActivityIndicator size="large" color="#fff" />
           ) : (
-            <TokenList tokens={tokens} isLoading={tokenLoading} error={tokenError} customStyle={'h-full'}/>
+            <TokenList
+              tokens={tokens}
+              isLoading={tokenLoading}
+              error={tokenError}
+              customStyle={'h-full'}
+            />
           )}
         </View>
       </View>

@@ -7,7 +7,7 @@ type ButtonType = {
   customStyle?: string;
   accent?: boolean;
   disable?: boolean;
-  iconName: 'Send' | 'Upload'; 
+  iconName: 'Send' | 'Upload';
 };
 
 type TextButtonType = {
@@ -36,11 +36,7 @@ export function Button({
       disabled={disable}
     >
       <Text className={`text-lg ${accent ? 'text-black' : 'text-white'} z-10`}>{text}</Text>
-      <IconComponent
-        color={accent ? 'black' : 'white'}
-        size={20}
-        strokeWidth={1.5}
-      />
+      <IconComponent color={accent ? 'black' : 'white'} size={20} strokeWidth={1.5} />
     </Pressable>
   );
 }
@@ -53,9 +49,7 @@ export function TextButton({ onPress, text, customStyle, accent = false }: TextB
         accent ? 'border-white' : 'border-gray-500'
       } ${customStyle ?? ''}`}
     >
-      <Text className={`text-xl ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>
-        {text}
-      </Text>
+      <Text className={`text-xl ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>{text}</Text>
     </Pressable>
   );
 }
