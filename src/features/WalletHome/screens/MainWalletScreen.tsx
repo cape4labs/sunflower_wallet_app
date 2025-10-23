@@ -1,59 +1,146 @@
-import { useNavigation } from '@react-navigation/native';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useRoute } from '@react-navigation/native';
+// import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+// import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Wrapper from '../../../shared/components/Wrapper';
-import { View, Pressable, Image, Text } from 'react-native';
+import { View, Pressable, Image, Text, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getWalletList, getWalletData, WalletData } from '../../../shared/walletPersitance';
 import { SelectWallet } from '../components/SelectWallet';
 import UserGraph from '../components/UserGraph';
 import { Button, TextButton } from '../components/Button';
 import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
-import { TokenList } from '../components/TokenList';
-import { useTokenBalances } from '../components/hooks/useTokenBalances';
+import { TokenList } from '../../../shared/components/TokenList';
 
-type MainWalletScreenProp = NativeStackNavigationProp<
-  RootNavigatorTypeParamListType,
-  'WalletTabs',
-  'MainWallet'
->;
+// type MainWalletScreenProp = NativeStackNavigationProp<
+//   RootNavigatorTypeParamListType,
+//   'WalletTabs',
+//   'MainWallet'
+// >;
 
-// type RouteParams = {
-//   walletName: string;
-// };
+type RouteParams = {
+  walletName?: string;
+};
+
+interface Token {
+  name: string;
+  symbol: string;
+  cost: string;
+  balanceUsd: string;
+  balance: string;
+}
 
 export default function MainWalletScreen() {
-  const navigation = useNavigation<MainWalletScreenProp>();
-  console.log(navigation);
-  // const route = useRoute();
-  const [walletData, setWalletData] = useState<WalletData | undefined>(undefined);
-  // const { walletName } = route.params as RouteParams;
+  // const navigation = useNavigation<MainWalletScreenProp>();
+  const route = useRoute();
+  const { walletName: initialWalletName } = (route.params || {}) as RouteParams;
+  const [walletData, setWalletData] = useState<WalletData | null>(null);
   const [walletList, setWalletList] = useState<string[]>([]);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
   const [walletBalance, setWalletBalance] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [tokens, setTokens] = useState<Token[]>([]);
+  const [tokenError, setTokenError] = useState<string | null>(null);
+  const [tokenLoading, setTokenLoading] = useState(false);
 
-  console.log(error, isLoading);
+  console.log(error)
+  // Cuz i'm tired of synchronizing states :/
+  const fetchTokensCosts = async (stxAddress: string, btcAddress: string) => {
+    if (!stxAddress && !btcAddress) {
+      setTokens([]);
+      setTokenError('No wallet addresses provided');
+      setTokenLoading(false);
+      return;
+    }
 
-  const {
-    tokens: tokenBalances,
-    error: tokenError,
-    isLoading: tokenLoading,
-  } = useTokenBalances({
-    stxAddress: walletData?.stxAddress || null,
-    btcAddress: walletData?.btcAddress || null,
-  });
+    setTokenLoading(true);
+    setTokenError(null);
 
-  // TODO: think how to get wallet data if user already had an account or it's new user
+    try {
+      let stxBalance = '0.00';
+      let btcBalance = '0.00';
+
+      if (stxAddress) {
+        const stxResponse = await fetch(
+          `https://api.hiro.so/extended/v1/address/${stxAddress}/balances?unanchored=true`,
+          { headers: { Accept: 'application/json' } },
+        );
+
+        if (!stxResponse.ok) throw new Error(`HTTP error for STX! status: ${stxResponse.status}`);
+
+        const stxData = await stxResponse.json();
+        const balanceRaw = stxData.stx?.balance;
+        if (balanceRaw) {
+          const parsed = balanceRaw.startsWith('0x')
+            ? parseInt(balanceRaw, 16)
+            : Number(balanceRaw);
+          stxBalance = (parsed / 1e6).toFixed(2);
+        }
+      }
+
+      if (btcAddress) {
+        const btcResponse = await fetch(`https://blockstream.info/api/address/${btcAddress}`);
+        if (!btcResponse.ok) throw new Error(`HTTP error for BTC! status: ${btcResponse.status}`);
+
+        const btcData = await btcResponse.json();
+        const totalSatoshi =
+          btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum;
+        btcBalance = (totalSatoshi / 1e8).toFixed(2);
+      }
+
+      const priceResponse = await fetch(
+        'https://api.coingecko.com/api/v3/simple/price?ids=blockstack,bitcoin&vs_currencies=usd',
+      );
+      if (!priceResponse.ok) throw new Error(`HTTP error for prices! status: ${priceResponse.status}`);
+      const prices = await priceResponse.json();
+      const stxPrice = prices.blockstack?.usd || 0;
+      const btcPrice = prices.bitcoin?.usd || 0;
+
+      const newTokens = [
+        { name: 'Stacks', symbol: 'STX', balanceUsd: (Number(stxBalance) * stxPrice).toFixed(2), balance: stxBalance, cost: stxPrice},
+        { name: 'Bitcoin', symbol: 'BTC', balanceUsd: (Number(btcBalance) * btcPrice).toFixed(2), balance: btcBalance, cost: btcPrice}, 
+      ];
+
+      setTokens(newTokens);
+      setTokenError(null);
+      setTokenLoading(false);
+
+      // Calculate total wallet balance in USD
+      const totalBalance = newTokens
+        .reduce((sum, token) => sum + Number(token.balanceUsd), 0)
+        .toFixed(2);
+      setWalletBalance(totalBalance);
+
+    } catch (err) {
+      setTokenError(`Error fetching balances: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      setTokenLoading(false);
+      setWalletBalance('0.00');
+    }
+  };
+
   useEffect(() => {
     const loadWallets = async () => {
       setIsLoading(true);
       try {
         const list = await getWalletList();
         setWalletList(list);
-        if (list.length > 0 && !selectedWallet) {
+
+        if (initialWalletName) {
+          setSelectedWallet(initialWalletName);
+          const selectedWalletData = await getWalletData(initialWalletName);
+          if (selectedWalletData) {
+            setWalletData(selectedWalletData);
+            await fetchTokensCosts(selectedWalletData.stxAddress, selectedWalletData.btcAddress);
+          } else {
+            setError('Wallet data not found');
+          }
+        } else if (list.length > 0 && !selectedWallet) {
           setSelectedWallet(list[0]);
+          const selectedWalletData = await getWalletData(list[0]);
+          if (selectedWalletData) {
+            setWalletData(selectedWalletData);
+            await fetchTokensCosts(selectedWalletData.stxAddress, selectedWalletData.btcAddress);
+          }
         }
       } catch (err) {
         setError('Failed to load wallet list: ' + (err as Error).message);
@@ -63,29 +150,32 @@ export default function MainWalletScreen() {
     };
 
     loadWallets();
-  }, [selectedWallet]);
+  }, [initialWalletName, setSelectedWallet, setWalletData, selectedWallet]);
 
-  const handleSelectWallet = async (walletName: string) => {
-    setSelectedWallet(walletName);
-    setIsLoading(true);
-    setError(null);
+  const handleSelectWallet = async (newWalletName: string) => {
+    if (selectedWallet !== newWalletName) {
+      setSelectedWallet(newWalletName);
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const userWalletData = await getWalletData(walletName);
-      if (userWalletData) {
-        setWalletData(userWalletData);
-      } else {
-        setWalletData(undefined);
-        setError('Wallet data not found');
+      try {
+        const userWalletData = await getWalletData(newWalletName);
+        if (userWalletData) {
+          setWalletData(userWalletData);
+          await fetchTokensCosts(userWalletData.stxAddress, userWalletData.btcAddress);
+        } else {
+          setWalletData(null);
+          setError('Wallet data not found');
+          setWalletBalance(null);
+        }
+      } catch (err) {
+        const errorMessage = 'Error fetching wallet data: ' + (err as Error).message;
+        setError(errorMessage);
+        setWalletData(null);
         setWalletBalance(null);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (err) {
-      const errorMessage = 'Error fetching wallet data: ' + (err as Error).message;
-      setError(errorMessage);
-      setWalletBalance(null);
-      setWalletData(undefined);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -97,7 +187,6 @@ export default function MainWalletScreen() {
   return (
     <Wrapper>
       <View className="flex-col flex-1">
-        {/* User wallets or create wallet also need to be reworked */}
         <View className="flex-row justify-around items-center gap-10">
           <Pressable>
             <Image source={require('../../../../assets/icons/refresh.png')} />
@@ -111,13 +200,11 @@ export default function MainWalletScreen() {
           </View>
           <View />
         </View>
-        {/* User graph and text */}
-        {/* TODO: think, how to center absolute balance and address  */}
         <View className="w-full p-2 bg-custom_border relative mt-0 rounded-lg">
           <UserGraph />
           <View className="flex-row mt-1">
             <Button text="Send" customStyle="w-1/2" imageSource="send.png" />
-            <Button text="Recieve" customStyle="w-1/2" accent={true} imageSource="recieve.png" />
+            <Button text="Receive" customStyle="w-1/2" accent={true} imageSource="receive.png" />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
             <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
@@ -134,16 +221,17 @@ export default function MainWalletScreen() {
             </Pressable>
           </View>
         </View>
-
-        {/* Implement switching around window */}
         <View className="flex-row mt-4">
           <TextButton text="Tokens" customStyle="w-1/3" accent />
           <TextButton text="Actions" customStyle="w-1/3" />
           <TextButton text="NFT" customStyle="w-1/3" />
         </View>
-
         <View className="mt-4">
-          <TokenList tokens={tokenBalances} isLoading={tokenLoading} error={tokenError} />
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#fff" />
+            ) : (
+            <TokenList tokens={tokens} isLoading={tokenLoading} error={tokenError} />
+          )}
         </View>
       </View>
     </Wrapper>

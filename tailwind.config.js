@@ -10,7 +10,7 @@ module.exports = {
         custom_accent: '#FF5500',
         custom_complement: '#3E3632',
         custom_border: '#1F1612',
-      },
+      }
     },
   },
   plugins: [],
