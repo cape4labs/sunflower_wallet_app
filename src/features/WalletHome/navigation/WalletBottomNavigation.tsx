@@ -7,6 +7,26 @@ import { View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
+
+// For fixing error with rendering 
+const HomeIcon = ({ color }: { color: string }) => (
+  <View>
+    <Home color={color} size={24} strokeWidth={1.5} />
+  </View>
+);
+
+const HistoryIcon = ({ color }: { color: string }) => (
+  <View>
+    <History color={color} size={24} strokeWidth={1.5} />
+  </View>
+);
+
+const SettingsIcon = ({ color }: { color: string }) => (
+  <View>
+    <Settings color={color} size={24} strokeWidth={1.5} />
+  </View>
+);
+
 export function WalletTabs() {
   return (
     <Tab.Navigator
@@ -32,47 +52,34 @@ export function WalletTabs() {
         name="MainWallet"
         component={MainWalletScreen}
         options={{
-          title: '',
+          tabBarLabel: '',               
+          tabBarIcon: HomeIcon, 
           sceneStyle: {
             backgroundColor: '#362F2E',
-          },
-          tabBarIcon: ({ color }) => (
-            <View>
-              <Home color={color} size={24} strokeWidth={1.5} />
-            </View>
-          ),
+          },              
         }}
+        
       />
-
       <Tab.Screen
         name="History"
         component={HistoryScreen}
         options={{
-          title: '',
+          tabBarLabel: '',
+          tabBarIcon: HistoryIcon,
           sceneStyle: {
             backgroundColor: '#362F2E',
           },
-          tabBarIcon: ({ color }) => (
-            <View>
-              <History color={color} size={24} strokeWidth={1.5} />
-            </View>
-          ),
         }}
       />
-
       <Tab.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
-          title: '',
+          tabBarLabel: '',
+          tabBarIcon: SettingsIcon,
           sceneStyle: {
             backgroundColor: '#362F2E',
           },
-          tabBarIcon: ({ color }) => (
-            <View>
-              <Settings color={color} size={24} strokeWidth={1.5} />
-            </View>
-          ),
         }}
       />
     </Tab.Navigator>
