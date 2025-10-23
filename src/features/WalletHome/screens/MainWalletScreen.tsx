@@ -1,6 +1,6 @@
-import { useRoute } from '@react-navigation/native';
-// import { RootNavigatorTypeParamListType } from '../../../navigation/types';
-// import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Wrapper from '../../../shared/components/Wrapper';
 import { View, Pressable, Image, Text, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
@@ -11,17 +11,17 @@ import { Button, TextButton } from '../components/Button';
 import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
 import { TokenList } from '../../../shared/components/TokenList';
 
-// type MainWalletScreenProp = NativeStackNavigationProp<
-//   RootNavigatorTypeParamListType,
-//   'WalletTabs',
-//   'MainWallet'
-// >;
+type MainWalletScreenProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'WalletTabs',
+  'MainWallet'
+>;
 
 type RouteParams = {
   walletName?: string;
 };
 
-interface Token {
+export interface Token {
   name: string;
   symbol: string;
   cost: string;
@@ -30,7 +30,7 @@ interface Token {
 }
 
 export default function MainWalletScreen() {
-  // const navigation = useNavigation<MainWalletScreenProp>();
+  const navigation = useNavigation<MainWalletScreenProp>();
   const route = useRoute();
   const { walletName: initialWalletName } = (route.params || {}) as RouteParams;
   const [walletData, setWalletData] = useState<WalletData | null>(null);
@@ -43,7 +43,7 @@ export default function MainWalletScreen() {
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [tokenLoading, setTokenLoading] = useState(false);
 
-  console.log(error)
+  console.log(error);
   // Cuz i'm tired of synchronizing states :/
   const fetchTokensCosts = async (stxAddress: string, btcAddress: string) => {
     if (!stxAddress && !btcAddress) {
@@ -83,22 +83,34 @@ export default function MainWalletScreen() {
         if (!btcResponse.ok) throw new Error(`HTTP error for BTC! status: ${btcResponse.status}`);
 
         const btcData = await btcResponse.json();
-        const totalSatoshi =
-          btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum;
+        const totalSatoshi = btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum;
         btcBalance = (totalSatoshi / 1e8).toFixed(2);
       }
 
       const priceResponse = await fetch(
         'https://api.coingecko.com/api/v3/simple/price?ids=blockstack,bitcoin&vs_currencies=usd',
       );
-      if (!priceResponse.ok) throw new Error(`HTTP error for prices! status: ${priceResponse.status}`);
+      if (!priceResponse.ok)
+        throw new Error(`HTTP error for prices! status: ${priceResponse.status}`);
       const prices = await priceResponse.json();
       const stxPrice = prices.blockstack?.usd || 0;
       const btcPrice = prices.bitcoin?.usd || 0;
 
       const newTokens = [
-        { name: 'Stacks', symbol: 'STX', balanceUsd: (Number(stxBalance) * stxPrice).toFixed(2), balance: stxBalance, cost: stxPrice},
-        { name: 'Bitcoin', symbol: 'BTC', balanceUsd: (Number(btcBalance) * btcPrice).toFixed(2), balance: btcBalance, cost: btcPrice}, 
+        {
+          name: 'Stacks',
+          symbol: 'STX',
+          balanceUsd: (Number(stxBalance) * stxPrice).toFixed(2),
+          balance: stxBalance,
+          cost: stxPrice,
+        },
+        {
+          name: 'Bitcoin',
+          symbol: 'BTC',
+          balanceUsd: (Number(btcBalance) * btcPrice).toFixed(2),
+          balance: btcBalance,
+          cost: btcPrice,
+        },
       ];
 
       setTokens(newTokens);
@@ -110,9 +122,10 @@ export default function MainWalletScreen() {
         .reduce((sum, token) => sum + Number(token.balanceUsd), 0)
         .toFixed(2);
       setWalletBalance(totalBalance);
-
     } catch (err) {
-      setTokenError(`Error fetching balances: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      setTokenError(
+        `Error fetching balances: ${err instanceof Error ? err.message : 'Unknown error'}`,
+      );
       setTokenLoading(false);
       setWalletBalance('0.00');
     }
@@ -179,6 +192,14 @@ export default function MainWalletScreen() {
     }
   };
 
+  const handleSend = (tokens: Token[]) => {
+    if (tokens.length === 0) {
+      setError('No tokens available to send');
+      return;
+    }
+    navigation.navigate('ChooseCoinScreen', { tokens });
+  };
+
   const shortenAddress = (address: string | undefined) => {
     if (!address) return 'Loading...';
     return `${address.slice(0, 5)}...${address.slice(-3)}`;
@@ -188,7 +209,11 @@ export default function MainWalletScreen() {
     <Wrapper>
       <View className="flex-col flex-1">
         <View className="flex-row justify-around items-center gap-10">
-          <Pressable>
+          <Pressable
+            onPress={() =>
+              walletData && fetchTokensCosts(walletData.stxAddress, walletData.btcAddress)
+            }
+          >
             <Image source={require('../../../../assets/icons/refresh.png')} />
           </Pressable>
           <View className="mb-0 rounded-t-xl bg-custom_border">
@@ -203,8 +228,13 @@ export default function MainWalletScreen() {
         <View className="w-full p-2 bg-custom_border relative mt-0 rounded-lg">
           <UserGraph />
           <View className="flex-row mt-1">
-            <Button text="Send" customStyle="w-1/2" imageSource="send.png" />
-            <Button text="Receive" customStyle="w-1/2" accent={true} imageSource="receive.png" />
+            <Button
+              onPress={() => handleSend(tokens)}
+              text="Send"
+              customStyle="w-1/2"
+              iconName="Send"
+            />
+            <Button text="Receive" customStyle="w-1/2" accent={true} iconName="Upload" />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
             <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
@@ -229,8 +259,13 @@ export default function MainWalletScreen() {
         <View className="mt-4">
           {isLoading ? (
             <ActivityIndicator size="large" color="#fff" />
-            ) : (
-            <TokenList tokens={tokens} isLoading={tokenLoading} error={tokenError} />
+          ) : (
+            <TokenList
+              tokens={tokens}
+              isLoading={tokenLoading}
+              error={tokenError}
+              customStyle={'h-full'}
+            />
           )}
         </View>
       </View>

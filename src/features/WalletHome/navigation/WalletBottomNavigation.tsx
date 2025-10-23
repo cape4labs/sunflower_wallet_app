@@ -7,8 +7,7 @@ import { View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-
-// For fixing error with rendering 
+// For fixing error with rendering
 const HomeIcon = ({ color }: { color: string }) => (
   <View>
     <Home color={color} size={24} strokeWidth={1.5} />
@@ -52,13 +51,12 @@ export function WalletTabs() {
         name="MainWallet"
         component={MainWalletScreen}
         options={{
-          tabBarLabel: '',               
-          tabBarIcon: HomeIcon, 
+          tabBarLabel: '',
+          tabBarIcon: HomeIcon,
           sceneStyle: {
             backgroundColor: '#362F2E',
-          },              
+          },
         }}
-        
       />
       <Tab.Screen
         name="History"
