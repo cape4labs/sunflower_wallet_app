@@ -12,10 +12,7 @@ interface TokenBalancesState {
   isLoading: boolean;
 }
 
-export function useTokenBalances(walletData: {
-  stxAddress?: string;
-  btcAddress?: string;
-}) {
+export function useTokenBalances(walletData: { stxAddress?: string; btcAddress?: string }) {
   const [state, setState] = useState<TokenBalancesState>({
     tokens: [],
     error: null,

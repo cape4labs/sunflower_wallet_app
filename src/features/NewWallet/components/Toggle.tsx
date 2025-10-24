@@ -3,7 +3,7 @@ import { Pressable, View } from 'react-native';
 type ToggleType = {
   isToggled: boolean;
   setIsToggled: (v: boolean) => void;
-}
+};
 
 export default function Toggle({ isToggled, setIsToggled }: ToggleType) {
   return (
