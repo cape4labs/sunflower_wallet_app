@@ -192,12 +192,12 @@ export default function MainWalletScreen() {
     }
   };
 
-  const handleSend = (tokens: Token[]) => {
-    if (tokens.length === 0) {
+  const handleSend = (tokensForShoose: Token[]) => {
+    if (tokensForShoose.length === 0) {
       setError('No tokens available to send');
       return;
     }
-    navigation.navigate('ChooseCoinScreen', { tokens });
+    navigation.navigate('ChooseCoinScreen', { tokens: tokensForShoose });
   };
 
   const shortenAddress = (address: string | undefined) => {
