@@ -10,7 +10,7 @@ interface TokenListProps {
   customStyle: string;
 }
 
-const formatNumber = (value: string): string => {
+export const formatNumber = (value: string): string => {
   const num = Number(value);
   const precision = num < 1 ? 3 : 2;
   const fixed = num.toFixed(precision);
@@ -56,7 +56,7 @@ export function TokenList({
         renderItem={({ item }) => (
           <Pressable
             onPress={() => onTokenPress && onTokenPress(item)}
-            className="flex-row justify-between mb-3"
+            className="flex-row justify-between m-2"
           >
             <View className="flex-row justify-center items-center">
               <View>

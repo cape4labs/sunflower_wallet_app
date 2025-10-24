@@ -1,47 +1,22 @@
-import { useState } from 'react';
-import { Pressable } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  Easing,
-} from 'react-native-reanimated';
+import { Pressable, View } from 'react-native';
 
-export function Toggle({ onToggle }: { onToggle?: (isActivated: boolean) => void }) {
-  const [isActivated, setIsActivated] = useState(false);
-  const translateX = useSharedValue(0);
+type ToggleType = {
+  isToggled: boolean;
+  setIsToggled: (v: boolean) => void;
+}
 
-  const handlePress = () => {
-    const newState = !isActivated;
-    setIsActivated(newState);
-    translateX.value = withTiming(newState ? 40 : 0, {
-      duration: 250,
-      easing: Easing.ease,
-    });
-    if (onToggle) {
-      onToggle(newState);
-    }
-  };
-
-  // Animate toggle by x axis
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: translateX.value }],
-    };
-  });
-
+export default function Toggle({ isToggled, setIsToggled }: ToggleType) {
   return (
     <Pressable
-      onPress={handlePress}
+      onPress={() => setIsToggled(!isToggled)}
       className={`border-2 rounded-full w-20 h-9 flex-row items-center ${
-        isActivated
-          ? 'bg-custom_accent border-custom_border'
-          : 'bg-custom_border border-custom_accent'
+        isToggled
+          ? 'bg-custom_accent border-custom_border justify-end'
+          : 'bg-custom_border border-custom_accent justify-start'
       }`}
     >
-      <Animated.View
-        className={`h-6 w-6 rounded-full mx-1 ${isActivated ? 'bg-custom_border' : 'bg-custom_accent'}`}
-        style={animatedStyle}
+      <View
+        className={`h-6 w-6 rounded-full mx-1 ${isToggled ? 'bg-custom_border' : 'bg-custom_accent'}`}
       />
     </Pressable>
   );
