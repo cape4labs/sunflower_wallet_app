@@ -247,7 +247,7 @@ export default function MainWalletScreen() {
               <Text className="text-sm text-yellow-50 z-20 items-center justify-center">
                 {shortenAddress(walletData?.stxAddress)}
               </Text>
-              <Image source={require('../../../../assets/icons/Copy.png')} />
+              <Image source={require('../../../../assets/icons/copy.png')} />
             </Pressable>
           </View>
         </View>
