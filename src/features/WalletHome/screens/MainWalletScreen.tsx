@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Wrapper from '../../../shared/components/Wrapper';
@@ -17,31 +17,28 @@ type MainWalletScreenProp = NativeStackNavigationProp<
   'MainWalletScreen'
 >;
 
-// type RouteParams = {
-//   walletName: string;
-// };
+type RouteParams = {
+  walletName: string;
+};
 
 export default function MainWalletScreen() {
   const navigation = useNavigation<MainWalletScreenProp>();
-  console.log(navigation);
-  // const route = useRoute();
+  const route = useRoute();
+  const { walletName } = route.params as RouteParams;
   const [walletData, setWalletData] = useState<WalletData | undefined>(undefined);
-  // const { walletName } = route.params as RouteParams;
   const [walletList, setWalletList] = useState<string[]>([]);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
   const [walletBalance, setWalletBalance] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(error, isLoading);
-
   const {
     tokens: tokenBalances,
     error: tokenError,
     isLoading: tokenLoading,
   } = useTokenBalances({
-    stxAddress: walletData?.stxAddress || null,
-    btcAddress: walletData?.btcAddress || null,
+    stxAddress: walletData?.stxAddress,
+    btcAddress: walletData?.btcAddress,
   });
 
   // TODO: think how to get wallet data if user already had an account or it's new user
@@ -116,7 +113,7 @@ export default function MainWalletScreen() {
           <UserGraph />
           <View className="flex-row mt-1">
             <Button text="Send" customStyle="w-1/2" imageSource="send.png" />
-            <Button onPress={() => navigation.navigate('ReceiveScreen')} text="Receive" customStyle="w-1/2" accent={true} imageSource="receive.png" />
+            <Button onPress={() => navigation.navigate('ReceiveScreen', {walletName: walletName})} text="Receive" customStyle="w-1/2" accent={true} imageSource="receive.png" />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
             <Text className="text-4xl text-white font-bold z-1 items-center justify-center">

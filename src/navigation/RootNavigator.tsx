@@ -11,6 +11,7 @@ import ChooseLengthScreen from '../features/NewWallet/screens/ChooseLengthScreen
 import MainWalletScreen from '../features/WalletHome/screens/MainWalletScreen.tsx';
 import SettingsScreen from '../features/WalletHome/screens/SettingsScreen.tsx';
 import InfoScreen from '../features/WalletHome/screens/InfoScreen.tsx';
+import ReceiveScreen from '../features/Transfers/screens/ReceiveScreen.tsx';
 
 const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>({
   initialRouteName: 'LogoScreen',
@@ -25,6 +26,7 @@ const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>
     MainWalletScreen: MainWalletScreen,
     SettingsScreen: SettingsScreen,
     InfoScreen: InfoScreen,
+    ReceiveScreen: ReceiveScreen,
   },
   screenOptions: {
     headerShown: false,
