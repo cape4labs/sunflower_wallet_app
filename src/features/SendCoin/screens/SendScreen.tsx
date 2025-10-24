@@ -61,57 +61,55 @@ export default function SendScreen() {
           <Text />
         </View>
         <View className="mt-5">
-            <View className="flex-row justify-between bg-custom_complement p-5 border-4 border-l-0 border-r-8 rounded-b-none border-custom_border rounded-xl">
+          <View className="flex-row justify-between bg-custom_complement p-5 border-4 border-l-0 border-r-8 rounded-b-none border-custom_border rounded-xl">
+            <View className="flex-row justify-center items-center">
+              <View>
+                <Image source={getIcon(token.symbol)} />
+              </View>
+              <View className="ml-2">
                 <View className="flex-row justify-center items-center">
-                    <View>
-                        <Image source={getIcon(token.symbol)} />
-                    </View>
-                    <View className="ml-2">
-                        <View className="flex-row justify-center items-center">
-                            <Text className="text-white text-xl">{token.name}</Text>
-                        </View>
-                        <View>
-                            <Text className="text-gray-400">${formatNumber(token.balanceUsd)}</Text>
-                        </View>
-                    </View>
+                  <Text className="text-white text-xl">{token.name}</Text>
                 </View>
-                <View className="flex-col items-end">
-                    <Text className="text-white text-xl">
-                        {formatNumber(token.balance)} {token.symbol}
-                    </Text>
-                    <Text className="text-gray-400">${formatNumber(token.cost)}</Text>
+                <View>
+                  <Text className="text-gray-400">${formatNumber(token.balanceUsd)}</Text>
                 </View>
+              </View>
             </View>
+            <View className="flex-col items-end">
+              <Text className="text-white text-xl">
+                {formatNumber(token.balance)} {token.symbol}
+              </Text>
+              <Text className="text-gray-400">${formatNumber(token.cost)}</Text>
+            </View>
+          </View>
         </View>
         <View className="relative bg-custom_complement  p-5 rounded-lg rounded-t-none border-4 border-l-0 border-r-8 border-t-0 mb-3 border-custom_border border-6px">
-            <View className='flex-row justify-between w-max-full'>
-                <TextInput
-                    className="text-3xl text-white w-4/5"
-                    placeholder="0"
-                    placeholderTextColor="#fff"
-                    value={recipient}
-                    keyboardType = 'numeric'
-                    onChangeText={setRecipient}
-                />
-                <Pressable>
-                    <Text className='text-white'>MAX</Text>
-                </Pressable>
-            </View>
-            <Text className='text-gray-400'>$0</Text>
+          <View className="flex-row justify-between w-max-full">
+            <TextInput
+              className="text-3xl text-white w-4/5"
+              placeholder="0"
+              placeholderTextColor="#fff"
+              value={recipient}
+              keyboardType="numeric"
+              onChangeText={setRecipient}
+            />
+            <Pressable>
+              <Text className="text-white">MAX</Text>
+            </Pressable>
+          </View>
+          <Text className="text-gray-400">$0</Text>
         </View>
         <View className="relative bg-custom_complement p-2 border-4 w-full rounded-xl border-custom_border ">
-            <View className='absolute rounded-full items-center justify-center bg-custom_complement w-14 h-14 border-2 border-custom_border left-1/3 -top-full'>
-                <ArrowDown 
-                size={'30px'}
-                />
-            </View>
-            <TextInput
-                className="text-lg text-gray-400"
-                placeholder="Enter recepient"
-                placeholderTextColor="#9ca3af"
-                value={recipient}
-                onChangeText={setRecipient}
-            />
+          <View className="absolute rounded-full items-center justify-center bg-custom_complement w-14 h-14 border-2 border-custom_border left-1/3 -top-full">
+            <ArrowDown size={'30px'} />
+          </View>
+          <TextInput
+            className="text-lg text-gray-400"
+            placeholder="Enter recepient"
+            placeholderTextColor="#9ca3af"
+            value={recipient}
+            onChangeText={setRecipient}
+          />
         </View>
       </View>
     </Wrapper>
