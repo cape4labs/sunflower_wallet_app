@@ -32,6 +32,8 @@ export default function MainWalletScreen() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log(error, isLoading);
+
   const {
     tokens: tokenBalances,
     error: tokenError,
@@ -61,13 +63,13 @@ export default function MainWalletScreen() {
     loadWallets();
   }, [selectedWallet]);
 
-  const handleSelectWallet = async (walletName: string) => {
-    setSelectedWallet(walletName);
+  const handleSelectWallet = async (targetWallet: string) => {
+    setSelectedWallet(targetWallet);
     setIsLoading(true);
     setError(null);
 
     try {
-      const userWalletData = await getWalletData(walletName);
+      const userWalletData = await getWalletData(targetWallet);
       if (userWalletData) {
         setWalletData(userWalletData);
       } else {
@@ -113,7 +115,13 @@ export default function MainWalletScreen() {
           <UserGraph />
           <View className="flex-row mt-1">
             <Button text="Send" customStyle="w-1/2" imageSource="send.png" />
-            <Button onPress={() => navigation.navigate('ReceiveScreen', {walletName: walletName})} text="Receive" customStyle="w-1/2" accent={true} imageSource="receive.png" />
+            <Button
+              onPress={() => navigation.navigate('ReceiveScreen', { walletName: walletName })}
+              text="Receive"
+              customStyle="w-1/2"
+              accent={true}
+              imageSource="receive.png"
+            />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
             <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
