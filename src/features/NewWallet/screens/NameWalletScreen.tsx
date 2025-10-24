@@ -34,6 +34,7 @@ export default function NameWalletScreen() {
   const handleNext = async () => {
     setIsLoading(true);
 
+
     if (walletName.trim().length > 0 && mnemonic) {
       try {
         await createAndSaveWallet(mnemonic, walletName);
@@ -47,13 +48,6 @@ export default function NameWalletScreen() {
       console.log('Please enter a wallet name');
     }
   };
-
-  useEffect(() => {
-    if (!mnemonic) {
-      console.log('No mnemonic passed to NameWalletScreen');
-      navigation.goBack();
-    }
-  }, [mnemonic, navigation]);
 
   return (
     <Wrapper>
