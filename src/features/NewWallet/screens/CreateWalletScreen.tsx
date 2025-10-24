@@ -83,7 +83,7 @@ export default function CreateWalletScreen() {
                   className="flex-row gap-1 items-center"
                 >
                   <Image
-                    source={require('../../../../assets/icons/Copy.png')}
+                    source={require('../../../../assets/icons/copy.png')}
                     className="h-4 w-4"
                   />
                   <Text className="text-white text-xl">Copy</Text>

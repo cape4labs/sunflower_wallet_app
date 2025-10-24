@@ -67,7 +67,7 @@ export default function ImportWalletScreen() {
 
         <View className="">
           <Pressable onPress={handlePaste} className="flex-row gap-1 items-center">
-            <Image source={require('../../../../assets/icons/Copy.png')} />
+            <Image source={require('../../../../assets/icons/copy.png')} />
             <Text className="font-bold text-white">Paste</Text>
           </Pressable>
         </View>

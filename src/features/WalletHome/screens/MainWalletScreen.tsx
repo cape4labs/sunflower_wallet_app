@@ -116,7 +116,7 @@ export default function MainWalletScreen() {
           <UserGraph />
           <View className="flex-row mt-1">
             <Button text="Send" customStyle="w-1/2" imageSource="send.png" />
-            <Button text="Recieve" customStyle="w-1/2" accent={true} imageSource="recieve.png" />
+            <Button onPress={() => navigation.navigate('ReceiveScreen')} text="Receive" customStyle="w-1/2" accent={true} imageSource="receive.png" />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
             <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
@@ -129,7 +129,7 @@ export default function MainWalletScreen() {
               <Text className="text-sm text-yellow-50 z-20 items-center justify-center">
                 {shortenAddress(walletData?.stxAddress)}
               </Text>
-              <Image source={require('../../../../assets/icons/Copy.png')} />
+              <Image source={require('../../../../assets/icons/copy.png')} />
             </Pressable>
           </View>
         </View>

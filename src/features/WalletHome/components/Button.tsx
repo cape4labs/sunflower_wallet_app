@@ -30,8 +30,8 @@ export function Button({
     case 'send.png':
       imageSourcePath = require('../../../../assets/icons/send.png');
       break;
-    case 'recieve.png':
-      imageSourcePath = require('../../../../assets/icons/recieve.png');
+    case 'receive.png':
+      imageSourcePath = require('../../../../assets/icons/receive.png');
       break;
   }
 
