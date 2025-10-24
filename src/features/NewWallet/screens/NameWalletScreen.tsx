@@ -48,13 +48,6 @@ export default function NameWalletScreen() {
     }
   };
 
-  useEffect(() => {
-    if (!mnemonic) {
-      console.log('No mnemonic passed to NameWalletScreen');
-      navigation.goBack();
-    }
-  }, [mnemonic, navigation]);
-
   return (
     <Wrapper>
       <View className="flex-1 flex-col w-full">

@@ -5,7 +5,7 @@ import { generateMnemonic } from '../../../../shared/crypto/mnemonic';
 import { useEffect, useState } from 'react';
 import { MnemonicDisplay } from '../components/MnemonicDisplay';
 import { CopyToClipboard as copyToClipboard } from '../../../shared/utils/copyToClipboard';
-import { Toggle } from '../components/Toggle';
+import Toggle from '../components/Toggle';
 import Wrapper from '../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
@@ -21,14 +21,6 @@ export default function CreateWalletScreen() {
   const [mnemonic, setMnemonic] = useState<string | null>(null);
   const [isHidden, setIsHidden] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
-
-  const handleToggle = () => {
-    if (isSaved) {
-      setIsSaved(false);
-    } else {
-      setIsSaved(true);
-    }
-  };
 
   const handleNext = async () => {
     if (!isHidden && isSaved && mnemonic) {
@@ -71,7 +63,7 @@ export default function CreateWalletScreen() {
           <View className="flex-1">
             <View className="flex-row justify-start gap-10 align-middle">
               <View className="flex-row items-center gap-5">
-                <Toggle onToggle={handleToggle} />
+                <Toggle isToggled={isSaved} setIsToggled={setIsSaved} />
                 <View className="flex-col">
                   <Text className="text-white">I saved my secret</Text>
                   <Text className="text-white"> recovery phrase</Text>
@@ -83,7 +75,7 @@ export default function CreateWalletScreen() {
                   className="flex-row gap-1 items-center"
                 >
                   <Image
-                    source={require('../../../../assets/icons/Copy.png')}
+                    source={require('../../../../assets/icons/copy.png')}
                     className="h-4 w-4"
                   />
                   <Text className="text-white text-xl">Copy</Text>
