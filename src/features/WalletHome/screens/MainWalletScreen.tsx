@@ -144,7 +144,7 @@ export default function MainWalletScreen() {
       }
     };
     loadWallets();
-  });
+  }, []);
 
   useEffect(() => {
     if (walletData && walletData.stxAddress && walletData.btcAddress) {
