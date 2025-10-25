@@ -1,5 +1,6 @@
-import { View, Text, FlatList, Image, Pressable } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import { Token } from '../../features/WalletHome/screens/MainWalletScreen';
+import Coin from './Coin';
 
 interface TokenListProps {
   tokens: Token[];
@@ -35,17 +36,6 @@ export function TokenList({
     return <Text className="text-red-500">{error}</Text>;
   }
 
-  const getIcon = (symbol: string) => {
-    switch (symbol.toUpperCase()) {
-      case 'BTC':
-        return require('../../../assets/icons/bitcoin.png');
-      case 'STX':
-        return require('../../../assets/icons/stacks.png');
-      default:
-        return null;
-    }
-  };
-
   return (
     <View
       className={`flex-col w-full bg-custom_complement p-4 border-[6px] border-custom_border rounded-2xl ${customStyle}`}
@@ -58,26 +48,7 @@ export function TokenList({
             onPress={() => onTokenPress && onTokenPress(item)}
             className="flex-row justify-between m-2"
           >
-            <View className="flex-row justify-center items-center">
-              <View>
-                <Image source={getIcon(item.symbol)} />
-              </View>
-              <View className="ml-2">
-                <View className="flex-row justify-center items-center">
-                  <Text className="text-white text-xl">{item.name}</Text>
-                  {inMainScreen ? <Text className="text-green-500 ml-1">+1.27%</Text> : <></>}
-                </View>
-                <View>
-                  <Text className="text-gray-400">${formatNumber(item.balanceUsd)}</Text>
-                </View>
-              </View>
-            </View>
-            <View className="flex-col items-end">
-              <Text className="text-white text-xl">
-                {formatNumber(item.balance)} {item.symbol}
-              </Text>
-              <Text className="text-gray-400">${formatNumber(item.cost)}</Text>
-            </View>
+            <Coin token={item} inMainScreen={inMainScreen}/>
           </Pressable>
         )}
         ListEmptyComponent={<Text className="text-white">No tokens available</Text>}
