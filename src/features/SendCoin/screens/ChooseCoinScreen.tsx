@@ -7,11 +7,14 @@ import { Token } from '../../WalletHome/screens/MainWalletScreen';
 import { View, Text, Pressable } from 'react-native';
 import { ArrowLeft } from 'lucide-react-native';
 import { WalletData } from '../../../shared/walletPersitance';
-type ChooseCoinScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'ChooseCoinScreen'>;
+type ChooseCoinScreenProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'ChooseCoinScreen'
+>;
 
 type RouteParams = {
   tokens?: Token[];
-  walletData?: WalletData; 
+  walletData?: WalletData;
 };
 
 export default function ChooseCoinScreen() {

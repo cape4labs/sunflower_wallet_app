@@ -6,15 +6,15 @@ import { Token } from '../../WalletHome/screens/MainWalletScreen';
 import { View, Text, Pressable, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react-native';
-import {
-  makeSTXTokenTransfer,
-  broadcastTransaction,
-} from '@stacks/transactions';
+import { makeSTXTokenTransfer, broadcastTransaction } from '@stacks/transactions';
 import { WalletData } from '../../../shared/walletPersitance';
 import { Button } from '../../NewWallet/components/Button';
 import Coin from '../../../shared/components/Coin';
 
-type SendInfoScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'SendInfoScreen'>;
+type SendInfoScreenProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'SendInfoScreen'
+>;
 
 type RouteParams = {
   token: Token;
@@ -32,13 +32,12 @@ export default function SendInfoScreen() {
   const [gasFee, setGasFee] = useState<bigint | null>(null);
   const [totalCost, setTotalCost] = useState<string>('0');
 
-  
   const transactionToken: Token = {
     name: token.name,
     symbol: token.symbol,
-    cost: token.cost, 
-    balance: amount, 
-    balanceUsd: (Number(amount) * Number(token.cost)).toFixed(2), 
+    cost: token.cost,
+    balance: amount,
+    balanceUsd: (Number(amount) * Number(token.cost)).toFixed(2),
   };
 
   const amountInMicroSTX = BigInt(Math.floor(Number(amount) * 1000000));
@@ -49,14 +48,14 @@ export default function SendInfoScreen() {
       setIsLoading(true);
       try {
         const response = await fetch('https://api.hiro.so/v2/fees/transfer', {
-          headers: { 'Accept': 'application/json' },
+          headers: { Accept: 'application/json' },
         });
         if (!response.ok) throw new Error('Failed to fetch fee rate');
-        
+
         const feeRate = BigInt(await response.text());
-        const transactionSizeBytes = 200n; 
-        const estimatedFee = feeRate * transactionSizeBytes; 
-        
+        const transactionSizeBytes = 200n;
+        const estimatedFee = feeRate * transactionSizeBytes;
+
         setGasFee(estimatedFee);
 
         const totalMicroSTX = amountInMicroSTX + estimatedFee;
@@ -108,9 +107,11 @@ export default function SendInfoScreen() {
       navigation.navigate('WalletTabs', {
         screen: 'MainWallet',
         params: {},
-      });    
+      });
     } catch (err) {
-      setError(`Error sending transaction: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      setError(
+        `Error sending transaction: ${err instanceof Error ? err.message : 'Unknown error'}`,
+      );
     } finally {
       setIsLoading(false);
     }
@@ -126,12 +127,9 @@ export default function SendInfoScreen() {
           <Text className="text-white text-2xl">Send Confirmation</Text>
           <Text />
         </View>
-        
+
         <View className="mt-5 bg-custom_complement p-5 border-4 border-custom_border rounded-xl">
-          <Coin 
-            token={transactionToken} 
-            inMainScreen={false}
-          />
+          <Coin token={transactionToken} inMainScreen={false} />
           <Text className="text-white text-lg mt-4">Recipient: {recipient}</Text>
         </View>
 
@@ -141,14 +139,11 @@ export default function SendInfoScreen() {
           <Text className="text-red-500 mt-4 text-center">{error}</Text>
         ) : gasFee ? (
           <View className="mt-4 bg-custom_complement p-5 border-4 border-custom_border rounded-xl">
-            <Text className="text-white text-lg m-2">Gas Fee: {(Number(gasFee) / 1000000).toFixed(6)} STX</Text>
+            <Text className="text-white text-lg m-2">
+              Gas Fee: {(Number(gasFee) / 1000000).toFixed(6)} STX
+            </Text>
             <Text className="text-white text-lg m-2">Total Cost: {totalCost} STX</Text>
-            <Button
-              text="Confirm Send"
-              onPress={handleSend}
-              accent
-              customStyle={'mt-4'}
-            />
+            <Button text="Confirm Send" onPress={handleSend} accent customStyle={'mt-4'} />
           </View>
         ) : (
           <Text className="text-gray-400 mt-4">Estimating gas...</Text>

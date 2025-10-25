@@ -48,7 +48,7 @@ export function TokenList({
             onPress={() => onTokenPress && onTokenPress(item)}
             className="flex-row justify-between m-2"
           >
-            <Coin token={item} inMainScreen={inMainScreen}/>
+            <Coin token={item} inMainScreen={inMainScreen} />
           </Pressable>
         )}
         ListEmptyComponent={<Text className="text-white">No tokens available</Text>}
