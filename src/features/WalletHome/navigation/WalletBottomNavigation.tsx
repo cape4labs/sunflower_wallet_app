@@ -5,9 +5,14 @@ import SettingsScreen from '../screens/SettingsScreen';
 import { Settings, Home, History } from 'lucide-react-native';
 import { View } from 'react-native';
 
+
+type WalletTabsProps = {
+  walletName?: string; 
+};
+
 const Tab = createBottomTabNavigator();
 
-// For fixing error with rendering
+// Fix render error
 const HomeIcon = ({ color }: { color: string }) => (
   <View>
     <Home color={color} size={24} strokeWidth={1.5} />
@@ -26,7 +31,7 @@ const SettingsIcon = ({ color }: { color: string }) => (
   </View>
 );
 
-export function WalletTabs() {
+export function WalletTabs({ walletName }: WalletTabsProps) {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -50,6 +55,7 @@ export function WalletTabs() {
       <Tab.Screen
         name="MainWallet"
         component={MainWalletScreen}
+        initialParams={{ walletName }} 
         options={{
           tabBarLabel: '',
           tabBarIcon: HomeIcon,
@@ -61,6 +67,7 @@ export function WalletTabs() {
       <Tab.Screen
         name="History"
         component={HistoryScreen}
+        initialParams={{ walletName }} 
         options={{
           tabBarLabel: '',
           tabBarIcon: HistoryIcon,
@@ -72,6 +79,7 @@ export function WalletTabs() {
       <Tab.Screen
         name="Settings"
         component={SettingsScreen}
+        initialParams={{ walletName }} 
         options={{
           tabBarLabel: '',
           tabBarIcon: SettingsIcon,

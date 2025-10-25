@@ -3,10 +3,9 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
 import { Token } from '../../WalletHome/screens/MainWalletScreen';
-import { View, Text, TextInput, Pressable, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Pressable} from 'react-native';
 import { useState } from 'react';
 import { ArrowLeft, ArrowDown } from 'lucide-react-native';
-import { WalletData } from '../../../shared/walletPersitance';
 import { Button } from '../../NewWallet/components/Button';
 import Coin from '../../../shared/components/Coin';
 
@@ -14,20 +13,18 @@ type SendScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 
 
 type RouteParams = {
   token: Token;
-  walletData: WalletData;
+  walletName: string;
 };
 
 export default function SendScreen() {
   const navigation = useNavigation<SendScreenProp>();
   const route = useRoute();
-  const { token, walletData } = (route.params || {}) as RouteParams;
+  const { token, walletName } = (route.params || {}) as RouteParams;  
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  console.log(setIsLoading);
+  const [sendError, setSendError] = useState<string | null>(null);
 
-  if (!token || !walletData) {
+  if (!token || !walletName) {
     return (
       <Wrapper>
         <View className="flex-col flex-1 p-4">
@@ -46,14 +43,20 @@ export default function SendScreen() {
   const handleSend = () => {
     console.log('SENDING');
     if (!amount || !recipient) {
-      setError('Please enter amount and recipient address');
+      setSendError('Please enter amount and recipient address');
       return;
     }
     if (Number(amount) > Number(token.balance)) {
-      setError('Insufficient balance');
+      setSendError('Insufficient balance');
       return;
     }
-    navigation.navigate('SendInfoScreen', { token, amount, recipient, walletData });
+    if (!walletName) {
+      setSendError('Wallet name not loaded');
+      return;
+    }
+    
+    // Передаем walletData в SendInfoScreen
+    navigation.navigate('SendInfoScreen', { token, amount, recipient, walletName });
   };
 
   return (
@@ -103,10 +106,8 @@ export default function SendScreen() {
             onChangeText={setRecipient}
           />
         </View>
-        {isLoading ? (
-          <ActivityIndicator size="large" color="#fff" className="mt-4" />
-        ) : error ? (
-          <Text className="text-red-500 mt-text-center ">{error}</Text>
+        {sendError ? (
+          <Text className="text-red-500 mt-4 text-center">{sendError}</Text>
         ) : (
           <Button text="send" onPress={handleSend} accent />
         )}

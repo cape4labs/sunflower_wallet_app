@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Pressable } from 'react-native';
+import { View, Text, FlatList, Pressable, ActivityIndicator } from 'react-native';
 import { Token } from '../../features/WalletHome/screens/MainWalletScreen';
 import Coin from './Coin';
 
@@ -29,7 +29,7 @@ export function TokenList({
   customStyle,
 }: TokenListProps) {
   if (isLoading) {
-    return <Text className="text-white">Loading...</Text>;
+    return <ActivityIndicator size="large" color="#fff" className='mt-5'/>;
   }
 
   if (error) {

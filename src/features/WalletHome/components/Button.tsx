@@ -1,5 +1,5 @@
 import { Pressable, Text } from 'react-native';
-import { Send, Upload } from 'lucide-react-native';
+import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle } from 'lucide-react-native';
 
 type ButtonType = {
   onPress?: () => void;
@@ -7,7 +7,7 @@ type ButtonType = {
   customStyle?: string;
   accent?: boolean;
   disable?: boolean;
-  iconName: 'Send' | 'Upload';
+  iconName: 'Send' | 'Upload' | 'Settings' | 'RefreshCw' | 'DatabaseIcon' | 'PlusCircle'; 
 };
 
 type TextButtonType = {
@@ -25,7 +25,26 @@ export function Button({
   disable = false,
   iconName,
 }: ButtonType) {
-  const IconComponent = iconName === 'Send' ? Send : Upload;
+  const getIconComponent = () => {
+    switch (iconName) {
+      case 'Send':
+        return Send;
+      case 'Upload':
+        return Upload;
+      case 'Settings':
+        return Settings;
+      case 'RefreshCw':
+        return RefreshCw;
+      case 'DatabaseIcon':
+        return DatabaseIcon;
+      case 'PlusCircle':
+        return PlusCircle;
+      default:
+        return Send; 
+    }
+  };
+
+  const IconComponent = getIconComponent();
 
   return (
     <Pressable

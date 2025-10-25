@@ -4,12 +4,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Wrapper from '../../../shared/components/Wrapper';
 import { View, Pressable, Image, Text, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
-import { getWalletList, getWalletData, WalletData } from '../../../shared/walletPersitance';
+import { getWalletList } from '../../../shared/walletPersitance';
 import { SelectWallet } from '../components/SelectWallet';
 import UserGraph from '../components/UserGraph';
 import { Button, TextButton } from '../components/Button';
 import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
 import { TokenList } from '../../../shared/components/TokenList';
+import { useWalletData } from '../../../shared/hooks/useWalletData';
+import shortenAddress from '../../../shared/utils/shortAddress';
 
 type MainWalletScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -33,17 +35,18 @@ export default function MainWalletScreen() {
   const navigation = useNavigation<MainWalletScreenProp>();
   const route = useRoute();
   const { walletName: initialWalletName } = (route.params || {}) as RouteParams;
-  const [walletData, setWalletData] = useState<WalletData | null>(null);
   const [walletList, setWalletList] = useState<string[]>([]);
-  const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
+  const [selectedWallet, setSelectedWallet] = useState<string | null>(initialWalletName || null);
   const [walletBalance, setWalletBalance] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [tokens, setTokens] = useState<Token[]>([]);
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [tokenLoading, setTokenLoading] = useState(false);
+  const [tokens, setTokens] = useState<Token[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens'); // Состояние для активной вкладки
 
-  console.log(error); //infinity null at console
+  const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(selectedWallet);
+
+  console.log(errorWalletData);
 
   const fetchTokensCosts = async (stxAddress: string, btcAddress: string) => {
     if (!stxAddress && !btcAddress) {
@@ -99,14 +102,14 @@ export default function MainWalletScreen() {
           symbol: 'STX',
           balanceUsd: (Number(stxBalance) * stxPrice).toFixed(2),
           balance: stxBalance,
-          cost: stxPrice,
+          cost: stxPrice.toString(),
         },
         {
           name: 'Bitcoin',
           symbol: 'BTC',
           balanceUsd: (Number(btcBalance) * btcPrice).toFixed(2),
           balance: btcBalance,
-          cost: btcPrice,
+          cost: btcPrice.toString(),
         },
       ];
 
@@ -129,60 +132,29 @@ export default function MainWalletScreen() {
 
   useEffect(() => {
     const loadWallets = async () => {
-      setIsLoading(true);
       try {
         const list = await getWalletList();
         setWalletList(list);
 
-        if (initialWalletName) {
-          setSelectedWallet(initialWalletName);
-          const selectedWalletData = await getWalletData(initialWalletName);
-          if (selectedWalletData) {
-            setWalletData(selectedWalletData);
-            await fetchTokensCosts(selectedWalletData.stxAddress, selectedWalletData.btcAddress);
-          } else {
-            setError('Wallet data not found');
-          }
-        } else if (list.length > 0 && !selectedWallet) {
+        if (!selectedWallet && list.length > 0) {
           setSelectedWallet(list[0]);
-          const selectedWalletData = await getWalletData(list[0]);
-          if (selectedWalletData) {
-            setWalletData(selectedWalletData);
-            await fetchTokensCosts(selectedWalletData.stxAddress, selectedWalletData.btcAddress);
-          }
         }
       } catch (err) {
         setError('Failed to load wallet list: ' + (err as Error).message);
-      } finally {
-        setIsLoading(false);
       }
     };
     loadWallets();
-  }, [initialWalletName, selectedWallet]);
+  });
+
+  useEffect(() => {
+    if (walletData && walletData.stxAddress && walletData.btcAddress) {
+      fetchTokensCosts(walletData.stxAddress, walletData.btcAddress);
+    }
+  }, [walletData]);
 
   const handleSelectWallet = async (newWalletName: string) => {
     console.log('Selected wallet:', newWalletName);
     setSelectedWallet(newWalletName);
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const userWalletData = await getWalletData(newWalletName);
-      if (userWalletData) {
-        setWalletData(userWalletData);
-        await fetchTokensCosts(userWalletData.stxAddress, userWalletData.btcAddress);
-      } else {
-        setWalletData(null);
-        setError('Wallet data not found');
-        setWalletBalance(null);
-      }
-    } catch (err) {
-      setError('Error fetching wallet data: ' + (err as Error).message);
-      setWalletData(null);
-      setWalletBalance(null);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const handleSend = (tokensForChoose: Token[]) => {
@@ -190,17 +162,40 @@ export default function MainWalletScreen() {
       setError('No tokens available to send');
       return;
     }
-    if (!walletData) {
-      setError('No wallet data available');
+    if (!selectedWallet) {
+      setError('No wallet name provided!');
       return;
     }
-    navigation.navigate('ChooseCoinScreen', { tokens: tokensForChoose, walletData });
+    navigation.navigate('ChooseCoinScreen', { tokens: tokensForChoose, walletName: selectedWallet });
   };
 
-  const shortenAddress = (address: string | undefined) => {
-    if (!address) return 'Loading...';
-    return `${address.slice(0, 5)}...${address.slice(-3)}`;
-  };
+  const TokensView = () => (
+    <TokenList
+      tokens={tokens}
+      isLoading={tokenLoading}
+      error={tokenError}
+      customStyle={'h-full'}
+    />
+  );
+
+  const ActionsView = () => (
+  <View className="mt-4 flex-col h-[65%] items-center bg-custom_border p-1 rounded-xl">
+      <View className='flex-row h-1/2'>
+        <Button text="Swap" customStyle="w-1/2" iconName="RefreshCw" />
+        <Button text="Bridge" customStyle="w-1/2" iconName="RefreshCw" />
+      </View>
+      <View className='flex-row h-1/2'>
+        <Button text="BTCfi" customStyle="w-1/2" iconName="DatabaseIcon" accent/>
+        <Button text="Buy" customStyle="w-1/2" iconName="PlusCircle" />
+      </View>
+  </View>
+  );
+
+  const NFTView = () => (
+    <View className="mt-4">
+      <Text className="text-white text-center">NFT Content Here</Text>
+    </View>
+  );
 
   return (
     <Wrapper>
@@ -249,20 +244,38 @@ export default function MainWalletScreen() {
           </View>
         </View>
         <View className="flex-row mt-4">
-          <TextButton text="Tokens" customStyle="w-1/3" accent />
-          <TextButton text="Actions" customStyle="w-1/3" />
-          <TextButton text="NFT" customStyle="w-1/3" />
+          <TextButton
+            text="Tokens"
+            customStyle="w-1/3"
+            accent={activeTab === 'Tokens'}
+            onPress={() => setActiveTab('Tokens')}
+          />
+          <TextButton
+            text="Actions"
+            customStyle="w-1/3"
+            accent={activeTab === 'Actions'}
+            onPress={() => setActiveTab('Actions')}
+          />
+          <TextButton
+            text="NFT"
+            customStyle="w-1/3"
+            accent={activeTab === 'NFT'}
+            onPress={() => setActiveTab('NFT')}
+          />
         </View>
-        <View className="mt-4">
-          {isLoading ? (
+        <View className="mt-4 ">
+          {isLoadingWalletData ? (
             <ActivityIndicator size="large" color="#fff" />
+          ) : error ? (
+            <View className="flex-1 justify-center items-center">
+              <Text className="text-red-500">{error}</Text>
+            </View>
+          ) : activeTab === 'Tokens' ? (
+            <TokensView />
+          ) : activeTab === 'Actions' ? (
+            <ActionsView />
           ) : (
-            <TokenList
-              tokens={tokens}
-              isLoading={tokenLoading}
-              error={tokenError}
-              customStyle={'h-full'}
-            />
+            <NFTView />
           )}
         </View>
       </View>
