@@ -9,4 +9,12 @@ module.exports = {
       extends: ['plugin:testing-library/react'],
     },
   ],
+  rules: {
+    // enable additional rules
+    quotes: ['warn', 'single'],
+    semi: ['warn', 'always'],
+    '@typescript-eslint/no-require-imports': 'warn',
+    'no-unused-vars': 'warn',
+    'no-undef': 'warn',
+  }
 };
