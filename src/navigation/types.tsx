@@ -1,4 +1,5 @@
 import { Token } from '../features/WalletHome/screens/MainWalletScreen';
+import { WalletData } from '../shared/walletPersitance';
 
 export type RootNavigatorTypeParamListType = {
   LogoScreen: undefined;
@@ -14,6 +15,7 @@ export type RootNavigatorTypeParamListType = {
       walletName?: string;
     };
   };
-  ChooseCoinScreen: { tokens: Token[] };
-  SendScreen: { token: Token };
+  ChooseCoinScreen: { tokens: Token[], walletData: WalletData };
+  SendScreen: { token: Token, walletData: WalletData };
+  SendInfoScreen: { token: Token, amount: string, recipient: string, walletData: WalletData };
 };
