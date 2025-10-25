@@ -1,13 +1,12 @@
 import { Token } from '../features/WalletHome/screens/MainWalletScreen';
-import { WalletData } from '../shared/walletPersitance';
 
 export type RootNavigatorTypeParamListType = {
   LogoScreen: undefined;
   ImportCreateScreen: undefined;
-  NameWalletScreen: undefined;
+  NameWalletScreen: {mnemonic: string};
   CreateWalletScreen: undefined;
-  SuccessScreen: undefined;
-  ImportWalletScreen: undefined;
+  SuccessScreen: {walletName: string};
+  ImportWalletScreen: {mnemonicLength: number};
   ChooseLengthScreen: undefined;
   WalletTabs: {
     screen: 'MainWallet' | 'History' | 'Settings';
@@ -15,7 +14,7 @@ export type RootNavigatorTypeParamListType = {
       walletName?: string;
     };
   };
-  ChooseCoinScreen: { tokens: Token[]; walletData: WalletData };
-  SendScreen: { token: Token; walletData: WalletData };
-  SendInfoScreen: { token: Token; amount: string; recipient: string; walletData: WalletData };
+  ChooseCoinScreen: { tokens: Token[]; walletName: string };
+  SendScreen: { token: Token; walletName: string };
+  SendInfoScreen: { token: Token; amount: string; recipient: string; walletName: string };
 };

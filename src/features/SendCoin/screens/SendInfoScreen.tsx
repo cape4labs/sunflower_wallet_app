@@ -7,9 +7,9 @@ import { View, Text, Pressable, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react-native';
 import { makeSTXTokenTransfer, broadcastTransaction } from '@stacks/transactions';
-import { WalletData } from '../../../shared/walletPersitance';
 import { Button } from '../../NewWallet/components/Button';
 import Coin from '../../../shared/components/Coin';
+import { useWalletData } from '../../../shared/hooks/useWalletData';
 
 type SendInfoScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -20,17 +20,20 @@ type RouteParams = {
   token: Token;
   amount: string;
   recipient: string;
-  walletData: WalletData;
+  walletName: string; // Используем walletName вместо walletData
 };
 
 export default function SendInfoScreen() {
   const navigation = useNavigation<SendInfoScreenProp>();
   const route = useRoute();
-  const { token, amount, recipient, walletData } = (route.params || {}) as RouteParams;
-  const [isLoading, setIsLoading] = useState(false);
+  const { token, amount, recipient, walletName } = (route.params || {}) as RouteParams;
+  const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(walletName);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [gasFee, setGasFee] = useState<bigint | null>(null);
   const [totalCost, setTotalCost] = useState<string>('0');
+
+  console.log(isLoadingWalletData, errorWalletData)
 
   const transactionToken: Token = {
     name: token.name,
@@ -44,7 +47,7 @@ export default function SendInfoScreen() {
 
   useEffect(() => {
     const estimateGas = async () => {
-      if (!walletData.stxPrivateKey) return;
+      if (!walletData?.stxPrivateKey) return; // Проверяем наличие stxPrivateKey
       setIsLoading(true);
       try {
         const response = await fetch('https://api.hiro.so/v2/fees/transfer', {
@@ -68,10 +71,10 @@ export default function SendInfoScreen() {
       }
     };
     estimateGas();
-  }, [amount, recipient, walletData.stxPrivateKey, amountInMicroSTX]);
+  }, [amount, recipient, walletData?.stxPrivateKey, amountInMicroSTX]);
 
   const handleSend = async () => {
-    if (!amount || !recipient || !walletData.stxPrivateKey || !gasFee) {
+    if (!amount || !recipient || !walletData?.stxPrivateKey || !gasFee) {
       setError('Missing required data for transaction');
       return;
     }
@@ -106,7 +109,7 @@ export default function SendInfoScreen() {
       console.log('Transaction ID:', response.txid);
       navigation.navigate('WalletTabs', {
         screen: 'MainWallet',
-        params: {},
+        params: { walletName }, // Передаем walletName для обновления данных
       });
     } catch (err) {
       setError(
@@ -116,6 +119,19 @@ export default function SendInfoScreen() {
       setIsLoading(false);
     }
   };
+
+  if (!token || !walletName) {
+    return (
+      <Wrapper>
+        <View className="flex-col flex-1 p-4">
+          <Text className="text-white text-xl mb-4">No token or wallet data selected</Text>
+          <Pressable onPress={() => navigation.goBack()} className="p-2 bg-gray-700 rounded-lg">
+            <Text className="text-white text-center">Back</Text>
+          </Pressable>
+        </View>
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
