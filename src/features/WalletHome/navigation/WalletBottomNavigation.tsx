@@ -4,6 +4,7 @@ import HistoryScreen from '../screens/HistoryScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import { Settings, Home, History } from 'lucide-react-native';
 import { View } from 'react-native';
+import WalletTabsProps from './type';
 
 // Fix render error
 const HomeIcon = ({ color }: { color: string }) => (
@@ -24,16 +25,13 @@ const SettingsIcon = ({ color }: { color: string }) => (
   </View>
 );
 
-export const WalletTabs = createBottomTabNavigator({
+export const WalletTabs = createBottomTabNavigator<WalletTabsProps>({
   screens: {
     MainWalletScreen: {
       screen: MainWalletScreen,
       options: {
         tabBarLabel: '',
         tabBarIcon: HomeIcon,
-        sceneStyle: {
-          backgroundColor: '#362F2E',
-        },
       },
     },
 
@@ -42,9 +40,6 @@ export const WalletTabs = createBottomTabNavigator({
       options: {
         tabBarLabel: '',
         tabBarIcon: HistoryIcon,
-        sceneStyle: {
-          backgroundColor: '#362F2E',
-        },
       },
     },
 
@@ -53,14 +48,14 @@ export const WalletTabs = createBottomTabNavigator({
       options: {
         tabBarLabel: '',
         tabBarIcon: SettingsIcon,
-        sceneStyle: {
-          backgroundColor: '#362F2E',
-        },
       },
     },
   },
   screenOptions: {
     headerShown: false,
+    sceneStyle: {
+      backgroundColor: '#362F2E',
+    },
     tabBarStyle: {
       backgroundColor: '#362F2E',
       borderTopWidth: 6,
