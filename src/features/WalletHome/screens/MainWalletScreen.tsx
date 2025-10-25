@@ -42,7 +42,7 @@ export default function MainWalletScreen() {
   const [tokenLoading, setTokenLoading] = useState(false);
   const [tokens, setTokens] = useState<Token[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens'); 
+  const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens');
 
   const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(selectedWallet);
 
@@ -168,7 +168,7 @@ export default function MainWalletScreen() {
     }
     navigation.navigate('ChooseCoinScreen', {
       tokens: tokensForChoose,
-      walletName: selectedWallet
+      walletName: selectedWallet,
     });
   };
 
