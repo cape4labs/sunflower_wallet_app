@@ -12,6 +12,7 @@ import { WalletTabs } from '../features/WalletHome/navigation/WalletBottomNaviga
 import ChooseCoinScreen from '../features/SendCoin/screens/ChooseCoinScreen.tsx';
 import SendScreen from '../features/SendCoin/screens/SendScreen.tsx';
 import SendInfoScreen from '../features/SendCoin/screens/SendInfoScreen.tsx';
+import ReceiveScreen from '../features/Transfers/screens/ReceiveScreen.tsx';
 
 const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>({
   initialRouteName: 'LogoScreen',
@@ -30,6 +31,7 @@ const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>
     },
     SendScreen: SendScreen,
     SendInfoScreen: SendInfoScreen,
+    ReceiveScreen: ReceiveScreen,
   },
   screenOptions: {
     headerShown: false,
