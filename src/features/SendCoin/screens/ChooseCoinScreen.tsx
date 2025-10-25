@@ -16,7 +16,7 @@ type ChooseCoinScreenProp = NativeStackNavigationProp<
 
 type RouteParams = {
   tokens?: Token[];
-  walletName?: string;
+  walletName: string;
 };
 
 export default function ChooseCoinScreen() {
