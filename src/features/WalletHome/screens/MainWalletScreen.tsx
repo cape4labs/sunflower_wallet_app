@@ -42,7 +42,7 @@ export default function MainWalletScreen() {
   const [tokenLoading, setTokenLoading] = useState(false);
   const [tokens, setTokens] = useState<Token[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens'); // Состояние для активной вкладки
+  const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens'); 
 
   const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(selectedWallet);
 
@@ -166,29 +166,27 @@ export default function MainWalletScreen() {
       setError('No wallet name provided!');
       return;
     }
-    navigation.navigate('ChooseCoinScreen', { tokens: tokensForChoose, walletName: selectedWallet });
+    navigation.navigate('ChooseCoinScreen', {
+      tokens: tokensForChoose,
+      walletName: selectedWallet
+    });
   };
 
   const TokensView = () => (
-    <TokenList
-      tokens={tokens}
-      isLoading={tokenLoading}
-      error={tokenError}
-      customStyle={'h-full'}
-    />
+    <TokenList tokens={tokens} isLoading={tokenLoading} error={tokenError} customStyle={'h-full'} />
   );
 
   const ActionsView = () => (
-  <View className="mt-4 flex-col h-[65%] items-center bg-custom_border p-1 rounded-xl">
-      <View className='flex-row h-1/2'>
+    <View className="mt-4 flex-col h-[65%] items-center bg-custom_border p-1 rounded-xl">
+      <View className="flex-row h-1/2">
         <Button text="Swap" customStyle="w-1/2" iconName="RefreshCw" />
         <Button text="Bridge" customStyle="w-1/2" iconName="RefreshCw" />
       </View>
-      <View className='flex-row h-1/2'>
-        <Button text="BTCfi" customStyle="w-1/2" iconName="DatabaseIcon" accent/>
+      <View className="flex-row h-1/2">
+        <Button text="BTCfi" customStyle="w-1/2" iconName="DatabaseIcon" accent />
         <Button text="Buy" customStyle="w-1/2" iconName="PlusCircle" />
       </View>
-  </View>
+    </View>
   );
 
   const NFTView = () => (

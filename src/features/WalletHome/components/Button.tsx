@@ -7,7 +7,7 @@ type ButtonType = {
   customStyle?: string;
   accent?: boolean;
   disable?: boolean;
-  iconName: 'Send' | 'Upload' | 'Settings' | 'RefreshCw' | 'DatabaseIcon' | 'PlusCircle'; 
+  iconName: 'Send' | 'Upload' | 'Settings' | 'RefreshCw' | 'DatabaseIcon' | 'PlusCircle';
 };
 
 type TextButtonType = {
@@ -40,7 +40,7 @@ export function Button({
       case 'PlusCircle':
         return PlusCircle;
       default:
-        return Send; 
+        return Send;
     }
   };
 

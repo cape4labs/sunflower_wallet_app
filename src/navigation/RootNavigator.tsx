@@ -23,11 +23,11 @@ const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>
     SuccessScreen: SuccessScreen,
     ImportWalletScreen: ImportWalletScreen,
     ChooseLengthScreen: ChooseLengthScreen,
+    ChooseCoinScreen: ChooseCoinScreen,
     WalletTabs: {
       screen: WalletTabs,
       options: { headerShown: false },
     },
-    ChooseCoinScreen: ChooseCoinScreen,
     SendScreen: SendScreen,
     SendInfoScreen: SendInfoScreen,
   },

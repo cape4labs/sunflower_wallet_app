@@ -29,7 +29,7 @@ export function TokenList({
   customStyle,
 }: TokenListProps) {
   if (isLoading) {
-    return <ActivityIndicator size="large" color="#fff" className='mt-5'/>;
+    return <ActivityIndicator size="large" color="#fff" className="mt-5" />;
   }
 
   if (error) {
