@@ -15,7 +15,7 @@ export type RootNavigatorTypeParamListType = {
       walletName?: string;
     };
   };
-  ChooseCoinScreen: { tokens: Token[], walletData: WalletData };
-  SendScreen: { token: Token, walletData: WalletData };
-  SendInfoScreen: { token: Token, amount: string, recipient: string, walletData: WalletData };
+  ChooseCoinScreen: { tokens: Token[]; walletData: WalletData };
+  SendScreen: { token: Token; walletData: WalletData };
+  SendInfoScreen: { token: Token; amount: string; recipient: string; walletData: WalletData };
 };

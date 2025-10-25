@@ -21,11 +21,11 @@ export default function SendScreen() {
   const navigation = useNavigation<SendScreenProp>();
   const route = useRoute();
   const { token, walletData } = (route.params || {}) as RouteParams;
-  const [amount, setAmount] = useState(''); 
-  const [recipient, setRecipient] = useState(''); 
-  const [isLoading, setIsLoading] = useState(false); 
-  const [error, setError] = useState<string | null>(null); 
-  console.log(setIsLoading)
+  const [amount, setAmount] = useState('');
+  const [recipient, setRecipient] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  console.log(setIsLoading);
 
   if (!token || !walletData) {
     return (
@@ -40,12 +40,11 @@ export default function SendScreen() {
     );
   }
 
-  const usdAmount = isNaN(Number(amount)) || amount === ''
-    ? '0'
-    : (Number(amount) * Number(token.cost)).toFixed(2);
+  const usdAmount =
+    isNaN(Number(amount)) || amount === '' ? '0' : (Number(amount) * Number(token.cost)).toFixed(2);
 
   const handleSend = () => {
-    console.log("SENDING");
+    console.log('SENDING');
     if (!amount || !recipient) {
       setError('Please enter amount and recipient address');
       return;
@@ -78,7 +77,7 @@ export default function SendScreen() {
               placeholderTextColor="#fff"
               keyboardType="numeric"
               value={amount}
-              onChangeText={(text) => {
+              onChangeText={text => {
                 if (!isNaN(Number(text)) && Number(text) <= Number(token.balance)) {
                   setAmount(text);
                 }
@@ -109,11 +108,7 @@ export default function SendScreen() {
         ) : error ? (
           <Text className="text-red-500 mt-text-center ">{error}</Text>
         ) : (
-          <Button 
-            text='send' 
-            onPress={handleSend}
-            accent
-          />
+          <Button text="send" onPress={handleSend} accent />
         )}
       </View>
     </Wrapper>
