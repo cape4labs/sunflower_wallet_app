@@ -6,6 +6,7 @@ import { TokenList } from '../../../shared/components/TokenList';
 import { Token } from '../../WalletHome/screens/MainWalletScreen';
 import { View, Text, Pressable } from 'react-native';
 import { ArrowLeft } from 'lucide-react-native';
+import { WalletData } from '../../../shared/walletPersitance';
 type ChooseCoinScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
   'ChooseCoinScreen'
@@ -13,15 +14,20 @@ type ChooseCoinScreenProp = NativeStackNavigationProp<
 
 type RouteParams = {
   tokens?: Token[];
+  walletData?: WalletData;
 };
 
 export default function ChooseCoinScreen() {
   const navigation = useNavigation<ChooseCoinScreenProp>();
   const route = useRoute();
-  const { tokens } = (route.params || {}) as RouteParams;
+  const { tokens, walletData } = (route.params || {}) as RouteParams;
 
   const handleTokenSelect = (token: Token) => {
-    navigation.navigate('SendScreen', { token });
+    if (!walletData) {
+      console.log('No wallet data available');
+      return;
+    }
+    navigation.navigate('SendScreen', { token, walletData });
   };
 
   if (!tokens || tokens.length === 0) {

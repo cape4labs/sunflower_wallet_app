@@ -7,7 +7,7 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 interface SelectWalletProps {
   selectedWallet: string | null;
   walletList: string[];
-  onSelect: (walletName: string) => void;
+  onSelect: (newWalletName: string) => void;
 }
 
 export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWalletProps) {
@@ -18,8 +18,8 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
     setIsModalVisible(true);
   };
 
-  const handleSelectWallet = (walletName: string) => {
-    onSelect(walletName);
+  const handleSelectWallet = (newWalletName: string) => {
+    onSelect(newWalletName);
     setIsModalVisible(false);
   };
 
