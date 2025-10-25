@@ -6,13 +6,17 @@
   "scripts": {
     "android": "npx react-native run-android",
     "ios": "react-native run-ios",
-    "lint": "eslint . --fix",
+    "lint": "npx eslint . --fix",
     "start": "npx react-native start",
     "test": "npx jest",
     "prepare": "npx husky install",
-    "format": "npx eslint . --fix && npx prettier -w .",
+    "format": "npx prettier -w .",
     "check": "tsc --noEmit"
   },
+  "lint-staged": [
+      "npx prettier -w .",
+      "npx eslint . --fix"
+  ],
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-clipboard/clipboard": "^1.16.3",
@@ -63,6 +67,7 @@
     "eslint-plugin-testing-library": "^7.13.3",
     "husky": "^9.1.7",
     "jest": "^29.6.3",
+    "lint-staged": "^16.2.6",
     "process": "^0.11.10",
     "react-native-get-random-values": "^1.11.0",
     "react-test-renderer": "19.1.0",
