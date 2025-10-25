@@ -224,7 +224,13 @@ export default function MainWalletScreen() {
               customStyle="w-1/2"
               iconName="Send"
             />
-            <Button text="Receive" customStyle="w-1/2" accent={true} iconName="Upload" />
+            <Button text="Receive" onPress={() => {
+              if (!selectedWallet) {
+                setError("No wallet selected")
+              } else {
+                navigation.navigate("ReceiveScreen", {walletName: selectedWallet})
+              }
+            }} customStyle="w-1/2" accent={true} iconName="Upload" />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
             <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
