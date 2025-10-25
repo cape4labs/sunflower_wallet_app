@@ -43,7 +43,7 @@ export default function MainWalletScreen() {
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [tokenLoading, setTokenLoading] = useState(false);
 
-  console.log(error) //infinity null at console
+  console.log(error); //infinity null at console
 
   const fetchTokensCosts = async (stxAddress: string, btcAddress: string) => {
     if (!stxAddress && !btcAddress) {
@@ -206,25 +206,41 @@ export default function MainWalletScreen() {
     <Wrapper>
       <View className="flex-col flex-1">
         <View className="flex-row justify-around items-center gap-10">
-          <Pressable onPress={() => walletData && fetchTokensCosts(walletData.stxAddress, walletData.btcAddress)}>
+          <Pressable
+            onPress={() =>
+              walletData && fetchTokensCosts(walletData.stxAddress, walletData.btcAddress)
+            }
+          >
             <Image source={require('../../../../assets/icons/refresh.png')} />
           </Pressable>
           <View className="mb-0 rounded-t-xl bg-custom_border">
-            <SelectWallet selectedWallet={selectedWallet} walletList={walletList} onSelect={handleSelectWallet} />
+            <SelectWallet
+              selectedWallet={selectedWallet}
+              walletList={walletList}
+              onSelect={handleSelectWallet}
+            />
           </View>
           <View />
         </View>
         <View className="w-full p-2 bg-custom_border relative mt-0 rounded-lg">
           <UserGraph />
           <View className="flex-row mt-1">
-            <Button onPress={() => handleSend(tokens)} text="Send" customStyle="w-1/2" iconName="Send" />
+            <Button
+              onPress={() => handleSend(tokens)}
+              text="Send"
+              customStyle="w-1/2"
+              iconName="Send"
+            />
             <Button text="Receive" customStyle="w-1/2" accent={true} iconName="Upload" />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
             <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
               ${walletBalance || '0.00'}
             </Text>
-            <Pressable onPress={() => CopyToClipboard(walletData?.stxAddress || null)} className="flex-row gap-2 justify-center items-center">
+            <Pressable
+              onPress={() => CopyToClipboard(walletData?.stxAddress || null)}
+              className="flex-row gap-2 justify-center items-center"
+            >
               <Text className="text-sm text-yellow-50 z-20 items-center justify-center">
                 {shortenAddress(walletData?.stxAddress)}
               </Text>
@@ -241,7 +257,12 @@ export default function MainWalletScreen() {
           {isLoading ? (
             <ActivityIndicator size="large" color="#fff" />
           ) : (
-            <TokenList tokens={tokens} isLoading={tokenLoading} error={tokenError} customStyle={'h-full'} />
+            <TokenList
+              tokens={tokens}
+              isLoading={tokenLoading}
+              error={tokenError}
+              customStyle={'h-full'}
+            />
           )}
         </View>
       </View>
