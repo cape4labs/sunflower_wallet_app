@@ -33,7 +33,7 @@ export default function ChooseLengthScreen() {
         />
         <View className="flex-row justify-center items-center gap-3 mt-5">
           <Image source={require('../../../../assets/icons/info.png')} className="w-10 h-10" />
-          <Text className="text-white font-light">{`Select the appropriate number of \nwords that were in your seed phrase.`}</Text>
+          <Text className="text-white font-light">{'Select the appropriate number of \nwords that were in your seed phrase.'}</Text>
         </View>
       </View>
       <View className="my-5 w-full bg-custom_border rounded-2xl">

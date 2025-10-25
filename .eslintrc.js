@@ -16,5 +16,5 @@ module.exports = {
     '@typescript-eslint/no-require-imports': 'warn',
     'no-unused-vars': 'warn',
     'no-undef': 'warn',
-  }
+  },
 };

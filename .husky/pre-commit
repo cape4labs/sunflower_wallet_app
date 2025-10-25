@@ -1,5 +1,4 @@
 #!/bin/sh
 
-npx eslint . --fix
-npx prettier -w .
+npx lint-staged --allow-empty
 npx jest
