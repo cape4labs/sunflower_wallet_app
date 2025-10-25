@@ -20,7 +20,7 @@ type RouteParams = {
   token: Token;
   amount: string;
   recipient: string;
-  walletName: string; // Используем walletName вместо walletData
+  walletName: string; 
 };
 
 export default function SendInfoScreen() {
@@ -33,7 +33,7 @@ export default function SendInfoScreen() {
   const [gasFee, setGasFee] = useState<bigint | null>(null);
   const [totalCost, setTotalCost] = useState<string>('0');
 
-  console.log(isLoadingWalletData, errorWalletData)
+  console.log(isLoadingWalletData, errorWalletData);
 
   const transactionToken: Token = {
     name: token.name,
@@ -47,7 +47,7 @@ export default function SendInfoScreen() {
 
   useEffect(() => {
     const estimateGas = async () => {
-      if (!walletData?.stxPrivateKey) return; // Проверяем наличие stxPrivateKey
+      if (!walletData?.stxPrivateKey) return; 
       setIsLoading(true);
       try {
         const response = await fetch('https://api.hiro.so/v2/fees/transfer', {
@@ -108,8 +108,8 @@ export default function SendInfoScreen() {
 
       console.log('Transaction ID:', response.txid);
       navigation.navigate('WalletTabs', {
-        screen: 'MainWallet',
-        params: { walletName }, // Передаем walletName для обновления данных
+        screen: 'MainWalletScreen',
+        params: { walletName }, 
       });
     } catch (err) {
       setError(

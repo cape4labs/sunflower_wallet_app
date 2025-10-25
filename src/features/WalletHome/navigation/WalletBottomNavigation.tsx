@@ -5,13 +5,6 @@ import SettingsScreen from '../screens/SettingsScreen';
 import { Settings, Home, History } from 'lucide-react-native';
 import { View } from 'react-native';
 
-
-type WalletTabsProps = {
-  walletName?: string; 
-};
-
-const Tab = createBottomTabNavigator();
-
 // Fix render error
 const HomeIcon = ({ color }: { color: string }) => (
   <View>
@@ -31,63 +24,57 @@ const SettingsIcon = ({ color }: { color: string }) => (
   </View>
 );
 
-export function WalletTabs({ walletName }: WalletTabsProps) {
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
+export const WalletTabs = createBottomTabNavigator({
+  screens:{
+    MainWalletScreen: {
+      screen: MainWalletScreen,
+      options: {
+        tabBarLabel: '',
+        tabBarIcon: HomeIcon,
+        sceneStyle: {
           backgroundColor: '#362F2E',
-          borderTopWidth: 6,
-          height: 70,
-          paddingBottom: 5,
-          borderTopColor: '#1F1612',
         },
-        tabBarActiveTintColor: '#FF4800',
-        tabBarInactiveTintColor: '#8b8b8b',
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '400',
-          marginBottom: 4,
+      }
+    },
+
+    HistoryScreen: {
+      screen: HistoryScreen,
+      options: {
+        tabBarLabel: '',
+        tabBarIcon: HistoryIcon,
+        sceneStyle: {
+          backgroundColor: '#362F2E',
         },
-      }}
-    >
-      <Tab.Screen
-        name="MainWallet"
-        component={MainWalletScreen}
-        initialParams={{ walletName }} 
-        options={{
-          tabBarLabel: '',
-          tabBarIcon: HomeIcon,
-          sceneStyle: {
-            backgroundColor: '#362F2E',
-          },
-        }}
-      />
-      <Tab.Screen
-        name="History"
-        component={HistoryScreen}
-        initialParams={{ walletName }} 
-        options={{
-          tabBarLabel: '',
-          tabBarIcon: HistoryIcon,
-          sceneStyle: {
-            backgroundColor: '#362F2E',
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
-        initialParams={{ walletName }} 
-        options={{
-          tabBarLabel: '',
-          tabBarIcon: SettingsIcon,
-          sceneStyle: {
-            backgroundColor: '#362F2E',
-          },
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
+      }
+    },
+    
+    SettingsScreen: {
+      screen: SettingsScreen,
+      options: {
+        tabBarLabel: '',
+        tabBarIcon: SettingsIcon,
+        sceneStyle: {
+          backgroundColor: '#362F2E',
+        },
+      },
+    },
+
+  },
+  screenOptions: {
+    headerShown: false,
+    tabBarStyle: {
+      backgroundColor: '#362F2E',
+      borderTopWidth: 6,
+      height: 70,
+      paddingBottom: 5,
+      borderTopColor: '#1F1612',
+    },
+    tabBarActiveTintColor: '#FF4800',
+    tabBarInactiveTintColor: '#8b8b8b',
+    tabBarLabelStyle: {
+      fontSize: 12,
+      fontWeight: '400',
+      marginBottom: 4,
+    },
+  },
+});

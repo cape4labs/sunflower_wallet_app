@@ -3,7 +3,7 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
 import { Token } from '../../WalletHome/screens/MainWalletScreen';
-import { View, Text, TextInput, Pressable} from 'react-native';
+import { View, Text, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
 import { ArrowLeft, ArrowDown } from 'lucide-react-native';
 import { Button } from '../../NewWallet/components/Button';
@@ -19,7 +19,7 @@ type RouteParams = {
 export default function SendScreen() {
   const navigation = useNavigation<SendScreenProp>();
   const route = useRoute();
-  const { token, walletName } = (route.params || {}) as RouteParams;  
+  const { token, walletName } = (route.params || {}) as RouteParams;
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [sendError, setSendError] = useState<string | null>(null);
@@ -54,8 +54,7 @@ export default function SendScreen() {
       setSendError('Wallet name not loaded');
       return;
     }
-    
-    // Передаем walletData в SendInfoScreen
+
     navigation.navigate('SendInfoScreen', { token, amount, recipient, walletName });
   };
 

@@ -3,13 +3,13 @@ import { Token } from '../features/WalletHome/screens/MainWalletScreen';
 export type RootNavigatorTypeParamListType = {
   LogoScreen: undefined;
   ImportCreateScreen: undefined;
-  NameWalletScreen: {mnemonic: string};
+  NameWalletScreen: { mnemonic: string };
   CreateWalletScreen: undefined;
-  SuccessScreen: {walletName: string};
-  ImportWalletScreen: {mnemonicLength: number};
+  SuccessScreen: { walletName: string };
+  ImportWalletScreen: { mnemonicLength: number };
   ChooseLengthScreen: undefined;
   WalletTabs: {
-    screen: 'MainWallet' | 'History' | 'Settings';
+    screen: 'MainWalletScreen' | 'HistoryScreen' | 'SettingsScreen';
     params: {
       walletName?: string;
     };

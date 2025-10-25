@@ -29,7 +29,7 @@ export default function ChooseCoinScreen() {
   const [tokenLoading, setTokenLoading] = useState(false);
   const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(walletName);
 
-  console.log(walletBalance)
+  console.log(walletBalance);
 
   const fetchTokensCosts = async (stxAddress: string, btcAddress: string) => {
     if (!stxAddress && !btcAddress) {
