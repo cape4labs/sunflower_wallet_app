@@ -25,7 +25,7 @@ const SettingsIcon = ({ color }: { color: string }) => (
 );
 
 export const WalletTabs = createBottomTabNavigator({
-  screens:{
+  screens: {
     MainWalletScreen: {
       screen: MainWalletScreen,
       options: {
@@ -34,7 +34,7 @@ export const WalletTabs = createBottomTabNavigator({
         sceneStyle: {
           backgroundColor: '#362F2E',
         },
-      }
+      },
     },
 
     HistoryScreen: {
@@ -45,9 +45,9 @@ export const WalletTabs = createBottomTabNavigator({
         sceneStyle: {
           backgroundColor: '#362F2E',
         },
-      }
+      },
     },
-    
+
     SettingsScreen: {
       screen: SettingsScreen,
       options: {
@@ -58,7 +58,6 @@ export const WalletTabs = createBottomTabNavigator({
         },
       },
     },
-
   },
   screenOptions: {
     headerShown: false,

@@ -20,7 +20,7 @@ type RouteParams = {
   token: Token;
   amount: string;
   recipient: string;
-  walletName: string; 
+  walletName: string;
 };
 
 export default function SendInfoScreen() {
@@ -47,7 +47,7 @@ export default function SendInfoScreen() {
 
   useEffect(() => {
     const estimateGas = async () => {
-      if (!walletData?.stxPrivateKey) return; 
+      if (!walletData?.stxPrivateKey) return;
       setIsLoading(true);
       try {
         const response = await fetch('https://api.hiro.so/v2/fees/transfer', {
@@ -109,7 +109,7 @@ export default function SendInfoScreen() {
       console.log('Transaction ID:', response.txid);
       navigation.navigate('WalletTabs', {
         screen: 'MainWalletScreen',
-        params: { walletName }, 
+        params: { walletName },
       });
     } catch (err) {
       setError(
