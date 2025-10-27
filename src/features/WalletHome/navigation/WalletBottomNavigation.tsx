@@ -8,19 +8,19 @@ import { View } from 'react-native';
 // Fix render error
 const HomeIcon = ({ color }: { color: string }) => (
   <View>
-    <Home color={color} size={24} strokeWidth={1.5} />
+    <Home color={color} size={30} strokeWidth={1.5} />
   </View>
 );
 
 const HistoryIcon = ({ color }: { color: string }) => (
   <View>
-    <History color={color} size={24} strokeWidth={1.5} />
+    <History color={color} size={30} strokeWidth={1.5} />
   </View>
 );
 
 const SettingsIcon = ({ color }: { color: string }) => (
   <View>
-    <Settings color={color} size={24} strokeWidth={1.5} />
+    <Settings color={color} size={30} strokeWidth={1.5} />
   </View>
 );
 
@@ -64,8 +64,8 @@ export const WalletTabs = createBottomTabNavigator({
     tabBarStyle: {
       backgroundColor: '#362F2E',
       borderTopWidth: 6,
-      height: 70,
-      paddingBottom: 5,
+      height: 90,
+      paddingTop: 15,
       borderTopColor: '#1F1612',
     },
     tabBarActiveTintColor: '#FF4800',
