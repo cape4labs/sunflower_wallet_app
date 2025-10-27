@@ -12,6 +12,8 @@ import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
 import { TokenList } from '../../../shared/components/TokenList';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import shortenAddress from '../../../shared/utils/shortAddress';
+import { useWalletContext } from '../../../providers/WalletContext';
+
 
 type MainWalletScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -35,8 +37,9 @@ export default function MainWalletScreen() {
   const navigation = useNavigation<MainWalletScreenProp>();
   const route = useRoute();
   const { walletName: initialWalletName } = (route.params || {}) as RouteParams;
+  const { walletName, setWalletName } = useWalletContext(); // Глобальный walletName
   const [walletList, setWalletList] = useState<string[]>([]);
-  const [selectedWallet, setSelectedWallet] = useState<string | null>(initialWalletName || null);
+  const [selectedWallet, setSelectedWallet] = useState<string | null>(initialWalletName || walletName || null);
   const [walletBalance, setWalletBalance] = useState<string | null>(null);
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [tokenLoading, setTokenLoading] = useState(false);
@@ -60,8 +63,8 @@ export default function MainWalletScreen() {
     setTokenError(null);
 
     try {
-      let stxBalance = '0.00';
-      let btcBalance = '0.00';
+      let stxBalance = '0.000000';
+      let btcBalance = '0.000000';
 
       if (stxAddress) {
         const stxResponse = await fetch(
@@ -75,7 +78,7 @@ export default function MainWalletScreen() {
           const parsed = balanceRaw.startsWith('0x')
             ? parseInt(balanceRaw, 16)
             : Number(balanceRaw);
-          stxBalance = (parsed / 1e6).toFixed(2);
+          stxBalance = (parsed / 1e6).toFixed(6);
         }
       }
 
@@ -84,7 +87,7 @@ export default function MainWalletScreen() {
         if (!btcResponse.ok) throw new Error(`HTTP error for BTC! status: ${btcResponse.status}`);
         const btcData = await btcResponse.json();
         const totalSatoshi = btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum;
-        btcBalance = (totalSatoshi / 1e8).toFixed(2);
+        btcBalance = (totalSatoshi / 1e8).toFixed(6);
       }
 
       const priceResponse = await fetch(
@@ -144,13 +147,20 @@ export default function MainWalletScreen() {
       }
     };
     loadWallets();
-  });
+  }, []);
 
   useEffect(() => {
     if (walletData && walletData.stxAddress && walletData.btcAddress) {
       fetchTokensCosts(walletData.stxAddress, walletData.btcAddress);
     }
   }, [walletData]);
+
+  useEffect(() => {
+    // Синхронизация selectedWallet с глобальным walletName
+    if (selectedWallet) {
+      setWalletName(selectedWallet);
+    }
+  }, [selectedWallet, setWalletName]);
 
   const handleSelectWallet = async (newWalletName: string) => {
     console.log('Selected wallet:', newWalletName);
@@ -224,13 +234,19 @@ export default function MainWalletScreen() {
               customStyle="w-1/2"
               iconName="Send"
             />
-            <Button text="Receive" onPress={() => {
-              if (!selectedWallet) {
-                setError("No wallet selected")
-              } else {
-                navigation.navigate("ReceiveScreen", {walletName: selectedWallet})
-              }
-            }} customStyle="w-1/2" accent={true} iconName="Upload" />
+            <Button
+              text="Receive"
+              onPress={() => {
+                if (!selectedWallet) {
+                  setError('No wallet selected');
+                } else {
+                  navigation.navigate('ReceiveScreen', { walletName: selectedWallet });
+                }
+              }}
+              customStyle="w-1/2"
+              accent={true}
+              iconName="Upload"
+            />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
             <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
@@ -267,7 +283,7 @@ export default function MainWalletScreen() {
             onPress={() => setActiveTab('NFT')}
           />
         </View>
-        <View className="mt-4 ">
+        <View className="mt-4">
           {isLoadingWalletData ? (
             <ActivityIndicator size="large" color="#fff" />
           ) : error ? (
