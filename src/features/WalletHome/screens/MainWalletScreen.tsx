@@ -37,7 +37,7 @@ export default function MainWalletScreen() {
   const navigation = useNavigation<MainWalletScreenProp>();
   const route = useRoute();
   const { walletName: initialWalletName } = (route.params || {}) as RouteParams;
-  const { walletName, setWalletName } = useWalletContext(); // Глобальный walletName
+  const { walletName, setWalletName } = useWalletContext(); //  Global WalletName
   const [walletList, setWalletList] = useState<string[]>([]);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(initialWalletName || walletName || null);
   const [walletBalance, setWalletBalance] = useState<string | null>(null);
@@ -156,7 +156,7 @@ export default function MainWalletScreen() {
   }, [walletData]);
 
   useEffect(() => {
-    // Синхронизация selectedWallet с глобальным walletName
+    // Sync global walletName
     if (selectedWallet) {
       setWalletName(selectedWallet);
     }
