@@ -1,5 +1,5 @@
 import { View, Image, Text } from 'react-native';
-import { formatNumber } from './TokenList';
+import formatNumber from '../../shared/utils/formatNumber';
 import { Token } from '../../features/WalletHome/screens/MainWalletScreen';
 
 const getIcon = (symbol: string) => {
