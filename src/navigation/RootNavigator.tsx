@@ -9,9 +9,9 @@ import CreateWalletScreen from '../features/NewWallet/screens/CreateWalletScreen
 import ImportWalletScreen from '../features/NewWallet/screens/ImportWalletScreen.tsx';
 import ChooseLengthScreen from '../features/NewWallet/screens/ChooseLengthScreen.tsx';
 import { WalletTabs } from '../features/WalletHome/navigation/WalletBottomNavigation.tsx';
-import ChooseCoinScreen from '../features/SendCoin/screens/ChooseCoinScreen.tsx';
-import SendScreen from '../features/SendCoin/screens/SendScreen.tsx';
-import SendInfoScreen from '../features/SendCoin/screens/SendInfoScreen.tsx';
+import ChooseCoinScreen from '../features/Transfers/screens/ChooseCoinScreen.tsx';
+import SendScreen from '../features/Transfers/screens/SendScreen.tsx';
+import SendInfoScreen from '../features/Transfers/screens/SendInfoScreen.tsx';
 import ReceiveScreen from '../features/Transfers/screens/ReceiveScreen.tsx';
 
 const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>({
