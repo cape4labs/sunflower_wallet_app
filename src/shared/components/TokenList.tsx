@@ -11,15 +11,6 @@ interface TokenListProps {
   customStyle: string;
 }
 
-export const formatNumber = (value: string): string => {
-  const num = Number(value);
-  const precision = num < 1 ? 6 : 6;
-  const fixed = num.toFixed(precision);
-  const parts = fixed.split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  return parts.join(',');
-};
-
 export function TokenList({
   tokens,
   isLoading,
