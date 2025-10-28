@@ -22,7 +22,7 @@ export default function LogoScreen() {
         const firstWalletName = wallets[0];
         if (firstWalletName) {
           navigation.navigate('WalletTabs', {
-            screen: 'MainWallet',
+            screen: 'MainWalletScreen',
             params: { walletName: firstWalletName },
           });
         }
