@@ -1,6 +1,3 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
-// import { useNavigation } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
 import { View, Text, SectionList, ActivityIndicator, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
@@ -9,12 +6,6 @@ import { useWalletContext } from '../../../providers/WalletContext';
 import { Send, Upload, RefreshCw, Repeat, Copy } from 'lucide-react-native';
 import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
 
-
-type HistoryScreenProp = NativeStackNavigationProp<
-  RootNavigatorTypeParamListType,
-  'WalletTabs',
-  'HistoryScreen'
->;
 
 interface Transaction {
   tx_id: string;
@@ -27,7 +18,6 @@ interface Transaction {
 }
 
 export default function HistoryScreen() {
-  // const navigation = useNavigation<HistoryScreenProp>();
   const { walletName } = useWalletContext();
   const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(walletName);
   const [transactions, setTransactions] = useState<Transaction[]>([]);

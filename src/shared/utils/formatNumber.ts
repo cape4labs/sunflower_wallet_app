@@ -1,4 +1,4 @@
-export const formatNumber = (value: string): string => {
+export default function formatNumber(value: string): string {
   const num = Number(value);
   const precision = num < 1 ? 3 : 2;
   const fixed = num.toFixed(precision);
