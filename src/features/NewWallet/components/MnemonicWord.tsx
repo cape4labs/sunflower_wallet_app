@@ -1,4 +1,5 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import TextWithFont from '../../../shared/components/TextWithFont';
 
 type MnemonicWordType = {
   idx: number;
@@ -9,9 +10,9 @@ type MnemonicWordType = {
 export function MnemonicWord({ idx, word }: MnemonicWordType) {
   return (
     <View className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg">
-      <Text className="flex-1 p-2 text-white rounded-md text-lg">
+      <TextWithFont customStyle="flex-1 p-2 text-white rounded-md text-lg">
         {idx}. {word}
-      </Text>
+      </TextWithFont>
     </View>
   );
 }

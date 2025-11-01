@@ -1,5 +1,7 @@
-import { Pressable, Text } from 'react-native';
+import { Pressable } from 'react-native';
 import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle } from 'lucide-react-native';
+import TextWithFont from '../../../shared/components/TextWithFont';
+
 
 type ButtonType = {
   onPress?: () => void;
@@ -54,7 +56,7 @@ export function Button({
       } ${customStyle ?? ''}`}
       disabled={disable}
     >
-      <Text className={`text-lg ${accent ? 'text-black' : 'text-white'} z-10`}>{text}</Text>
+      <TextWithFont customStyle={`text-lg ${accent ? 'text-black' : 'text-white'} z-10`}>{text}</TextWithFont>
       <IconComponent color={accent ? 'black' : 'white'} size={20} strokeWidth={1.5} />
     </Pressable>
   );
@@ -68,7 +70,7 @@ export function TextButton({ onPress, text, customStyle, accent = false }: TextB
         accent ? 'border-white' : 'border-gray-500'
       } ${customStyle ?? ''}`}
     >
-      <Text className={`text-xl ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>{text}</Text>
+      <TextWithFont customStyle={`text-xl ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>{text}</TextWithFont>
     </Pressable>
   );
 }

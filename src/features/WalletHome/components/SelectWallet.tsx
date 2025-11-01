@@ -1,8 +1,10 @@
-import { Text, Pressable, Modal, FlatList, View } from 'react-native';
+import { Pressable, Modal, FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import TextWithFont from '../../../shared/components/TextWithFont';
+
 
 interface SelectWalletProps {
   selectedWallet: string | null;
@@ -30,7 +32,7 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
 
   const renderWalletItem = ({ item }: { item: string }) => (
     <Pressable className="p-4 bg-gray-700 rounded-lg mb-2" onPress={() => handleSelectWallet(item)}>
-      <Text className="text-white text-center text-lg">{item}</Text>
+      <TextWithFont customStyle="text-white text-center text-lg">{item}</TextWithFont>
     </Pressable>
   );
 
@@ -40,9 +42,9 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
         className="bg-custom_accent rounded-xl py-2 px-4 mb-4 self-center border-[6px] border-custom_border"
         onPress={handlePress}
       >
-        <Text className="text-black font-bold text-center text-lg w-[150px]">
+        <TextWithFont customStyle="text-black font-bold text-center text-lg w-[150px]">
           {selectedWallet || 'Select Wallet'}
-        </Text>
+        </TextWithFont>
       </Pressable>
       <Modal
         animationType="slide"
@@ -50,7 +52,7 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
         visible={isModalVisible}
         onRequestClose={() => setIsModalVisible(false)}
       >
-        <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
+        <View className="flex-1 justify-center items-center bg-black">
           <View className="bg-gray-800 p-4 rounded-lg w-3/4">
             <FlatList
               data={walletList}
@@ -62,13 +64,13 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
               className="bg-custom_accent p-2 rounded-lg mt-4"
               onPress={handleCreateWallet}
             >
-              <Text className="text-white text-center text-lg">Create New Wallet</Text>
+              <TextWithFont customStyle="text-white text-center text-lg">Create New Wallet</TextWithFont>
             </Pressable>
             <Pressable
               className="bg-gray-600 p-2 rounded-lg mt-2"
               onPress={() => setIsModalVisible(false)}
             >
-              <Text className="text-white text-center text-lg">Close</Text>
+              <TextWithFont customStyle="text-white text-center text-lg">Close</TextWithFont>
             </Pressable>
           </View>
         </View>

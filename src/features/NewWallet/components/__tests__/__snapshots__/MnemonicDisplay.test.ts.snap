@@ -11,7 +11,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         1
         . 
@@ -22,7 +22,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         2
         . 
@@ -33,7 +33,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         3
         . 
@@ -44,7 +44,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         4
         . 
@@ -55,7 +55,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         5
         . 
@@ -66,7 +66,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         6
         . 
@@ -81,7 +81,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         7
         . 
@@ -92,7 +92,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         8
         . 
@@ -103,7 +103,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         9
         . 
@@ -114,7 +114,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         10
         . 
@@ -125,7 +125,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         11
         . 
@@ -136,7 +136,7 @@ exports[`MnemonicDisplay snapshot 1`] = `
       className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg"
     >
       <Text
-        className="flex-1 p-2 text-white rounded-md text-lg"
+        className="font-[spacegrotesk] font-normal flex-1 p-2 text-white rounded-md text-lg"
       >
         12
         . 

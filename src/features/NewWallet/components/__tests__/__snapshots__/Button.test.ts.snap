@@ -20,7 +20,7 @@ exports[`Button snapshot 1`] = `
     }
   }
   accessible={true}
-  className="justify-center items-center py-3 px-16 border-[6px] border-custom_border rounded-2xl relative overflow-hidden bg-custom_complement "
+  className="justify-center items-center py-3 px-14 border-[6px] border-custom_border rounded-2xl relative overflow-hidden bg-custom_complement "
   collapsable={false}
   focusable={true}
   onBlur={[Function]}
@@ -34,7 +34,7 @@ exports[`Button snapshot 1`] = `
   onStartShouldSetResponder={[Function]}
 >
   <Text
-    className="text-lg text-white z-10"
+    className="font-[spacegrotesk] font-normal text-lg text-white z-10"
   >
     test
   </Text>
