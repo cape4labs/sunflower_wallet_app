@@ -1,6 +1,8 @@
-import { View, Text, FlatList, Pressable, ActivityIndicator } from 'react-native';
+import { View, FlatList, Pressable, ActivityIndicator } from 'react-native';
 import { Token } from '../../features/WalletHome/screens/MainWalletScreen';
 import Coin from './Coin';
+import TextWithFont from './TextWithFont';
+
 
 interface TokenListProps {
   tokens: Token[];
@@ -24,7 +26,7 @@ export function TokenList({
   }
 
   if (error) {
-    return <Text className="text-red-500">{error}</Text>;
+    return <TextWithFont customStyle="text-red-500">{error}</TextWithFont>;
   }
 
   return (
@@ -42,7 +44,7 @@ export function TokenList({
             <Coin token={item} inMainScreen={inMainScreen} />
           </Pressable>
         )}
-        ListEmptyComponent={<Text className="text-white">No tokens available</Text>}
+        ListEmptyComponent={<TextWithFont customStyle="text-white">No tokens available</TextWithFont>}
       />
     </View>
   );

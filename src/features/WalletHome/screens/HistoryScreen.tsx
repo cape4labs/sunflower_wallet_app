@@ -1,10 +1,12 @@
 import Wrapper from '../../../shared/components/Wrapper';
-import { View, Text, SectionList, ActivityIndicator, Pressable } from 'react-native';
+import { View, SectionList, ActivityIndicator, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import { useWalletContext } from '../../../providers/WalletContext';
 import { Send, Upload, RefreshCw, Repeat, Copy } from 'lucide-react-native';
 import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
+import TextWithFont from '../../../shared/components/TextWithFont';
+
 
 
 interface Transaction {
@@ -120,21 +122,21 @@ export default function HistoryScreen() {
               <IconComponent color="white" size={20} strokeWidth={1.5} />
             </View>
             <View className="ml-2">
-              <Text className="text-white text-xl">{label}</Text>
-              <Text className="text-gray-400 text-sm">{item.recipient_address.slice(0, 8)}...</Text>
+              <TextWithFont customStyle="text-white text-xl">{label}</TextWithFont>
+              <TextWithFont customStyle="text-gray-400 text-sm">{item.recipient_address.slice(0, 8)}...</TextWithFont>
             </View>
           </View>
           <View className="flex-col items-end">
-            <Text className="text-white text-xl">{item.amount} STX</Text>
-            <Text className={`text-sm ${item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'}`}>
+            <TextWithFont customStyle="text-white text-xl">{item.amount} STX</TextWithFont>
+            <TextWithFont customStyle={`text-sm ${item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'}`}>
               {item.tx_status}
-            </Text>
+            </TextWithFont>
           </View>
         </Pressable>
         {isExpanded && (
           <View className="bg-custom_complement p-4 rounded-lg rounded-t-none border-t-0 border-2 border-custom_border">
             <View className="flex-row items-center justify-between">
-              <Text className="text-sm text-white">TXid: {shortenTxId(item.tx_id)}</Text>
+              <TextWithFont customStyle="text-sm text-white">TXid: {shortenTxId(item.tx_id)}</TextWithFont>
               <Pressable
                 onPress={() => CopyToClipboard(item.tx_id)}
                 className="p-1"
@@ -150,7 +152,7 @@ export default function HistoryScreen() {
 
   const renderSectionHeader = ({ section }: { section: { title: string } }) => (
     <View>
-      <Text className="text-white text-lg font-semibold">{section.title}</Text>
+      <TextWithFont customStyle="text-white text-lg font-semibold">{section.title}</TextWithFont>
     </View>
   );
 
@@ -158,7 +160,7 @@ export default function HistoryScreen() {
     <Wrapper>
       <View className="flex-1 w-full">
         <View className="flex-row justify-between items-center mb-4 p-4 border-b-2 border-gray-500">
-          <Text className="text-white text-2xl font-bold">History</Text>
+          <TextWithFont customStyle="text-white text-2xl font-bold">History</TextWithFont>
           <Pressable onPress={refreshTransactions} className="p-2 bg-custom_border rounded-full">
             <RefreshCw color="#FF4800" size={20} />
           </Pressable>
@@ -167,21 +169,21 @@ export default function HistoryScreen() {
         {isLoadingWalletData || isLoadingTransactions ? (
           <View className="flex-1 w-full justify-center items-center">
             <ActivityIndicator size="large" color="#FF4800" />
-            <Text className="text-white mt-2">Loading</Text>
+            <TextWithFont customStyle="text-white mt-2">Loading</TextWithFont>
           </View>
         ) : errorWalletData || errorTransactions ? (
           <View className="flex-1 w-full justify-center items-center">
-            <Text className="text-red-500 text-center">{errorWalletData || errorTransactions}</Text>
+            <TextWithFont customStyle="text-red-500 text-center">{errorWalletData || errorTransactions}</TextWithFont>
             <Pressable
               onPress={refreshTransactions}
               className="mt-4 p-2 bg-custom_border rounded-lg"
             >
-              <Text className="text-white">Retry</Text>
+              <TextWithFont customStyle="text-white">Retry</TextWithFont>
             </Pressable>
           </View>
         ) : transactions.length === 0 ? (
           <View className="flex-1 w-full justify-center items-center">
-            <Text className="text-gray-400 text-center">No transactions</Text>
+            <TextWithFont customStyle="text-gray-400 text-center">No transactions</TextWithFont>
           </View>
         ) : (
           <SectionList

@@ -1,5 +1,5 @@
-import { View, Text, TextInput, ActivityIndicator } from 'react-native';
-import { Button } from '../components/Button';
+import { View, TextInput, ActivityIndicator } from 'react-native';
+import { Button } from '../components/__tests__/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import Wrapper from '../../../shared/components/Wrapper';
@@ -7,6 +7,8 @@ import { StepIndicator } from '../components/StepIndicator';
 import { createAndSaveWallet } from '../../../shared/walletPersitance';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import TextWithFont from '../../../shared/components/TextWithFont';
+
 
 type RouteParams = {
   mnemonic?: string;
@@ -52,12 +54,12 @@ export default function NameWalletScreen() {
     <Wrapper>
       <View className="flex-1 flex-col w-full">
         <View className="flex-col items-center w-full px-5">
-          <Text className="text-2xl text-white text-center font-bold mt-5">
+          <TextWithFont customStyle="text-2xl text-white text-center font-bold mt-5">
             Pick a name for your wallet
-          </Text>
-          <Text className="text-white text-center mt-2">For example: Main Wallet</Text>
+          </TextWithFont>
+          <TextWithFont customStyle="text-white text-center mt-2">For example: Main Wallet</TextWithFont>
           <View className="w-full border-custom_border bg-custom_complement items-center border-[6px] flex-row justify-between rounded-2xl mt-10 px-5">
-            <Text className="text-white">{'>>'}</Text>
+            <TextWithFont customStyle="text-white">{'>>'}</TextWithFont>
             <TextInput
               className="flex-1 h-full text-white px-2 my-1 text-xl"
               placeholder="wallet_name"
@@ -70,7 +72,7 @@ export default function NameWalletScreen() {
           {isLoading && (
             <View className="mt-5 flex-row items-center">
               <ActivityIndicator size="large" color="#ffffff" />
-              <Text className="text-white ml-2">Creating wallet...</Text>
+              <TextWithFont customStyle="text-white ml-2">Creating wallet...</TextWithFont>
             </View>
           )}
         </View>

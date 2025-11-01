@@ -2,7 +2,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Wrapper from '../../../shared/components/Wrapper';
-import { View, Pressable, Image, Text, ActivityIndicator } from 'react-native';
+import { View, Pressable, Image, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getWalletList } from '../../../shared/walletPersitance';
 import { SelectWallet } from '../components/SelectWallet';
@@ -13,6 +13,8 @@ import { TokenList } from '../../../shared/components/TokenList';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import shortenAddress from '../../../shared/utils/shortAddress';
 import { useWalletContext } from '../../../providers/WalletContext';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { ScrollableWrapper } from '../components/Wrapper';
 
 
 type MainWalletScreenProp = NativeStackNavigationProp<
@@ -201,13 +203,13 @@ export default function MainWalletScreen() {
 
   const NFTView = () => (
     <View className="mt-4">
-      <Text className="text-white text-center">NFT Content Here</Text>
+      <TextWithFont customStyle="text-white text-center ">NFT Content Here</TextWithFont>
     </View>
   );
 
   return (
-    <Wrapper>
-      <View className="flex-col flex-1">
+    <ScrollableWrapper>
+      <View className="flex-col w-full flex-1">
         <View className="flex-row justify-around items-center gap-10">
           <Pressable
             onPress={() =>
@@ -240,7 +242,7 @@ export default function MainWalletScreen() {
                 if (!selectedWallet) {
                   setError('No wallet selected');
                 } else {
-                  navigation.navigate('ReceiveScreen', { walletName: selectedWallet });
+                  navigation.navigate('ReceiveScreen', { walletName: selectedWallet, tokens: tokens });
                 }
               }}
               customStyle="w-1/2"
@@ -249,16 +251,16 @@ export default function MainWalletScreen() {
             />
           </View>
           <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
-            <Text className="text-4xl text-white font-bold z-1 items-center justify-center">
+            <TextWithFont customStyle="text-4xl text-white font-bold z-1 items-center justify-center">
               ${walletBalance || '0.00'}
-            </Text>
+            </TextWithFont>
             <Pressable
               onPress={() => CopyToClipboard(walletData?.stxAddress || null)}
               className="flex-row gap-2 justify-center items-center"
             >
-              <Text className="text-sm text-yellow-50 z-20 items-center justify-center">
+              <TextWithFont customStyle="text-sm text-yellow-50 z-20 items-center justify-center">
                 {shortenAddress(walletData?.stxAddress)}
-              </Text>
+              </TextWithFont>
               <Image source={require('../../../../assets/icons/copy.png')} />
             </Pressable>
           </View>
@@ -288,7 +290,7 @@ export default function MainWalletScreen() {
             <ActivityIndicator size="large" color="#fff" />
           ) : error ? (
             <View className="flex-1 justify-center items-center">
-              <Text className="text-red-500">{error}</Text>
+              <TextWithFont customStyle="text-red-500">{error}</TextWithFont>
             </View>
           ) : activeTab === 'Tokens' ? (
             <TokensView />
@@ -299,6 +301,6 @@ export default function MainWalletScreen() {
           )}
         </View>
       </View>
-    </Wrapper>
+    </ScrollableWrapper>
   );
 }

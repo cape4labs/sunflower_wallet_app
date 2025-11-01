@@ -5,7 +5,7 @@ exports[`MnemonicInput snapshot 1`] = `
   className="flex-row w-full px-2 my-1 p-2 bg-custom_border items-center rounded-lg"
 >
   <Text
-    className="text-white"
+    className="font-[spacegrotesk] font-normal text-white"
   >
     0
     .

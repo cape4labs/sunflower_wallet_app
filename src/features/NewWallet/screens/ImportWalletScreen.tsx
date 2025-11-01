@@ -1,5 +1,5 @@
-import { Text, View, Image, Pressable } from 'react-native';
-import { Button } from '../components/Button';
+import { View, Image, Pressable } from 'react-native';
+import { Button } from '../components/__tests__/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import ScrollableWrapper from '../../../shared/components/ScrollableWrapper';
@@ -8,6 +8,8 @@ import { MnemonicDisplayInput } from '../components/MnemonicDisplayInput';
 import PasteMnemonic from '../../../shared/utils/pasteFromClipboard';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import TextWithFont from '../../../shared/components/TextWithFont';
+
 
 type ImportWalletScreenNavigationProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -54,9 +56,9 @@ export default function ImportWalletScreen() {
     <ScrollableWrapper>
       <View className="flex-col flex-1 mt-5 items-center">
         <View className="">
-          <Text className="text-2xl text-white text-center font-bold">Write your seed phrase</Text>
-          <Text className="text-white text-center mt-2">Make sure no one can </Text>
-          <Text className="text-white text-center">see your screen</Text>
+          <TextWithFont customStyle="text-2xl text-white text-center font-bold">Write your seed phrase</TextWithFont>
+          <TextWithFont customStyle="text-white text-center mt-2">Make sure no one can </TextWithFont>
+          <TextWithFont customStyle="text-white text-center">see your screen</TextWithFont>
         </View>
 
         <MnemonicDisplayInput
@@ -68,7 +70,7 @@ export default function ImportWalletScreen() {
         <View className="">
           <Pressable onPress={handlePaste} className="flex-row gap-1 items-center">
             <Image source={require('../../../../assets/icons/copy.png')} />
-            <Text className="font-bold text-white">Paste</Text>
+            <TextWithFont customStyle="font-bold text-white">Paste</TextWithFont>
           </Pressable>
         </View>
 

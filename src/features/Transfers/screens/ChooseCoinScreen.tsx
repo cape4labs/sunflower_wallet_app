@@ -4,10 +4,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
 import { TokenList } from '../../../shared/components/TokenList';
 import { Token } from '../../WalletHome/screens/MainWalletScreen';
-import { View, Text, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { ArrowLeft } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
+import TextWithFont from '../../../shared/components/TextWithFont';
+
 
 type ChooseCoinScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -131,9 +133,9 @@ export default function ChooseCoinScreen() {
     return (
       <Wrapper>
         <View className="flex-col flex-1 p-4">
-          <Text className="text-white text-xl mb-4">No tokens available</Text>
+          <TextWithFont customStyle="text-white text-xl mb-4">No tokens available</TextWithFont>
           <Pressable onPress={() => navigation.goBack()} className="p-2 bg-gray-700 rounded-lg">
-            <Text className="text-white text-center">Back</Text>
+            <TextWithFont customStyle="text-white text-center">Back</TextWithFont>
           </Pressable>
         </View>
       </Wrapper>
@@ -147,21 +149,21 @@ export default function ChooseCoinScreen() {
           <Pressable onPress={() => navigation.goBack()}>
             <ArrowLeft color={'#FF5500'} size={'30px'} />
           </Pressable>
-          <Text className="text-white text-2xl">Choose crypto</Text>
-          <Text />
+          <TextWithFont customStyle="text-white text-2xl">Choose crypto</TextWithFont>
+          <TextWithFont customStyle=''></TextWithFont>
         </View>
         {isLoadingWalletData ? (
           <View className="flex-1 justify-center items-center">
-            <Text className="text-white">Loading wallet data...</Text>
+            <TextWithFont customStyle="text-white">Loading wallet data...</TextWithFont>
           </View>
         ) : errorWalletData ? (
           <View className="flex-1 justify-center items-center">
-            <Text className="text-red-500">{errorWalletData}</Text>
+            <TextWithFont customStyle="text-red-500">{errorWalletData}</TextWithFont>
             <Pressable
               onPress={() => navigation.goBack()}
               className="mt-4 p-2 bg-gray-700 rounded-lg"
             >
-              <Text className="text-white text-center">Back</Text>
+              <TextWithFont customStyle="text-white text-center">Back</TextWithFont>
             </Pressable>
           </View>
         ) : (
