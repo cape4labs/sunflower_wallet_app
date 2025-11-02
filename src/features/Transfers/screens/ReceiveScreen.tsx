@@ -9,6 +9,7 @@ import TextWithFont from '../../../shared/components/TextWithFont';
 import { ArrowLeft, ChevronDown, ChevronLeft } from 'lucide-react-native';
 import Coin from '../../../shared/components/Coin';
 import { Token } from '../../WalletHome/screens/MainWalletScreen';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type RouteParams = {
   walletName: string;
@@ -22,7 +23,7 @@ export default function ReceiveScreen() {
   const route = useRoute();
   const navigation = useNavigation();
   const { walletName, tokens } = route.params as RouteParams;
-
+  const styles = useWalletScreenStyles().receiveScreen;
   const [openAsset, setOpenAsset] = useState<'stx' | 'btc' | null>(null);
   const [addresses, setAddresses] = useState({ stx: '', btc: '' });
   const [error, setError] = useState('');
@@ -101,7 +102,7 @@ export default function ReceiveScreen() {
           {isOpen && (
             <View className="px-4 pb-6 pt-2">
               <View className="items-center mb-5 bg-white p-5 rounded-xl self-center">
-                <QRCode value={address} size={200} />
+                <QRCode value={address} size={parseInt(styles.qrSize)} />
               </View>
 
               <View className="items-center mb-3">
@@ -135,22 +136,18 @@ export default function ReceiveScreen() {
 
   return (
     <Wrapper>
-      <View className="flex-col w-full h-full">
+      <View className={`flex-col w-full h-full`}>
         <View className="flex-row items-center justify-between mb-6">
           <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft color={'#FF5500'} size={30} />
+            <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
           </Pressable>
-          <TextWithFont customStyle="text-white text-2xl">Receive</TextWithFont>
+          <TextWithFont customStyle={`text-white ${styles.titleSize}`}>Receive</TextWithFont>
           <View />
         </View>
 
-        {error ? (
-          <TextWithFont customStyle="text-red-400 text-center mb-4">{error}</TextWithFont>
-        ) : null}
-
         <View className="flex-1 mt-10">
           {renderAssetBlock(btcToken, 'btc', addresses.btc)}
-          <View className='w-full h-1 border-t-2 border-white mb-6'></View>
+          <View className={`w-full h-1 border-t-2 border-white ${styles.dividerMargin}`} />
           {renderAssetBlock(stxToken, 'stx', addresses.stx)}
         </View>
       </View>

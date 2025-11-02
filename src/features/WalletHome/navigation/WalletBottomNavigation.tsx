@@ -1,29 +1,43 @@
+// navigation/WalletTabs.tsx
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainWalletScreen from '../screens/MainWalletScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { Settings, Home, History } from 'lucide-react-native';
-import { View } from 'react-native';
+import { useResponsiveTabBarOptions } from '../../../shared/hooks/useResponsiveTabBarOptions';
 import WalletTabsProps from './type';
+import { View } from 'react-native';
+import { Home, History, Settings } from 'lucide-react-native';
 
-// Fix render error
-const HomeIcon = ({ color }: { color: string }) => (
-  <View>
-    <Home color={color} size={30} strokeWidth={1.5} />
-  </View>
-);
+const createTabIcon = (IconComponent: any) => {
+  return ({ color, focused }: { color: string; focused: boolean }) => {
+    const { config } = useResponsiveTabBarOptions(); 
+    const iconSize = config.iconSize; 
 
-const HistoryIcon = ({ color }: { color: string }) => (
-  <View>
-    <History color={color} size={30} strokeWidth={1.5} />
-  </View>
-);
+    return (
+      <View>
+        <IconComponent
+          color={color}
+          size={iconSize}
+          strokeWidth={focused ? 2 : 1.5}
+        />
+      </View>
+    );
+  };
+};
 
-const SettingsIcon = ({ color }: { color: string }) => (
-  <View>
-    <Settings color={color} size={30} strokeWidth={1.5} />
-  </View>
-);
+const HomeIcon = createTabIcon(Home);
+const HistoryIcon = createTabIcon(History);
+const SettingsIcon = createTabIcon(Settings);
+
+// Dynamic screenOptions
+const getScreenOptions = (): any => {
+  const options = useResponsiveTabBarOptions();
+  return {
+    headerShown: false,
+    sceneStyle: { backgroundColor: '#362F2E' },
+    ...options,
+  };
+};
 
 export const WalletTabs = createBottomTabNavigator<WalletTabsProps>({
   screens: {
@@ -34,7 +48,6 @@ export const WalletTabs = createBottomTabNavigator<WalletTabsProps>({
         tabBarIcon: HomeIcon,
       },
     },
-
     HistoryScreen: {
       screen: HistoryScreen,
       options: {
@@ -42,7 +55,6 @@ export const WalletTabs = createBottomTabNavigator<WalletTabsProps>({
         tabBarIcon: HistoryIcon,
       },
     },
-
     SettingsScreen: {
       screen: SettingsScreen,
       options: {
@@ -51,24 +63,5 @@ export const WalletTabs = createBottomTabNavigator<WalletTabsProps>({
       },
     },
   },
-  screenOptions: {
-    headerShown: false,
-    sceneStyle: {
-      backgroundColor: '#362F2E',
-    },
-    tabBarStyle: {
-      backgroundColor: '#362F2E',
-      borderTopWidth: 6,
-      height: 90,
-      paddingTop: 15,
-      borderTopColor: '#1F1612',
-    },
-    tabBarActiveTintColor: '#FF4800',
-    tabBarInactiveTintColor: '#8b8b8b',
-    tabBarLabelStyle: {
-      fontSize: 12,
-      fontWeight: '400',
-      marginBottom: 4,
-    },
-  },
+  screenOptions: getScreenOptions(),
 });

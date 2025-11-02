@@ -15,7 +15,7 @@ export default function SettingsScreen() {
 
   return (
     <Wrapper>
-      <Text>Setting</Text>
+      <Text>Settings</Text>
     </Wrapper>
   );
 }

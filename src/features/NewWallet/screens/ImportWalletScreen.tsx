@@ -1,5 +1,5 @@
 import { View, Image, Pressable } from 'react-native';
-import { Button } from '../components/__tests__/Button';
+import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import ScrollableWrapper from '../../../shared/components/ScrollableWrapper';
@@ -9,6 +9,7 @@ import PasteMnemonic from '../../../shared/utils/pasteFromClipboard';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 
 type ImportWalletScreenNavigationProp = NativeStackNavigationProp<
@@ -25,6 +26,7 @@ export default function ImportWalletScreen() {
   const route = useRoute();
   const { mnemonicLength } = route.params as RouteParams;
   const [mnemonic, setMnemonic] = useState<string[]>([]);
+  const styles = useWalletScreenStyles().newWalletScreens;
 
   // Check if all fields are filled in
   const isAllFilled =
@@ -55,10 +57,13 @@ export default function ImportWalletScreen() {
   return (
     <ScrollableWrapper>
       <View className="flex-col flex-1 mt-5 items-center">
-        <View className="">
-          <TextWithFont customStyle="text-2xl text-white text-center font-bold">Write your seed phrase</TextWithFont>
-          <TextWithFont customStyle="text-white text-center mt-2">Make sure no one can </TextWithFont>
-          <TextWithFont customStyle="text-white text-center">see your screen</TextWithFont>
+        <View>
+          <TextWithFont customStyle={`${styles.titleSize} text-white text-center font-bold`}>
+            Write your seed phrase
+          </TextWithFont>
+          <TextWithFont customStyle={`text-white text-center mt-2 ${styles.subtitleSize}`}>
+            Make sure no one can see your screen
+          </TextWithFont>
         </View>
 
         <MnemonicDisplayInput

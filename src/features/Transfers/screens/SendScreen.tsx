@@ -6,9 +6,10 @@ import { Token } from '../../WalletHome/screens/MainWalletScreen';
 import { View, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react-native';
-import { Button } from '../../NewWallet/components/__tests__/Button';
+import { Button } from '../../NewWallet/components/Button';
 import Coin from '../../../shared/components/Coin';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 
 type SendScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'SendScreen'>;
@@ -25,6 +26,7 @@ export default function SendScreen() {
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [sendError, setSendError] = useState<string | null>(null);
+  const styles = useWalletScreenStyles().sendScreen;
 
   if (!token || !walletName) {
     return (
@@ -62,21 +64,23 @@ export default function SendScreen() {
 
   return (
     <Wrapper>
-      <View className="flex-col w-full h-full">
+      <View className={`flex-col w-full h-full`}>
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft color={'#FF5500'} size={'30px'} />
+            <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
           </Pressable>
-          <TextWithFont customStyle="text-white text-2xl">Send</TextWithFont>
-          <TextWithFont></TextWithFont>
+          <TextWithFont customStyle={`${styles.titleSize} text-white`}>Send</TextWithFont>
+          <View />
         </View>
-        <View className="mt-10 bg-custom_complement p-5 border-4 border-custom_border rounded-xl rounded-b-none">
+
+        <View className={`${styles.coinsMargin} bg-custom_complement rounded-xl rounded-b-none border-custom_border ${styles.coinCard}`}>
           <Coin token={token} />
         </View>
-        <View className="relative bg-custom_complement p-5 rounded-lg rounded-t-none border-4 border-t-0 mb-3 border-custom_border">
+
+        <View className={`bg-custom_complement rounded-lg rounded-t-none border-custom_border border-t-0 mb-3 ${styles.coinCard}`}>
           <View className="flex-row justify-between w-full">
             <TextInput
-              className="text-3xl text-white flex-1"
+              className={`text-white flex-1 ${styles.amountInput}`}
               placeholder="0"
               placeholderTextColor="#fff"
               keyboardType="numeric"
@@ -88,22 +92,26 @@ export default function SendScreen() {
               }}
             />
             <Pressable onPress={() => setAmount(token.balance)}>
-              <TextWithFont customStyle="text-white">MAX</TextWithFont>
+              <TextWithFont customStyle={`text-white ${styles.maxButton}`}>MAX</TextWithFont>
             </Pressable>
           </View>
-          <TextWithFont customStyle="text-gray-400">${usdAmount}</TextWithFont>
+          <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>${usdAmount}</TextWithFont>
         </View>
-        <View className="relative bg-custom_complement p-2 border-4 mb-5 w-full rounded-xl border-custom_border">
+
+        <View className={`bg-custom_complement rounded-xl mb-5 w-full border-custom_border ${styles.coinCard}`}>
           <TextInput
-            className="text-lg text-gray-400 w-full"
+            className={`text-gray-400 w-full ${styles.recipientInput}`}
             placeholder="Enter recipient"
             placeholderTextColor="#9ca3af"
             value={recipient}
             onChangeText={setRecipient}
           />
         </View>
+
         {sendError ? (
-          <TextWithFont customStyle="text-red-500 mt-4 text-center">{sendError}</TextWithFont>
+          <TextWithFont customStyle={`text-red-500 mt-4 text-center ${styles.errorText}`}>
+            {sendError}
+          </TextWithFont>
         ) : (
           <Button text="Send" onPress={handleSend} accent />
         )}

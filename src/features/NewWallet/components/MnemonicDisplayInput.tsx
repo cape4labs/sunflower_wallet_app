@@ -1,6 +1,7 @@
 import { View } from 'react-native';
 import { MnemonicInput } from './MnemonicInput';
 import { useEffect, useState } from 'react';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type MnemonicDisplayType = {
   mnemonicLength: number | null;
@@ -13,6 +14,8 @@ export function MnemonicDisplayInput({
   onChange,
   initialWords,
 }: MnemonicDisplayType) {
+  const styles = useWalletScreenStyles().mnemonic;
+
   // Init state
   const [words, setWords] = useState<string[]>(() => {
     console.log('Initializing words with:', initialWords);
@@ -44,8 +47,6 @@ export function MnemonicDisplayInput({
 
   // Two columns
   const half = mnemonicLength / 2;
-  const leftColumn = words.slice(0, half);
-  const rightColumn = words.slice(half);
 
   const handleChange = (text: string, idx: number) => {
     const updated = [...words];
@@ -54,24 +55,24 @@ export function MnemonicDisplayInput({
   };
 
   return (
-    <View className="flex-row h-auto border-[6px] border-custom_border rounded-xl bg-custom_complement my-5">
-      <View className="flex-1 flex-col justify-between m-2">
-        {leftColumn.map((_, idx) => (
+    <View className={`flex-row h-auto bg-custom_complement ${styles.container}`}>
+      <View className={`flex-1 flex-col justify-between ${styles.columnMargin}`}>
+        {Array.from({ length: half }, (_, i) => (
           <MnemonicInput
-            key={`left-${idx}`}
-            idx={idx + 1}
-            onChange={text => handleChange(text, idx)}
-            value={words[idx] || ''}
+            key={`left-${i}`}
+            idx={i + 1}
+            onChange={text => handleChange(text, i)}
+            value={words[i] || ''}
           />
         ))}
       </View>
-      <View className="flex-1 flex-col justify-between m-2">
-        {rightColumn.map((_, idx) => (
+      <View className={`flex-1 flex-col justify-between ${styles.columnMargin}`}>
+        {Array.from({ length: half }, (_, i) => (
           <MnemonicInput
-            key={`right-${idx}`}
-            idx={idx + 1 + half}
-            onChange={text => handleChange(text, idx + half)}
-            value={words[idx + half] || ''}
+            key={`right-${i}`}
+            idx={i + 1 + half}
+            onChange={text => handleChange(text, i + half)}
+            value={words[i + half] || ''}
           />
         ))}
       </View>

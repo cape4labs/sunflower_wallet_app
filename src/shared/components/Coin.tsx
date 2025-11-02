@@ -2,6 +2,7 @@ import { View, Image } from 'react-native';
 import formatNumber from '../../shared/utils/formatNumber';
 import { Token } from '../../features/WalletHome/screens/MainWalletScreen';
 import TextWithFont from './TextWithFont';
+import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 
 
 const getIcon = (symbol: string) => {
@@ -21,27 +22,25 @@ type CoinProp = {
 };
 
 export default function Coin({ token, inMainScreen }: CoinProp) {
+  const styles = useWalletScreenStyles().coin;
+
   return (
-    <View className="flex-row justify-between items-center w-full">
-      <View className="flex-row justify-center items-center">
-        <View>
-          <Image source={getIcon(token.symbol)} />
-        </View>
-        <View className="ml-2 items-start">
-          <View className="flex-row justify-center items-center">
-            <TextWithFont customStyle="text-white text-xl">{token.name}</TextWithFont>
-            {inMainScreen ? <TextWithFont customStyle="text-green-500 ml-1">+1.27%</TextWithFont> : <></>}
+    <View className={`flex-row justify-between items-center w-full ${styles.container}`}>
+      <View className="flex-row items-center">
+        <Image source={getIcon(token.symbol)} className={styles.iconSize} />
+        <View className="ml-2">
+          <View className="flex-row items-center">
+            <TextWithFont customStyle={`text-white ${styles.nameText}`}>{token.name}</TextWithFont>
+            {inMainScreen && <TextWithFont customStyle="text-green-500 ml-1">+1.27%</TextWithFont>}
           </View>
-          <View>
-            <TextWithFont customStyle="text-gray-400 font-normal">${formatNumber(token.balanceUsd)}</TextWithFont>
-          </View>
+          <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>${formatNumber(token.balanceUsd)}</TextWithFont>
         </View>
       </View>
-      <View className="flex-col items-end">
-        <TextWithFont customStyle="text-white text-xl">
+      <View className="items-end">
+        <TextWithFont customStyle={`text-white ${styles.balanceText}`}>
           {formatNumber(token.balance)} {token.symbol}
         </TextWithFont>
-        <TextWithFont customStyle="text-gray-400">${formatNumber(token.cost)}</TextWithFont>
+        <TextWithFont customStyle={`text-gray-400 ${styles.costText}`}>${formatNumber(token.cost)}</TextWithFont>
       </View>
     </View>
   );

@@ -1,5 +1,6 @@
 import { LineChart } from 'react-native-gifted-charts';
 import { View } from 'react-native';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 export default function UserGraph() {
   const lineData = [
@@ -17,6 +18,8 @@ export default function UserGraph() {
     { value: 123 },
   ]; // Mock values for graph
 
+  const styles = useWalletScreenStyles();
+
   return (
     <View className="bg-custom_complement rounded-xl p-0">
       <LineChart
@@ -30,7 +33,7 @@ export default function UserGraph() {
         hideYAxisText={true}
         hideAxesAndRules
         color="#FF5500"
-        height={170}
+        height={parseInt(styles.userGraph.height.replace(/[^\d]/g, ''))}
         initialSpacing={0}
         endSpacing={0}
         dataPointsRadius={0}

@@ -1,5 +1,6 @@
 import { Pressable } from 'react-native';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type ButtonType = {
   onPress: () => void;
@@ -17,15 +18,19 @@ export function Button({
   accent = false,
   disable = false,
 }: ButtonType) {
+  const styles = useWalletScreenStyles().buttonNewWallet;
+
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center py-3 px-14 border-[6px] border-custom_border rounded-2xl relative overflow-hidden ${
+      className={`justify-center items-center relative overflow-hidden ${styles.container} ${
         accent ? 'bg-custom_accent' : 'bg-custom_complement'
       } ${customStyle ?? ''}`}
-      disabled={disable ? true : false}
+      disabled={disable}
     >
-      <TextWithFont customStyle={`text-lg ${accent ? 'text-black' : 'text-white'} z-10`}>{text}</TextWithFont>
+      <TextWithFont customStyle={`${styles.text} ${accent ? 'text-black' : 'text-white'} z-10`}>
+        {text}
+      </TextWithFont>
     </Pressable>
   );
 }

@@ -1,6 +1,6 @@
 import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Button } from '../components/__tests__/Button';
+import { Button } from '../components/Button';
 import Wrapper from '../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
@@ -28,8 +28,8 @@ export default function ImportCreateScreen() {
             customStyle={'mt-2'}
           />
         </View>
-        <StepIndicator totalSteps={5} currentStep={2} />
       </View>
+      <StepIndicator totalSteps={5} currentStep={2} />
     </Wrapper>
   );
 }

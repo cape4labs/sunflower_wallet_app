@@ -14,8 +14,8 @@ import { useWalletData } from '../../../shared/hooks/useWalletData';
 import shortenAddress from '../../../shared/utils/shortAddress';
 import { useWalletContext } from '../../../providers/WalletContext';
 import TextWithFont from '../../../shared/components/TextWithFont';
-import { ScrollableWrapper } from '../components/Wrapper';
-
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { RefreshCcw } from 'lucide-react-native';
 
 type MainWalletScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -48,10 +48,10 @@ export default function MainWalletScreen() {
   const [tokens, setTokens] = useState<Token[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens');
+  const { walletData, isLoadingWalletData } = useWalletData(selectedWallet);
 
-  const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(selectedWallet);
-
-  console.log(errorWalletData);
+  const globalStyles = useWalletScreenStyles().global;
+  const screenStyles = useWalletScreenStyles().mainWalletScreen;
 
   const fetchTokensCosts = async (stxAddress: string, btcAddress: string) => {
     if (!stxAddress && !btcAddress) {
@@ -158,7 +158,6 @@ export default function MainWalletScreen() {
   }, [walletData]);
 
   useEffect(() => {
-    // Sync global walletName
     if (selectedWallet) {
       setWalletName(selectedWallet);
     }
@@ -189,7 +188,7 @@ export default function MainWalletScreen() {
   );
 
   const ActionsView = () => (
-    <View className="mt-4 flex-col h-[65%] items-center bg-custom_border p-1 rounded-xl">
+    <View className={`flex-col items-center bg-custom_border p-1 rounded-xl ${screenStyles.actionsHeight}`}>
       <View className="flex-row h-1/2">
         <Button text="Swap" customStyle="w-1/2" iconName="RefreshCw" />
         <Button text="Bridge" customStyle="w-1/2" iconName="RefreshCw" />
@@ -208,15 +207,14 @@ export default function MainWalletScreen() {
   );
 
   return (
-    <ScrollableWrapper>
-      <View className="flex-col w-full flex-1">
-        <View className="flex-row justify-around items-center gap-10">
-          <Pressable
+    <Wrapper>
+      <View className={`flex-col w-full flex-1`}>
+        <View className={`flex-row justify-around items-center ${screenStyles.headerGap}`}>
+          <Pressable 
             onPress={() =>
               walletData && fetchTokensCosts(walletData.stxAddress, walletData.btcAddress)
-            }
-          >
-            <Image source={require('../../../../assets/icons/refresh.png')} />
+            }>
+            <RefreshCcw size={parseInt(globalStyles.refreshIconSize)} color={'#fff'} strokeWidth={1.5}/>
           </Pressable>
           <View className="mb-0 rounded-t-xl bg-custom_border">
             <SelectWallet
@@ -227,9 +225,10 @@ export default function MainWalletScreen() {
           </View>
           <View />
         </View>
-        <View className="w-full p-2 bg-custom_border relative mt-0 rounded-lg">
+
+        <View className={`w-full ${screenStyles.containerPadding} bg-custom_border relative ${screenStyles.contentMarginTop} rounded-lg`}>
           <UserGraph />
-          <View className="flex-row mt-1">
+          <View className={`flex-row ${screenStyles.sendReceiveButtonGap}`}>
             <Button
               onPress={() => handleSend(tokens)}
               text="Send"
@@ -242,30 +241,32 @@ export default function MainWalletScreen() {
                 if (!selectedWallet) {
                   setError('No wallet selected');
                 } else {
-                  navigation.navigate('ReceiveScreen', { walletName: selectedWallet, tokens: tokens });
+                  navigation.navigate('ReceiveScreen', { walletName: selectedWallet, tokens });
                 }
               }}
               customStyle="w-1/2"
-              accent={true}
+              accent
               iconName="Upload"
             />
           </View>
-          <View className="absolute p-6 left-5 flex-col w-full items-center justify-center">
-            <TextWithFont customStyle="text-4xl text-white font-bold z-1 items-center justify-center">
+
+          <View className="absolute p-6 left-3 flex-col w-full items-center justify-center">
+            <TextWithFont customStyle={`${screenStyles.balanceText} text-white font-bold z-1 items-center justify-center`}>
               ${walletBalance || '0.00'}
             </TextWithFont>
             <Pressable
               onPress={() => CopyToClipboard(walletData?.stxAddress || null)}
               className="flex-row gap-2 justify-center items-center"
             >
-              <TextWithFont customStyle="text-sm text-yellow-50 z-20 items-center justify-center">
+              <TextWithFont customStyle={`${screenStyles.addressText} text-yellow-50`}>
                 {shortenAddress(walletData?.stxAddress)}
               </TextWithFont>
-              <Image source={require('../../../../assets/icons/copy.png')} />
+              <Image source={require('../../../../assets/icons/copy.png')} className={screenStyles.addressCopyIcon} />
             </Pressable>
           </View>
         </View>
-        <View className="flex-row mt-4">
+
+        <View className={`flex-row ${globalStyles.containerPadding}`}>
           <TextButton
             text="Tokens"
             customStyle="w-1/3"
@@ -285,7 +286,8 @@ export default function MainWalletScreen() {
             onPress={() => setActiveTab('NFT')}
           />
         </View>
-        <View className="mt-4">
+
+        <View className={screenStyles.tabsMargin}>
           {isLoadingWalletData ? (
             <ActivityIndicator size="large" color="#fff" />
           ) : error ? (
@@ -301,6 +303,6 @@ export default function MainWalletScreen() {
           )}
         </View>
       </View>
-    </ScrollableWrapper>
+    </Wrapper>
   );
 }

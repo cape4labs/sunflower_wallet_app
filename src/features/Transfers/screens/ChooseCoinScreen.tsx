@@ -9,6 +9,7 @@ import { ArrowLeft } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 
 type ChooseCoinScreenProp = NativeStackNavigationProp<
@@ -30,7 +31,7 @@ export default function ChooseCoinScreen() {
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [tokenLoading, setTokenLoading] = useState(false);
   const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(walletName);
-
+  const styles = useWalletScreenStyles().chooseCoinScreen;
   console.log(walletBalance);
 
   const fetchTokensCosts = async (stxAddress: string, btcAddress: string) => {
@@ -147,9 +148,9 @@ export default function ChooseCoinScreen() {
       <View className="flex-col w-full h-full">
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft color={'#FF5500'} size={'30px'} />
+            <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
           </Pressable>
-          <TextWithFont customStyle="text-white text-2xl">Choose crypto</TextWithFont>
+          <TextWithFont customStyle={`text-white ${styles.titleSize}`}>Choose crypto</TextWithFont>
           <TextWithFont customStyle=''></TextWithFont>
         </View>
         {isLoadingWalletData ? (
@@ -173,7 +174,7 @@ export default function ChooseCoinScreen() {
             error={tokenError}
             onTokenPress={handleTokenSelect}
             inMainScreen={false}
-            customStyle={'h-auto p-5 mt-10'}
+            customStyle={`h-auto ${styles.tokenListMargin}`}
           />
         )}
       </View>

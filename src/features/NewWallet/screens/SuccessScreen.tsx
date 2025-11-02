@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import Wrapper from '../../../shared/components/Wrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 
 type RouteParams = {
@@ -21,6 +22,8 @@ export default function SuccessScreen() {
   const route = useRoute();
   const { walletName } = route.params as RouteParams;
   const navigation = useNavigation<SuccessScreenNavigationProp>();
+  const styles = useWalletScreenStyles();
+  const newWalletScreens = styles.newWalletScreens;
 
   useEffect(() => {
     const navigateWithWalletData = async () => {
@@ -42,13 +45,17 @@ export default function SuccessScreen() {
   return (
     <Wrapper>
       <View className="flex-1">
-        <TextWithFont customStyle="text-2xl text-white text-center font-bold mt-5">Success!</TextWithFont>
-        <TextWithFont customStyle="text-white text-center mt-2">{`Welcome to the: ${walletName}`}</TextWithFont>
+        <TextWithFont customStyle={`${newWalletScreens.titleSize} text-white text-center font-bold mt-5`}>
+          Success!
+        </TextWithFont>
+        <TextWithFont customStyle={`text-white text-center mt-2 ${newWalletScreens.subtitleSize}`}>
+          Welcome to the: {walletName}
+        </TextWithFont>
       </View>
-      <View className="flex-1">
+      <View className="flex-1 justify-center items-center">
         <Image source={require('../../../../assets/icons/success.png')} />
       </View>
       <StepIndicator totalSteps={5} currentStep={5} />
     </Wrapper>
-  );
+  );  
 }

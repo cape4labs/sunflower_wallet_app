@@ -4,7 +4,7 @@
     "**/*.ts",
     "**/*.tsx",
     "nativewind-env.d.ts"
-  ],
+, "__mocks__/windowDimensions.js"  ],
   "exclude": [
     "node_modules",
     "Pods",

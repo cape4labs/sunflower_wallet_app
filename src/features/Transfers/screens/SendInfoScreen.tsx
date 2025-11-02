@@ -7,10 +7,11 @@ import { View, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import { ArrowLeft, CircleUser } from 'lucide-react-native';
 import { makeSTXTokenTransfer, broadcastTransaction } from '@stacks/transactions';
-import { Button } from '../../NewWallet/components/__tests__/Button';
+import { Button } from '../../NewWallet/components/Button';
 import Coin from '../../../shared/components/Coin';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type SendInfoScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -52,6 +53,8 @@ export default function SendInfoScreen() {
     balance: amount,
     balanceUsd: (Number(amount) * Number(token.cost)).toFixed(2),
   };
+
+  const styles = useWalletScreenStyles().sendInfoScreen;
 
   useEffect(() => {
     const estimateGas = async () => {
@@ -140,62 +143,61 @@ export default function SendInfoScreen() {
 
   return (
     <Wrapper>
-      <View className="flex-col w-full h-full">
+      <View className={`flex-col w-full h-full`}>
         <View className="flex-row items-center justify-between mb-10">
           <Pressable onPress={goBack}>
-            <ArrowLeft color={'#FF5500'} size={30} />
+            <ArrowLeft color={'#FF5500'} size={styles.arrowSize} />
           </Pressable>
-          <TextWithFont customStyle="text-white text-2xl">Send Token</TextWithFont>
+          <TextWithFont customStyle={`${styles.titleSize} text-white`}>Send Token</TextWithFont>
           <View />
         </View>
 
-        <View className="mb-4">
-          <TextWithFont customStyle='text-white mb-3 font-normal'>You'll send</TextWithFont>
+        <View className={styles.sectionMargin}>
+          <TextWithFont customStyle="text-white mb-3 font-normal">You'll send</TextWithFont>
           <Coin token={transactionToken} inMainScreen={false} />
-          <TextWithFont customStyle="text-white text-lg mt-4 font-normal">To: </TextWithFont>
-          <View className='mt-4 flex-row items-center justify-start w-[80%]'>
-            <CircleUser size={50}/>
-            <TextWithFont customStyle='text-white pl-4 font-normal'>{recipient}</TextWithFont>
+          <TextWithFont customStyle="text-white text-lg mt-4 font-normal">To:</TextWithFont>
+          <View className="mt-4 flex-row items-center justify-start w-[80%]">
+            <CircleUser size={parseInt(styles.recipientAvatar)} />
+            <TextWithFont customStyle={`text-white pl-4 ${styles.recipientName}`}>
+              {recipient}
+            </TextWithFont>
           </View>
         </View>
-        <View className="w-full border-t-2 border-custom_border mb-5"></View>
+
+        <View className={`w-full border-t-2 border-white ${styles.dividerMargin}`} />
+
         {txState === 'estimating' && (
           <View className="items-center py-4">
             <ActivityIndicator size="small" color="#FF5500" />
-            <TextWithFont customStyle="text-gray-400 mt-2">Gas estimanting...</TextWithFont>
+            <TextWithFont customStyle={`text-gray-400 mt-2 ${styles.loadingText}`}>
+              Gas estimating...
+            </TextWithFont>
           </View>
         )}
 
         {txState === 'ready' && gasFee && (
-          <View className="">
-            <TextWithFont customStyle="text-white text-lg">
-              Gas: 
-            </TextWithFont>
-            <TextWithFont customStyle='text-white font-normal m-4'>
+          <View>
+            <TextWithFont customStyle={`text-white ${styles.gasLabel}`}>Gas:</TextWithFont>
+            <TextWithFont customStyle={`text-white font-normal m-4 ${styles.gasValue}`}>
               {(Number(gasFee) / 1_000_000).toFixed(6)} STX
             </TextWithFont>
-            <TextWithFont customStyle="text-white text-lg mt-1">
-              Total spend: 
+            <TextWithFont customStyle={`text-white ${styles.totalLabel} mt-1`}>
+              Total spend:
             </TextWithFont>
-            <TextWithFont customStyle='text-white font-normal m-4'>
+            <TextWithFont customStyle={`text-white font-normal m-4 ${styles.totalValue}`}>
               {totalCost} STX
             </TextWithFont>
-            <Button
-              text="Send"
-              onPress={handleSend}
-              accent
-              customStyle="mt-4"
-            />
+            <Button text="Send" onPress={handleSend} accent customStyle="mt-4" />
           </View>
         )}
 
         {(txState === 'sending' || txState === 'broadcasted') && (
           <View className="flex-1 items-center justify-center py-10">
             <ActivityIndicator size="large" color="#FF5500" />
-            <TextWithFont customStyle="text-white text-lg mt-4">
+            <TextWithFont customStyle={`text-white text-lg mt-4 ${styles.loadingText}`}>
               {txState === 'sending' ? 'Creating transaction...' : 'Sending on chain...'}
             </TextWithFont>
-            <TextWithFont customStyle="text-gray-400 text-sm mt-2">
+            <TextWithFont customStyle={`text-gray-400 text-sm mt-2 ${styles.loadingText}`}>
               It will take about 30 seconds
             </TextWithFont>
           </View>
@@ -203,11 +205,11 @@ export default function SendInfoScreen() {
 
         {txState === 'confirmed' && txid && (
           <View className="flex-1 items-center justify-center py-10">
-            <TextWithFont customStyle="text-green-400 text-2xl mb-2">Success!</TextWithFont>
-            <TextWithFont customStyle="text-gray-400 text-sm">
+            <TextWithFont customStyle={`text-green-400 ${styles.successText} mb-2`}>Success!</TextWithFont>
+            <TextWithFont customStyle={`text-gray-400 ${styles.txidText}`}>
               TXID: {txid.slice(0, 8)}...{txid.slice(-6)}
             </TextWithFont>
-            <TextWithFont customStyle="text-gray-400 text-xs mt-4">
+            <TextWithFont customStyle={`text-gray-400 ${styles.redirectText} mt-4`}>
               Redirecting to the main screen...
             </TextWithFont>
           </View>
@@ -215,8 +217,8 @@ export default function SendInfoScreen() {
 
         {txState === 'failed' && error && (
           <View className="flex-1 items-center justify-center py-10">
-            <TextWithFont customStyle="text-red-400 text-xl mb-4">Error</TextWithFont>
-            <TextWithFont customStyle="text-gray-400 text-sm text-center px-4">
+            <TextWithFont customStyle={`text-red-400 ${styles.errorText} mb-4`}>Error</TextWithFont>
+            <TextWithFont customStyle={`text-gray-400 text-sm text-center px-4 ${styles.errorText}`}>
               {error}
             </TextWithFont>
             <Button text="Retry" onPress={handleSend} customStyle="mt-6" />
