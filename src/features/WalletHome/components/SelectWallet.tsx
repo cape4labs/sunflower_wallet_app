@@ -1,8 +1,11 @@
-import { Text, Pressable, Modal, FlatList, View } from 'react-native';
+import { Pressable, Modal, FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+
 
 interface SelectWalletProps {
   selectedWallet: string | null;
@@ -13,8 +16,11 @@ interface SelectWalletProps {
 export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWalletProps) {
   const navigation = useNavigation<NativeStackNavigationProp<RootNavigatorTypeParamListType>>();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const styles = useWalletScreenStyles().selectWallet;
 
   const handlePress = () => {
+    console.log('opened');
+    console.log(walletList)
     setIsModalVisible(true);
   };
 
@@ -30,45 +36,47 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
 
   const renderWalletItem = ({ item }: { item: string }) => (
     <Pressable className="p-4 bg-gray-700 rounded-lg mb-2" onPress={() => handleSelectWallet(item)}>
-      <Text className="text-white text-center text-lg">{item}</Text>
+      <TextWithFont customStyle="text-white text-center text-sm">{item}</TextWithFont>
     </Pressable>
   );
 
   return (
     <>
       <Pressable
-        className="bg-custom_accent rounded-xl py-2 px-4 mb-4 self-center border-[6px] border-custom_border"
+        className={`bg-custom_accent rounded-xl ${styles.trigger} self-center border-custom_border`}
         onPress={handlePress}
+        pointerEvents="box-only"
       >
-        <Text className="text-black font-bold text-center text-lg w-[150px]">
+        <TextWithFont customStyle={`text-black font-bold text-center ${styles.triggerText}`}>
           {selectedWallet || 'Select Wallet'}
-        </Text>
+        </TextWithFont>
       </Pressable>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={isModalVisible}
         onRequestClose={() => setIsModalVisible(false)}
       >
-        <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
-          <View className="bg-gray-800 p-4 rounded-lg w-3/4">
+        <View className="flex-1 justify-center items-center bg-black/70">
+          <View className={`bg-gray-800 rounded-lg ${styles.modal}`}>
             <FlatList
               data={walletList}
               renderItem={renderWalletItem}
               keyExtractor={item => item}
-              showsVerticalScrollIndicator={false}
+              showsVerticalScrollIndicator={true}
             />
             <Pressable
-              className="bg-custom_accent p-2 rounded-lg mt-4"
+              className={`bg-custom_accent rounded-lg ${styles.actionButton}`}
               onPress={handleCreateWallet}
             >
-              <Text className="text-white text-center text-lg">Create New Wallet</Text>
+              <TextWithFont customStyle={`text-white text-center ${styles.actionText}`}>Create New Wallet</TextWithFont>
             </Pressable>
             <Pressable
-              className="bg-gray-600 p-2 rounded-lg mt-2"
+              className="bg-gray-600 rounded-lg mt-2 p-2"
               onPress={() => setIsModalVisible(false)}
             >
-              <Text className="text-white text-center text-lg">Close</Text>
+              <TextWithFont customStyle="text-white text-center text-lg">Close</TextWithFont>
             </Pressable>
           </View>
         </View>

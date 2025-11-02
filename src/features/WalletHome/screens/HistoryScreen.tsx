@@ -1,11 +1,12 @@
 import Wrapper from '../../../shared/components/Wrapper';
-import { View, Text, SectionList, ActivityIndicator, Pressable } from 'react-native';
+import { View, SectionList, ActivityIndicator, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import { useWalletContext } from '../../../providers/WalletContext';
 import { Send, Upload, RefreshCw, Repeat, Copy } from 'lucide-react-native';
 import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
-
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 interface Transaction {
   tx_id: string;
@@ -24,6 +25,10 @@ export default function HistoryScreen() {
   const [isLoadingTransactions, setIsLoadingTransactions] = useState(false);
   const [errorTransactions, setErrorTransactions] = useState<string | null>(null);
   const [expandedTxId, setExpandedTxId] = useState<string | null>(null);
+  
+  const globalStyles = useWalletScreenStyles().global;
+  const screenStyles = useWalletScreenStyles().historyScreen;
+
 
   const fetchTransactions = async () => {
     if (!walletData?.stxAddress) return;
@@ -104,42 +109,45 @@ export default function HistoryScreen() {
     const { icon: IconComponent, label } = getTransactionDetails(item);
     const isExpanded = expandedTxId === item.tx_id;
 
-    const shortenTxId = (txId: string) => {
-      if (!txId) return '';
-      return `${txId.slice(0, 6)}...${txId.slice(-4)}`;
-    };
+    const shortenTxId = (txId: string) => `${txId.slice(0, 6)}...${txId.slice(-4)}`;
 
     return (
       <View className="w-full mb-2">
         <Pressable
           onPress={() => setExpandedTxId(isExpanded ? null : item.tx_id)}
-          className={`flex-row justify-between items-center w-full p-4 border-b bg-custom_complement rounded-lg border-2 border-custom_border ${isExpanded ? "border-b-0 rounded-b-none" : ''} `}
+          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${
+            isExpanded ? 'border-b-0 rounded-b-none' : ''
+          } ${screenStyles.txContainer}`}
         >
           <View className="flex-row items-center">
-            <View>
-              <IconComponent color="white" size={20} strokeWidth={1.5} />
-            </View>
+            <IconComponent color="white" size={parseInt(screenStyles.txIconSize)} strokeWidth={1.5} />
             <View className="ml-2">
-              <Text className="text-white text-xl">{label}</Text>
-              <Text className="text-gray-400 text-sm">{item.recipient_address.slice(0, 8)}...</Text>
+              <TextWithFont customStyle={`text-white ${screenStyles.txAmount}`}>{label}</TextWithFont>
+              <TextWithFont customStyle={`text-gray-400 ${screenStyles.txAddress}`}>
+                {item.recipient_address.slice(0, 8)}...
+              </TextWithFont>
             </View>
           </View>
           <View className="flex-col items-end">
-            <Text className="text-white text-xl">{item.amount} STX</Text>
-            <Text className={`text-sm ${item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'}`}>
+            <TextWithFont customStyle={`text-white ${screenStyles.txAmount}`}>{item.amount} STX</TextWithFont>
+            <TextWithFont
+              customStyle={`${screenStyles.txStatus} ${
+                item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
+              }`}
+            >
               {item.tx_status}
-            </Text>
+            </TextWithFont>
           </View>
         </Pressable>
+
         {isExpanded && (
-          <View className="bg-custom_complement p-4 rounded-lg rounded-t-none border-t-0 border-2 border-custom_border">
+          <View
+            className={`bg-custom_complement rounded-lg rounded-t-none border-t-0 border-2 border-custom_border ${screenStyles.expandedTx}`}
+          >
             <View className="flex-row items-center justify-between">
-              <Text className="text-sm text-white">TXid: {shortenTxId(item.tx_id)}</Text>
-              <Pressable
-                onPress={() => CopyToClipboard(item.tx_id)}
-                className="p-1"
-              >
-                <Copy color="white" size={16} strokeWidth={1.5} />
+              <TextWithFont customStyle="text-sm text-white">TXid: {shortenTxId(item.tx_id)}</TextWithFont>
+              <Pressable onPress={() => CopyToClipboard(item.tx_id)} className="p-1">
+                <Copy color="white" size={parseInt(screenStyles.copyIconSize)} strokeWidth={1.5} />
               </Pressable>
             </View>
           </View>
@@ -149,39 +157,35 @@ export default function HistoryScreen() {
   };
 
   const renderSectionHeader = ({ section }: { section: { title: string } }) => (
-    <View>
-      <Text className="text-white text-lg font-semibold">{section.title}</Text>
-    </View>
+    <TextWithFont customStyle={`${screenStyles.sectionTitle} font-semibold text-white`}>
+      {section.title}
+    </TextWithFont>
   );
 
   return (
     <Wrapper>
-      <View className="flex-1 w-full">
-        <View className="flex-row justify-between items-center mb-4 p-4 border-b-2 border-gray-500">
-          <Text className="text-white text-2xl font-bold">History</Text>
-          <Pressable onPress={refreshTransactions} className="p-2 bg-custom_border rounded-full">
-            <RefreshCw color="#FF4800" size={20} />
+      <View className={`flex-1 w-full h-full`}>
+=        <View className="flex-row justify-between items-center mb-4 border-b-2 border-gray-500">
+          <TextWithFont customStyle={`${screenStyles.headerTitle} font-bold text-white`}>History</TextWithFont>
+          <Pressable onPress={refreshTransactions} className={`bg-custom_border rounded-full ${screenStyles.refreshButton}`}>
+            <RefreshCw color="#FF4800" size={parseInt(globalStyles.refreshIconSize)} />
           </Pressable>
         </View>
-
         {isLoadingWalletData || isLoadingTransactions ? (
-          <View className="flex-1 w-full justify-center items-center">
+          <View className="flex-1 justify-center items-center">
             <ActivityIndicator size="large" color="#FF4800" />
-            <Text className="text-white mt-2">Loading</Text>
+            <TextWithFont customStyle="text-white mt-2">Loading</TextWithFont>
           </View>
         ) : errorWalletData || errorTransactions ? (
-          <View className="flex-1 w-full justify-center items-center">
-            <Text className="text-red-500 text-center">{errorWalletData || errorTransactions}</Text>
-            <Pressable
-              onPress={refreshTransactions}
-              className="mt-4 p-2 bg-custom_border rounded-lg"
-            >
-              <Text className="text-white">Retry</Text>
+          <View className="flex-1 justify-center items-center">
+            <TextWithFont customStyle="text-red-500 text-center">{errorWalletData || errorTransactions}</TextWithFont>
+            <Pressable onPress={refreshTransactions} className={`mt-4 bg-custom_border rounded-lg ${screenStyles.retryButton}`}>
+              <TextWithFont customStyle="text-white">Retry</TextWithFont>
             </Pressable>
           </View>
         ) : transactions.length === 0 ? (
-          <View className="flex-1 w-full justify-center items-center">
-            <Text className="text-gray-400 text-center">No transactions</Text>
+          <View className="flex-1 justify-center items-center">
+            <TextWithFont customStyle="text-gray-400 text-center">No transactions</TextWithFont>
           </View>
         ) : (
           <SectionList
@@ -189,7 +193,6 @@ export default function HistoryScreen() {
             renderItem={renderTransaction}
             renderSectionHeader={renderSectionHeader}
             keyExtractor={(item) => item.tx_id}
-            className="flex-1 w-full"
             contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: 4 }}
           />
         )}

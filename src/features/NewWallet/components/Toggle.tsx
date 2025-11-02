@@ -1,4 +1,5 @@
 import { Pressable, View } from 'react-native';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type ToggleType = {
   isToggled: boolean;
@@ -6,18 +7,18 @@ type ToggleType = {
 };
 
 export default function Toggle({ isToggled, setIsToggled }: ToggleType) {
+  const styles = useWalletScreenStyles().toggle;
+
   return (
     <Pressable
       onPress={() => setIsToggled(!isToggled)}
-      className={`border-2 rounded-full w-20 h-9 flex-row items-center ${
+      className={`rounded-full flex-row items-center ${styles.container} ${styles.border} ${
         isToggled
           ? 'bg-custom_accent border-custom_border justify-end'
           : 'bg-custom_border border-custom_accent justify-start'
       }`}
     >
-      <View
-        className={`h-6 w-6 rounded-full mx-1 ${isToggled ? 'bg-custom_border' : 'bg-custom_accent'}`}
-      />
+      <View className={`rounded-full mx-1 ${styles.thumb} ${isToggled ? 'bg-custom_border' : 'bg-custom_accent'}`} />
     </Pressable>
   );
 }

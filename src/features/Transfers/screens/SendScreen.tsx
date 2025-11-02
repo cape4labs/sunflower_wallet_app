@@ -3,11 +3,14 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
 import { Token } from '../../WalletHome/screens/MainWalletScreen';
-import { View, Text, TextInput, Pressable } from 'react-native';
+import { View, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
-import { ArrowLeft, ArrowDown } from 'lucide-react-native';
+import { ArrowLeft } from 'lucide-react-native';
 import { Button } from '../../NewWallet/components/Button';
 import Coin from '../../../shared/components/Coin';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+
 
 type SendScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'SendScreen'>;
 
@@ -23,14 +26,15 @@ export default function SendScreen() {
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [sendError, setSendError] = useState<string | null>(null);
+  const styles = useWalletScreenStyles().sendScreen;
 
   if (!token || !walletName) {
     return (
       <Wrapper>
         <View className="flex-col flex-1 p-4">
-          <Text className="text-white text-xl mb-4">No token or wallet data selected</Text>
+          <TextWithFont customStyle="text-white text-xl mb-4">No token or wallet data selected</TextWithFont>
           <Pressable onPress={() => navigation.goBack()} className="p-2 bg-gray-700 rounded-lg">
-            <Text className="text-white text-center">Back</Text>
+            <TextWithFont customStyle="text-white text-center">Back</TextWithFont>
           </Pressable>
         </View>
       </Wrapper>
@@ -60,21 +64,23 @@ export default function SendScreen() {
 
   return (
     <Wrapper>
-      <View className="flex-col p-4 w-full h-full">
+      <View className={`flex-col w-full h-full`}>
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft color={'#FF5500'} size={'30px'} />
+            <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
           </Pressable>
-          <Text className="text-white text-2xl">Send</Text>
-          <Text />
+          <TextWithFont customStyle={`${styles.titleSize} text-white`}>Send</TextWithFont>
+          <View />
         </View>
-        <View className="mt-5 bg-custom_complement p-5 border-4 border-custom_border rounded-xl rounded-b-none">
+
+        <View className={`${styles.coinsMargin} bg-custom_complement rounded-xl rounded-b-none border-custom_border ${styles.coinCard}`}>
           <Coin token={token} />
         </View>
-        <View className="relative bg-custom_complement p-5 rounded-lg rounded-t-none border-4 border-t-0 mb-3 border-custom_border">
+
+        <View className={`bg-custom_complement rounded-lg rounded-t-none border-custom_border border-t-0 mb-3 ${styles.coinCard}`}>
           <View className="flex-row justify-between w-full">
             <TextInput
-              className="text-3xl text-white flex-1"
+              className={`text-white flex-1 ${styles.amountInput}`}
               placeholder="0"
               placeholderTextColor="#fff"
               keyboardType="numeric"
@@ -86,29 +92,28 @@ export default function SendScreen() {
               }}
             />
             <Pressable onPress={() => setAmount(token.balance)}>
-              <Text className="text-white">MAX</Text>
+              <TextWithFont customStyle={`text-white ${styles.maxButton}`}>MAX</TextWithFont>
             </Pressable>
           </View>
-          <Text className="text-gray-400">${usdAmount}</Text>
+          <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>${usdAmount}</TextWithFont>
         </View>
-        <View className="relative bg-custom_complement p-2 border-4 mb-5 w-full rounded-xl border-custom_border">
-          <View className="absolute top-[-70%] left-1/2 transform -translate-x-1/2">
-            <View className="flex-row items-center justify-center bg-custom_complement p-3 rounded-full border-2 border-custom_border">
-              <ArrowDown color="#fff" size={24} />
-            </View>
-          </View>
+
+        <View className={`bg-custom_complement rounded-xl mb-5 w-full border-custom_border ${styles.coinCard}`}>
           <TextInput
-            className="text-lg text-gray-400 w-full"
+            className={`text-gray-400 w-full ${styles.recipientInput}`}
             placeholder="Enter recipient"
             placeholderTextColor="#9ca3af"
             value={recipient}
             onChangeText={setRecipient}
           />
         </View>
+
         {sendError ? (
-          <Text className="text-red-500 mt-4 text-center">{sendError}</Text>
+          <TextWithFont customStyle={`text-red-500 mt-4 text-center ${styles.errorText}`}>
+            {sendError}
+          </TextWithFont>
         ) : (
-          <Button text="send" onPress={handleSend} accent />
+          <Button text="Send" onPress={handleSend} accent />
         )}
       </View>
     </Wrapper>

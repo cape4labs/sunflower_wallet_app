@@ -1,63 +1,156 @@
 import Wrapper from '../../../shared/components/Wrapper';
-import { Pressable, Text, Image, View } from 'react-native';
+import { Pressable, Image, View, Animated, Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { getWalletData } from '../../../shared/walletPersitance';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { ArrowLeft, ChevronDown, ChevronLeft } from 'lucide-react-native';
+import Coin from '../../../shared/components/Coin';
+import { Token } from '../../WalletHome/screens/MainWalletScreen';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type RouteParams = {
   walletName: string;
+  tokens: Token[];
 };
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+const EXPANDED_HEIGHT = SCREEN_HEIGHT * 0.40; 
 
 export default function ReceiveScreen() {
   const route = useRoute();
-  const { walletName } = route.params as RouteParams;
-  const [asset, setAsset] = useState('stx');
-  const [address, setAddress] = useState('');
+  const navigation = useNavigation();
+  const { walletName, tokens } = route.params as RouteParams;
+  const styles = useWalletScreenStyles().receiveScreen;
+  const [openAsset, setOpenAsset] = useState<'stx' | 'btc' | null>(null);
+  const [addresses, setAddresses] = useState({ stx: '', btc: '' });
   const [error, setError] = useState('');
 
-  useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const walletData = await getWalletData(walletName);
-          if (!walletData) {
-            // This should never happen
-            setError('Wallet data not found');
-            return;
-          }
+  const stxToken = tokens.find(t => t.symbol.toUpperCase() === 'STX');
+  const btcToken = tokens.find(t => t.symbol.toUpperCase() === 'BTC');
 
-          if (asset === 'stx') {
-            setAddress(walletData.stxAddress);
-          } else {
-            setAddress(walletData.btcAddress);
-          }
-        } catch (err) {
-          const errorMessage = 'Error fetching wallet data: ' + (err as Error).message;
-          setError(errorMessage);
+  const heightAnimSTX = useRef(new Animated.Value(0)).current;
+  const heightAnimBTC = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const walletData = await getWalletData(walletName);
+        if (walletData) {
+          setAddresses({
+            stx: walletData.stxAddress,
+            btc: walletData.btcAddress,
+          });
         }
+      } catch (err) {
+        setError('Ошибка загрузки адресов');
       }
-      fetchData();
-  }, [asset, walletName]);
+    };
+    fetchAddresses();
+  }, [walletName]);
+
+  const toggleAsset = (asset: 'stx' | 'btc') => {
+    const isOpening = openAsset !== asset;
+
+    if (openAsset && openAsset !== asset) {
+      Animated.timing(
+        openAsset === 'stx' ? heightAnimSTX : heightAnimBTC,
+        { toValue: 0, duration: 300, useNativeDriver: false }
+      ).start();
+    }
+
+    setOpenAsset(isOpening ? asset : null);
+
+    const targetHeight = isOpening ? EXPANDED_HEIGHT : 0;
+    const anim = asset === 'stx' ? heightAnimSTX : heightAnimBTC;
+
+    Animated.timing(anim, {
+      toValue: targetHeight,
+      duration: 400,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const renderAssetBlock = (
+    token: Token | undefined,
+    asset: 'stx' | 'btc',
+    address: string
+  ) => {
+    if (!token) return null;
+
+    const isOpen = openAsset === asset;
+    const heightAnim = asset === 'stx' ? heightAnimSTX : heightAnimBTC;
+    const ArrowIcon = isOpen ? ChevronLeft : ChevronDown;
+    const arrowColor = isOpen ? '#FF5500' : '#FFFFFF';
+
+    return (
+      <View key={asset} className="mb-4">
+        <Pressable
+          onPress={() => toggleAsset(asset)}
+          className="flex-row justify-between items-center"
+        >
+          <Coin token={token} />
+          <ArrowIcon color={arrowColor} size={24} className=''/>
+        </Pressable>
+
+        <Animated.View
+          style={{ height: heightAnim, overflow: 'hidden' }}
+          className="p-4"
+        >
+          {isOpen && (
+            <View className="px-4 pb-6 pt-2">
+              <View className="items-center mb-5 bg-white p-5 rounded-xl self-center">
+                <QRCode value={address} size={parseInt(styles.qrSize)} />
+              </View>
+
+              <View className="items-center mb-3">
+                <TextWithFont customStyle="text-gray-400 text-sm">
+                  Public address:{' '}
+                  <TextWithFont customStyle="text-white font-medium">
+                    {asset === 'stx' ? 'Stacks' : 'Native Segwit'}
+                  </TextWithFont>
+                </TextWithFont>
+              </View>
+
+              <View className="flex-row items-center justify-between">
+                <TextWithFont
+                  customStyle="text-white text-sm flex-1 mr-3"
+                >
+                  {address}
+                </TextWithFont>
+                <Pressable onPress={() => CopyToClipboard(address)}>
+                  <Image
+                    source={require('../../../../assets/icons/copy.png')}
+                    className="w-5 h-5"
+                  />
+                </Pressable>
+              </View>
+            </View>
+          )}
+        </Animated.View>
+      </View>
+    );
+  };
 
   return (
     <Wrapper>
-      <View className='w-full'>{address ? <QRCode value={address} /> : <Text>Loading...</Text>}</View>
-      <View className="mt-2 flex flex-row w-full h-12 rounded-lg bg-custom_complement justify-between">
-        <Pressable
-          onPress={() => {
-            asset === 'stx' ? setAsset('btc') : setAsset('stx');
-          }}
-          className="bg-custom_border rounded-lg"
-        >
-          <Text>{asset.toUpperCase()}</Text>
-        </Pressable>
-        <Text className="text-wrap text-white">{address}</Text>
-        <Pressable onPress={CopyToClipboard(address)}>
-          <Image className="h-full w-12" source={require('../../../../assets/icons/copy.png')} />
-        </Pressable>
+      <View className={`flex-col w-full h-full`}>
+        <View className="flex-row items-center justify-between mb-6">
+          <Pressable onPress={() => navigation.goBack()}>
+            <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
+          </Pressable>
+          <TextWithFont customStyle={`text-white ${styles.titleSize}`}>Receive</TextWithFont>
+          <View />
+        </View>
+
+        <View className="flex-1 mt-10">
+          {renderAssetBlock(btcToken, 'btc', addresses.btc)}
+          <View className={`w-full h-1 border-t-2 border-white ${styles.dividerMargin}`} />
+          {renderAssetBlock(stxToken, 'stx', addresses.stx)}
+        </View>
       </View>
-      {error && <View className="text-red-300 mt-2">{error}</View>}
     </Wrapper>
   );
 }

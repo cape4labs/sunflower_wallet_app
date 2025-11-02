@@ -1,4 +1,6 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type MnemonicWordType = {
   idx: number;
@@ -7,11 +9,13 @@ type MnemonicWordType = {
 
 // A component used for displaying words that are part of a mnemonic
 export function MnemonicWord({ idx, word }: MnemonicWordType) {
+  const styles = useWalletScreenStyles().mnemonicWord;
+
   return (
-    <View className="flex-row w-full px-2 p-4 my-1 bg-custom_border justify-center rounded-lg">
-      <Text className="flex-1 p-2 text-white rounded-md text-lg">
+    <View className={`flex-row w-full justify-center rounded-lg bg-custom_border ${styles.container}`}>
+      <TextWithFont customStyle={`flex-1 p-2 text-white rounded-md ${styles.text}`}>
         {idx}. {word}
-      </Text>
+      </TextWithFont>
     </View>
   );
 }

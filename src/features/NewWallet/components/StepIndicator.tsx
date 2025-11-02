@@ -7,7 +7,7 @@ interface StepIndicatorProps {
 
 export function StepIndicator({ totalSteps, currentStep }: StepIndicatorProps) {
   return (
-    <View className="flex-row justify-center mt-6 space-x-2">
+    <View className="flex-row justify-center mt-4 space-x-2">
       {Array.from({ length: totalSteps }).map((_, indx) => {
         const isActive = indx + 1 === currentStep;
         return (

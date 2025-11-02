@@ -28,8 +28,8 @@ export default function ImportCreateScreen() {
             customStyle={'mt-2'}
           />
         </View>
-        <StepIndicator totalSteps={5} currentStep={2} />
       </View>
+      <StepIndicator totalSteps={5} currentStep={2} />
     </Wrapper>
   );
 }

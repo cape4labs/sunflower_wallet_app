@@ -1,6 +1,9 @@
-import { View, Text, FlatList, Pressable, ActivityIndicator } from 'react-native';
+import { View, FlatList, Pressable, ActivityIndicator } from 'react-native';
 import { Token } from '../../features/WalletHome/screens/MainWalletScreen';
 import Coin from './Coin';
+import TextWithFont from './TextWithFont';
+import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
+
 
 interface TokenListProps {
   tokens: Token[];
@@ -19,30 +22,22 @@ export function TokenList({
   inMainScreen = true,
   customStyle,
 }: TokenListProps) {
-  if (isLoading) {
-    return <ActivityIndicator size="large" color="#fff" className="mt-5" />;
-  }
+  const styles = useWalletScreenStyles().tokenList;
 
-  if (error) {
-    return <Text className="text-red-500">{error}</Text>;
-  }
+  if (isLoading) return <ActivityIndicator size="large" color="#fff" className="mt-5" />;
+  if (error) return <TextWithFont customStyle="text-red-500">{error}</TextWithFont>;
 
   return (
-    <View
-      className={`flex-col w-full bg-custom_complement p-4 border-[6px] border-custom_border rounded-2xl ${customStyle}`}
-    >
+    <View className={`flex-col w-full bg-custom_complement rounded-2xl ${styles.container} ${customStyle}`}>
       <FlatList
         data={tokens}
         keyExtractor={item => item.symbol}
         renderItem={({ item }) => (
-          <Pressable
-            onPress={() => onTokenPress && onTokenPress(item)}
-            className="flex-row justify-between m-2"
-          >
+          <Pressable onPress={() => onTokenPress?.(item)} className={styles.item}>
             <Coin token={item} inMainScreen={inMainScreen} />
           </Pressable>
         )}
-        ListEmptyComponent={<Text className="text-white">No tokens available</Text>}
+        ListEmptyComponent={<TextWithFont customStyle="text-white">No tokens available</TextWithFont>}
       />
     </View>
   );

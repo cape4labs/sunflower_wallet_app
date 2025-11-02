@@ -1,5 +1,7 @@
-import { Pressable, Text } from 'react-native';
+import { Pressable } from 'react-native';
 import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle } from 'lucide-react-native';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type ButtonType = {
   onPress?: () => void;
@@ -45,30 +47,33 @@ export function Button({
   };
 
   const IconComponent = getIconComponent();
+  const styles = useWalletScreenStyles().button;
 
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center py-3 px-12 border-2 flex-row gap-3 border-custom_border rounded-2xl relative overflow-hidden ${
+      className={`justify-center items-center ${styles.container} flex-row  border-custom_border relative overflow-hidden ${
         accent ? 'bg-custom_accent' : 'bg-custom_complement'
       } ${customStyle ?? ''}`}
       disabled={disable}
     >
-      <Text className={`text-lg ${accent ? 'text-black' : 'text-white'} z-10`}>{text}</Text>
-      <IconComponent color={accent ? 'black' : 'white'} size={20} strokeWidth={1.5} />
+      <TextWithFont customStyle={`${accent ? 'text-black' : 'text-white'} ${styles.text} z-10`}>{text}</TextWithFont>
+      <IconComponent color={accent ? 'black' : 'white'} size={parseInt(styles.icon)} strokeWidth={2}/>
     </Pressable>
   );
 }
 
 export function TextButton({ onPress, text, customStyle, accent = false }: TextButtonType) {
+  const styles = useWalletScreenStyles();
+
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center py-3 px-8 border-b-2 flex-row overflow-hidden ${
+      className={`justify-center items-center ${styles.textButton.container} flex-row overflow-hidden ${
         accent ? 'border-white' : 'border-gray-500'
       } ${customStyle ?? ''}`}
     >
-      <Text className={`text-xl ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>{text}</Text>
+      <TextWithFont customStyle={`${styles.textButton.text} ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>{text}</TextWithFont>
     </Pressable>
   );
 }

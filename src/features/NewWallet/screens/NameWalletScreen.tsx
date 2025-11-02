@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ActivityIndicator } from 'react-native';
+import { View, TextInput, ActivityIndicator } from 'react-native';
 import { Button } from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
@@ -7,6 +7,9 @@ import { StepIndicator } from '../components/StepIndicator';
 import { createAndSaveWallet } from '../../../shared/walletPersitance';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+
 
 type RouteParams = {
   mnemonic?: string;
@@ -23,6 +26,9 @@ export default function NameWalletScreen() {
   const { mnemonic } = route.params as RouteParams;
   const [walletName, setWalletName] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Creating wallet state
+  const styles = useWalletScreenStyles();
+  const newWalletScreens = styles.newWalletScreens;
+  const nameWallet = styles.nameWallet;
 
   useEffect(() => {
     if (!mnemonic) {
@@ -52,46 +58,42 @@ export default function NameWalletScreen() {
     <Wrapper>
       <View className="flex-1 flex-col w-full">
         <View className="flex-col items-center w-full px-5">
-          <Text className="text-2xl text-white text-center font-bold mt-5">
+          <TextWithFont customStyle={`${newWalletScreens.titleSize} text-white text-center font-bold mt-5`}>
             Pick a name for your wallet
-          </Text>
-          <Text className="text-white text-center mt-2">For example: Main Wallet</Text>
-          <View className="w-full border-custom_border bg-custom_complement items-center border-[6px] flex-row justify-between rounded-2xl mt-10 px-5">
-            <Text className="text-white">{'>>'}</Text>
+          </TextWithFont>
+          <TextWithFont customStyle={`text-white text-center mt-2 ${newWalletScreens.subtitleSize}`}>
+            For example: Main Wallet
+          </TextWithFont>
+
+          <View className={`w-full bg-custom_complement items-center flex-row justify-between rounded-2xl mt-10 ${nameWallet.inputContainer}`}>
+            <TextWithFont customStyle="text-white">{'>>'}</TextWithFont>
             <TextInput
-              className="flex-1 h-full text-white px-2 my-1 text-xl"
+              className={`flex-1 h-full text-white px-2 my-1 ${nameWallet.inputText}`}
               placeholder="wallet_name"
               placeholderTextColor="white"
               value={walletName}
-              onChangeText={input => setWalletName(input)}
+              onChangeText={setWalletName}
               editable={!isLoading}
             />
           </View>
+
           {isLoading && (
-            <View className="mt-5 flex-row items-center">
+            <View className={`flex-row items-center ${nameWallet.loadingGap}`}>
               <ActivityIndicator size="large" color="#ffffff" />
-              <Text className="text-white ml-2">Creating wallet...</Text>
+              <TextWithFont customStyle="text-white ml-2">Creating wallet...</TextWithFont>
             </View>
           )}
         </View>
+
         <View className="w-full mt-auto">
           <View className="flex-col px-5 pb-5">
-            <Button
-              onPress={() => navigation.goBack()}
-              text="Back"
-              customStyle="w-full"
-              disable={isLoading}
-            />
+            <Button onPress={() => navigation.goBack()} text="Back" customStyle="w-full" disable={isLoading} />
             <Button
               onPress={handleNext}
-              accent={true}
+              accent
               text={isLoading ? 'Creating...' : 'Next'}
               disable={isLoading}
-              customStyle={
-                walletName.trim().length > 0 && !isLoading
-                  ? 'bg-custom_accent w-full mt-2'
-                  : 'bg-white w-full mt-2'
-              }
+              customStyle={`w-full mt-2 ${walletName.trim().length > 0 && !isLoading ? 'bg-custom_accent' : 'bg-white'}`}
             />
           </View>
         </View>
