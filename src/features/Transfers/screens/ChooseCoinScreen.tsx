@@ -3,7 +3,7 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
 import { TokenList } from '../../../shared/components/TokenList';
-import { Token } from '../../WalletHome/screens/MainWalletScreen';
+import { Token } from '../../../shared/types/Token';
 import { View, Pressable } from 'react-native';
 import { ArrowLeft } from 'lucide-react-native';
 import { useEffect, useState } from 'react';

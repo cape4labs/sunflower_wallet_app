@@ -1,6 +1,6 @@
 import { View, Image } from 'react-native';
 import formatNumber from '../../shared/utils/formatNumber';
-import { Token } from '../../features/WalletHome/screens/MainWalletScreen';
+import { Token } from '../types/Token';
 import TextWithFont from './TextWithFont';
 import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 

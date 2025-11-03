@@ -2,7 +2,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
-import { Token } from '../../WalletHome/screens/MainWalletScreen';
 import { View, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import { ArrowLeft, CircleUser } from 'lucide-react-native';
@@ -12,6 +11,7 @@ import Coin from '../../../shared/components/Coin';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { Token } from '../../../shared/types/Token';
 
 type SendInfoScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,

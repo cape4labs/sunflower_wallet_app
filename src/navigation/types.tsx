@@ -1,4 +1,4 @@
-import { Token } from '../features/WalletHome/screens/MainWalletScreen';
+import { Token } from '../shared/types/Token';
 
 export type RootNavigatorTypeParamListType = {
   LogoScreen: undefined;

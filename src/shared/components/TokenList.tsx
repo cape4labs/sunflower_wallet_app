@@ -1,5 +1,5 @@
 import { View, FlatList, Pressable, ActivityIndicator } from 'react-native';
-import { Token } from '../../features/WalletHome/screens/MainWalletScreen';
+import { Token } from '../../shared/types/Token';
 import Coin from './Coin';
 import TextWithFont from './TextWithFont';
 import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';

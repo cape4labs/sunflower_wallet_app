@@ -165,7 +165,7 @@ export default function HistoryScreen() {
   return (
     <Wrapper>
       <View className={`flex-1 w-full h-full`}>
-=        <View className="flex-row justify-between items-center mb-4 border-b-2 border-gray-500">
+         <View className="flex-row justify-between items-center mb-4 border-b-2 border-gray-500">
           <TextWithFont customStyle={`${screenStyles.headerTitle} font-bold text-white`}>History</TextWithFont>
           <Pressable onPress={refreshTransactions} className={`bg-custom_border rounded-full ${screenStyles.refreshButton}`}>
             <RefreshCw color="#FF4800" size={parseInt(globalStyles.refreshIconSize)} />

@@ -2,7 +2,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
-import { Token } from '../../WalletHome/screens/MainWalletScreen';
+import { Token } from '../../../shared/types/Token';
 import { View, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react-native';

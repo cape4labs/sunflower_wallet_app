@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { ArrowLeft, ChevronDown, ChevronLeft } from 'lucide-react-native';
 import Coin from '../../../shared/components/Coin';
-import { Token } from '../../WalletHome/screens/MainWalletScreen';
+import { Token } from '../../../shared/types/Token';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type RouteParams = {
