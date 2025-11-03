@@ -8,7 +8,6 @@ import Wrapper from '../../../shared/components/Wrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
-
 type RouteParams = {
   walletName?: string;
 };
@@ -45,7 +44,9 @@ export default function SuccessScreen() {
   return (
     <Wrapper>
       <View className="flex-1">
-        <TextWithFont customStyle={`${newWalletScreens.titleSize} text-white text-center font-bold mt-5`}>
+        <TextWithFont
+          customStyle={`${newWalletScreens.titleSize} text-white text-center font-bold mt-5`}
+        >
           Success!
         </TextWithFont>
         <TextWithFont customStyle={`text-white text-center mt-2 ${newWalletScreens.subtitleSize}`}>
@@ -57,5 +58,5 @@ export default function SuccessScreen() {
       </View>
       <StepIndicator totalSteps={5} currentStep={5} />
     </Wrapper>
-  );  
+  );
 }

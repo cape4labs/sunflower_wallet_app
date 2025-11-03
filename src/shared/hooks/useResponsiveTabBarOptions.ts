@@ -9,21 +9,23 @@ export interface TabBarConfig {
   labelSize: number;
 }
 
-export const useResponsiveTabBarOptions = (): BottomTabNavigationOptions & { config: TabBarConfig } => {
+export const useResponsiveTabBarOptions = (): BottomTabNavigationOptions & {
+  config: TabBarConfig;
+} => {
   const { height } = useWindowDimensions();
 
   const isSmall = height < 700;
 
   const config: TabBarConfig = {
     height: isSmall ? 70 : 80,
-    paddingTop: isSmall ? 12 :  15,
+    paddingTop: isSmall ? 12 : 15,
     iconSize: isSmall ? 25 : 30,
-    borderTopWidth: isSmall ? 4  : 5,
+    borderTopWidth: isSmall ? 4 : 5,
     labelSize: isSmall ? 11 : 12,
   };
 
   return {
-    config, 
+    config,
     tabBarStyle: {
       backgroundColor: '#362F2E',
       height: config.height,

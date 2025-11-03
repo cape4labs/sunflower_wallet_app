@@ -10,8 +10,8 @@ import { SelectWallet } from '../components/SelectWallet';
 import { Button, TextButton } from '../components/Button';
 import { TokenList } from '../../../shared/components/TokenList';
 import UserGraph from '../components/UserGraph';
-import NftTab from '../components/Tabs/NftTab'; 
-import ActionsTab from '../components/Tabs/ActionsTab'; 
+import NftTab from '../components/Tabs/NftTab';
+import ActionsTab from '../components/Tabs/ActionsTab';
 
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { useWalletContext } from '../../../providers/WalletContext';
@@ -31,16 +31,16 @@ type MainWalletScreenProp = NativeStackNavigationProp<
 
 type RouteParams = {
   walletName?: string;
-}
+};
 
 export default function MainWalletScreen() {
   const navigation = useNavigation<MainWalletScreenProp>();
   const route = useRoute();
-  const { walletName: initialWalletName } = (route.params as RouteParams);
+  const { walletName: initialWalletName } = route.params as RouteParams;
 
   const { walletName, setWalletName } = useWalletContext();
   const [selectedWallet, setSelectedWallet] = useState<string | null>(
-    initialWalletName || walletName || null
+    initialWalletName || walletName || null,
   );
 
   const { walletList, error } = useWalletList(selectedWallet, setSelectedWallet);
@@ -64,7 +64,10 @@ export default function MainWalletScreen() {
 
   const handleSend = (tokensForChoose: Token[]) => {
     if (!selectedWallet) return;
-    navigation.navigate('ChooseCoinScreen', { tokens: tokensForChoose, walletName: selectedWallet });
+    navigation.navigate('ChooseCoinScreen', {
+      tokens: tokensForChoose,
+      walletName: selectedWallet,
+    });
   };
 
   return (
@@ -82,14 +85,25 @@ export default function MainWalletScreen() {
               strokeWidth={1.5}
             />
           </Pressable>
-          <SelectWallet selectedWallet={selectedWallet} walletList={walletList} onSelect={setSelectedWallet} />
+          <SelectWallet
+            selectedWallet={selectedWallet}
+            walletList={walletList}
+            onSelect={setSelectedWallet}
+          />
           <View />
         </View>
 
-        <View className={`w-full ${screenStyles.containerPadding} bg-custom_border relative rounded-lg`}>
+        <View
+          className={`w-full ${screenStyles.containerPadding} bg-custom_border relative rounded-lg`}
+        >
           <UserGraph />
           <View className={`flex-row ${screenStyles.sendReceiveButtonGap}`}>
-            <Button text="Send" onPress={() => handleSend(tokens)} customStyle="w-1/2" iconName="Send" />
+            <Button
+              text="Send"
+              onPress={() => handleSend(tokens)}
+              customStyle="w-1/2"
+              iconName="Send"
+            />
             <Button
               text="Receive"
               onPress={() =>
@@ -139,7 +153,12 @@ export default function MainWalletScreen() {
           ) : error ? (
             <TextWithFont customStyle="text-red-500 text-center">{error}</TextWithFont>
           ) : activeTab === 'Tokens' ? (
-            <TokenList tokens={tokens} isLoading={tokenLoading} error={tokenError} customStyle="h-full" />
+            <TokenList
+              tokens={tokens}
+              isLoading={tokenLoading}
+              error={tokenError}
+              customStyle="h-full"
+            />
           ) : activeTab === 'Actions' ? (
             <ActionsTab actionsHeight={screenStyles.actionsHeight} />
           ) : (

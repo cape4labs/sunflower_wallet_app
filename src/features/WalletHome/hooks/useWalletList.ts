@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getWalletList } from '../../../shared/walletPersitance';
 
-export default function useWalletList(selectedWallet: string | null, setSelectedWallet: (w: string) => void) {
+export default function useWalletList(
+  selectedWallet: string | null,
+  setSelectedWallet: (w: string) => void,
+) {
   const [walletList, setWalletList] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
- 
+
   useEffect(() => {
     const loadWallets = async () => {
       try {
@@ -21,5 +24,5 @@ export default function useWalletList(selectedWallet: string | null, setSelected
     loadWallets();
   }, []);
 
-  return {walletList, error};
+  return { walletList, error };
 }

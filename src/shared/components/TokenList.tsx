@@ -4,7 +4,6 @@ import Coin from './Coin';
 import TextWithFont from './TextWithFont';
 import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 
-
 interface TokenListProps {
   tokens: Token[];
   isLoading: boolean;
@@ -28,7 +27,9 @@ export function TokenList({
   if (error) return <TextWithFont customStyle="text-red-500">{error}</TextWithFont>;
 
   return (
-    <View className={`flex-col w-full bg-custom_complement rounded-2xl ${styles.container} ${customStyle}`}>
+    <View
+      className={`flex-col w-full bg-custom_complement rounded-2xl ${styles.container} ${customStyle}`}
+    >
       <FlatList
         data={tokens}
         keyExtractor={item => item.symbol}
@@ -37,7 +38,9 @@ export function TokenList({
             <Coin token={item} inMainScreen={inMainScreen} />
           </Pressable>
         )}
-        ListEmptyComponent={<TextWithFont customStyle="text-white">No tokens available</TextWithFont>}
+        ListEmptyComponent={
+          <TextWithFont customStyle="text-white">No tokens available</TextWithFont>
+        }
       />
     </View>
   );

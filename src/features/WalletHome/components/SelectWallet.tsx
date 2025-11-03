@@ -6,7 +6,6 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
-
 interface SelectWalletProps {
   selectedWallet: string | null;
   walletList: string[];
@@ -20,7 +19,7 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
 
   const handlePress = () => {
     console.log('opened');
-    console.log(walletList)
+    console.log(walletList);
     setIsModalVisible(true);
   };
 
@@ -70,7 +69,9 @@ export function SelectWallet({ selectedWallet, walletList, onSelect }: SelectWal
               className={`bg-custom_accent rounded-lg ${styles.actionButton}`}
               onPress={handleCreateWallet}
             >
-              <TextWithFont customStyle={`text-white text-center ${styles.actionText}`}>Create New Wallet</TextWithFont>
+              <TextWithFont customStyle={`text-white text-center ${styles.actionText}`}>
+                Create New Wallet
+              </TextWithFont>
             </Pressable>
             <Pressable
               className="bg-gray-600 rounded-lg mt-2 p-2"

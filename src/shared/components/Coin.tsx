@@ -4,7 +4,6 @@ import { Token } from '../types/Token';
 import TextWithFont from './TextWithFont';
 import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 
-
 const getIcon = (symbol: string) => {
   switch (symbol.toUpperCase()) {
     case 'BTC':
@@ -33,14 +32,18 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
             <TextWithFont customStyle={`text-white ${styles.nameText}`}>{token.name}</TextWithFont>
             {inMainScreen && <TextWithFont customStyle="text-green-500 ml-1">+1.27%</TextWithFont>}
           </View>
-          <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>${formatNumber(token.balanceUsd)}</TextWithFont>
+          <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>
+            ${formatNumber(token.balanceUsd)}
+          </TextWithFont>
         </View>
       </View>
       <View className="items-end">
         <TextWithFont customStyle={`text-white ${styles.balanceText}`}>
           {formatNumber(token.balance)} {token.symbol}
         </TextWithFont>
-        <TextWithFont customStyle={`text-gray-400 ${styles.costText}`}>${formatNumber(token.cost)}</TextWithFont>
+        <TextWithFont customStyle={`text-gray-400 ${styles.costText}`}>
+          ${formatNumber(token.cost)}
+        </TextWithFont>
       </View>
     </View>
   );

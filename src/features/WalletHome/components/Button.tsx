@@ -57,8 +57,14 @@ export function Button({
       } ${customStyle ?? ''}`}
       disabled={disable}
     >
-      <TextWithFont customStyle={`${accent ? 'text-black' : 'text-white'} ${styles.text} z-10`}>{text}</TextWithFont>
-      <IconComponent color={accent ? 'black' : 'white'} size={parseInt(styles.icon)} strokeWidth={2}/>
+      <TextWithFont customStyle={`${accent ? 'text-black' : 'text-white'} ${styles.text} z-10`}>
+        {text}
+      </TextWithFont>
+      <IconComponent
+        color={accent ? 'black' : 'white'}
+        size={parseInt(styles.icon)}
+        strokeWidth={2}
+      />
     </Pressable>
   );
 }
@@ -73,7 +79,11 @@ export function TextButton({ onPress, text, customStyle, accent = false }: TextB
         accent ? 'border-white' : 'border-gray-500'
       } ${customStyle ?? ''}`}
     >
-      <TextWithFont customStyle={`${styles.textButton.text} ${accent ? 'text-custom_accent' : 'text-white'} z-10`}>{text}</TextWithFont>
+      <TextWithFont
+        customStyle={`${styles.textButton.text} ${accent ? 'text-custom_accent' : 'text-white'} z-10`}
+      >
+        {text}
+      </TextWithFont>
     </Pressable>
   );
 }

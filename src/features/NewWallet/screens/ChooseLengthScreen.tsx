@@ -20,8 +20,12 @@ export default function ChooseLengthScreen() {
   return (
     <Wrapper>
       <View className="flex-col">
-        <TextWithFont customStyle={`${styles.titleSize} text-white text-center font-bold`}>Choose the length for</TextWithFont>
-        <TextWithFont customStyle={`${styles.titleSize} text-white text-center font-bold`}>the seed phrase</TextWithFont>
+        <TextWithFont customStyle={`${styles.titleSize} text-white text-center font-bold`}>
+          Choose the length for
+        </TextWithFont>
+        <TextWithFont customStyle={`${styles.titleSize} text-white text-center font-bold`}>
+          the seed phrase
+        </TextWithFont>
       </View>
       <View className="flex-col flex-1 w-full mt-10">
         <Button
@@ -35,10 +39,10 @@ export default function ChooseLengthScreen() {
           customStyle={styles.buttonMargin}
         />
         <View className={`flex-row justify-center items-center ${styles.infoGap} mt-5`}>
-            <Image source={require('../../../../assets/icons/info.png')} className="w-10 h-10" />
+          <Image source={require('../../../../assets/icons/info.png')} className="w-10 h-10" />
           <TextWithFont customStyle={`text-white font-light ${styles.infoText}`}>
             {'Select the appropriate number of \nwords that were in your seed phrase.'}
-            </TextWithFont>
+          </TextWithFont>
         </View>
       </View>
       <View className="my-5 w-full bg-custom_border rounded-2xl">

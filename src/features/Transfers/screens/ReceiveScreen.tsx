@@ -17,7 +17,7 @@ type RouteParams = {
 };
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
-const EXPANDED_HEIGHT = SCREEN_HEIGHT * 0.40; 
+const EXPANDED_HEIGHT = SCREEN_HEIGHT * 0.4;
 
 export default function ReceiveScreen() {
   const route = useRoute();
@@ -55,10 +55,11 @@ export default function ReceiveScreen() {
     const isOpening = openAsset !== asset;
 
     if (openAsset && openAsset !== asset) {
-      Animated.timing(
-        openAsset === 'stx' ? heightAnimSTX : heightAnimBTC,
-        { toValue: 0, duration: 300, useNativeDriver: false }
-      ).start();
+      Animated.timing(openAsset === 'stx' ? heightAnimSTX : heightAnimBTC, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
     }
 
     setOpenAsset(isOpening ? asset : null);
@@ -73,11 +74,7 @@ export default function ReceiveScreen() {
     }).start();
   };
 
-  const renderAssetBlock = (
-    token: Token | undefined,
-    asset: 'stx' | 'btc',
-    address: string
-  ) => {
+  const renderAssetBlock = (token: Token | undefined, asset: 'stx' | 'btc', address: string) => {
     if (!token) return null;
 
     const isOpen = openAsset === asset;
@@ -92,13 +89,10 @@ export default function ReceiveScreen() {
           className="flex-row justify-between items-center"
         >
           <Coin token={token} />
-          <ArrowIcon color={arrowColor} size={24} className=''/>
+          <ArrowIcon color={arrowColor} size={24} className="" />
         </Pressable>
 
-        <Animated.View
-          style={{ height: heightAnim, overflow: 'hidden' }}
-          className="p-4"
-        >
+        <Animated.View style={{ height: heightAnim, overflow: 'hidden' }} className="p-4">
           {isOpen && (
             <View className="px-4 pb-6 pt-2">
               <View className="items-center mb-5 bg-white p-5 rounded-xl self-center">
@@ -115,11 +109,7 @@ export default function ReceiveScreen() {
               </View>
 
               <View className="flex-row items-center justify-between">
-                <TextWithFont
-                  customStyle="text-white text-sm flex-1 mr-3"
-                >
-                  {address}
-                </TextWithFont>
+                <TextWithFont customStyle="text-white text-sm flex-1 mr-3">{address}</TextWithFont>
                 <Pressable onPress={() => CopyToClipboard(address)}>
                   <Image
                     source={require('../../../../assets/icons/copy.png')}

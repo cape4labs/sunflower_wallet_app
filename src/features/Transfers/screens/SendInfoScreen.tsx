@@ -65,7 +65,7 @@ export default function SendInfoScreen() {
         if (!response.ok) throw new Error('Failed to fetch fee');
 
         const feeRate = BigInt(await response.text());
-        const estimatedFee = feeRate * 200n; 
+        const estimatedFee = feeRate * 200n;
 
         setGasFee(estimatedFee);
         const total = Number(amountInMicroSTX + estimatedFee) / 1_000_000;
@@ -123,7 +123,7 @@ export default function SendInfoScreen() {
         [
           { text: 'Cancel', style: 'cancel' },
           { text: 'Back', onPress: () => navigation.goBack() },
-        ]
+        ],
       );
     } else {
       navigation.goBack();
@@ -205,7 +205,9 @@ export default function SendInfoScreen() {
 
         {txState === 'confirmed' && txid && (
           <View className="flex-1 items-center justify-center py-10">
-            <TextWithFont customStyle={`text-green-400 ${styles.successText} mb-2`}>Success!</TextWithFont>
+            <TextWithFont customStyle={`text-green-400 ${styles.successText} mb-2`}>
+              Success!
+            </TextWithFont>
             <TextWithFont customStyle={`text-gray-400 ${styles.txidText}`}>
               TXID: {txid.slice(0, 8)}...{txid.slice(-6)}
             </TextWithFont>
@@ -218,7 +220,9 @@ export default function SendInfoScreen() {
         {txState === 'failed' && error && (
           <View className="flex-1 items-center justify-center py-10">
             <TextWithFont customStyle={`text-red-400 ${styles.errorText} mb-4`}>Error</TextWithFont>
-            <TextWithFont customStyle={`text-gray-400 text-sm text-center px-4 ${styles.errorText}`}>
+            <TextWithFont
+              customStyle={`text-gray-400 text-sm text-center px-4 ${styles.errorText}`}
+            >
               {error}
             </TextWithFont>
             <Button text="Retry" onPress={handleSend} customStyle="mt-6" />

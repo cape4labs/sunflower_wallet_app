@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import { Token } from '../../../shared/types/Token';
 
 export default function useWalletTokens() {
@@ -7,7 +7,6 @@ export default function useWalletTokens() {
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [tokenLoading, setTokenLoading] = useState(false);
 
-  
   const fetchTokensCosts = async (stxAddress: string, btcAddress: string) => {
     if (!stxAddress && !btcAddress) {
       setTokens([]);
@@ -89,5 +88,5 @@ export default function useWalletTokens() {
       setWalletBalance('0.00');
     }
   };
-  return { tokens, walletBalance, tokenError, tokenLoading, fetchTokensCosts};
+  return { tokens, walletBalance, tokenError, tokenLoading, fetchTokensCosts };
 }

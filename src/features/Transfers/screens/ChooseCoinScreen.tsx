@@ -11,7 +11,6 @@ import { useWalletData } from '../../../shared/hooks/useWalletData';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
-
 type ChooseCoinScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
   'ChooseCoinScreen'
@@ -151,7 +150,7 @@ export default function ChooseCoinScreen() {
             <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
           </Pressable>
           <TextWithFont customStyle={`text-white ${styles.titleSize}`}>Choose crypto</TextWithFont>
-          <TextWithFont customStyle=''></TextWithFont>
+          <TextWithFont customStyle=""></TextWithFont>
         </View>
         {isLoadingWalletData ? (
           <View className="flex-1 justify-center items-center">

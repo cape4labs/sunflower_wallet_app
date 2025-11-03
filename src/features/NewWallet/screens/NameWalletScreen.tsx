@@ -10,7 +10,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
-
 type RouteParams = {
   mnemonic?: string;
 };
@@ -58,14 +57,20 @@ export default function NameWalletScreen() {
     <Wrapper>
       <View className="flex-1 flex-col w-full">
         <View className="flex-col items-center w-full px-5">
-          <TextWithFont customStyle={`${newWalletScreens.titleSize} text-white text-center font-bold mt-5`}>
+          <TextWithFont
+            customStyle={`${newWalletScreens.titleSize} text-white text-center font-bold mt-5`}
+          >
             Pick a name for your wallet
           </TextWithFont>
-          <TextWithFont customStyle={`text-white text-center mt-2 ${newWalletScreens.subtitleSize}`}>
+          <TextWithFont
+            customStyle={`text-white text-center mt-2 ${newWalletScreens.subtitleSize}`}
+          >
             For example: Main Wallet
           </TextWithFont>
 
-          <View className={`w-full bg-custom_complement items-center flex-row justify-between rounded-2xl mt-10 ${nameWallet.inputContainer}`}>
+          <View
+            className={`w-full bg-custom_complement items-center flex-row justify-between rounded-2xl mt-10 ${nameWallet.inputContainer}`}
+          >
             <TextWithFont customStyle="text-white">{'>>'}</TextWithFont>
             <TextInput
               className={`flex-1 h-full text-white px-2 my-1 ${nameWallet.inputText}`}
@@ -87,7 +92,12 @@ export default function NameWalletScreen() {
 
         <View className="w-full mt-auto">
           <View className="flex-col px-5 pb-5">
-            <Button onPress={() => navigation.goBack()} text="Back" customStyle="w-full" disable={isLoading} />
+            <Button
+              onPress={() => navigation.goBack()}
+              text="Back"
+              customStyle="w-full"
+              disable={isLoading}
+            />
             <Button
               onPress={handleNext}
               accent

@@ -10,16 +10,12 @@ import { Home, History, Settings } from 'lucide-react-native';
 
 const createTabIcon = (IconComponent: any) => {
   return ({ color, focused }: { color: string; focused: boolean }) => {
-    const { config } = useResponsiveTabBarOptions(); 
-    const iconSize = config.iconSize; 
+    const { config } = useResponsiveTabBarOptions();
+    const iconSize = config.iconSize;
 
     return (
       <View>
-        <IconComponent
-          color={color}
-          size={iconSize}
-          strokeWidth={focused ? 2 : 1.5}
-        />
+        <IconComponent color={color} size={iconSize} strokeWidth={focused ? 2 : 1.5} />
       </View>
     );
   };
