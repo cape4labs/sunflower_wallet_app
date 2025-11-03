@@ -9,7 +9,7 @@ import TextWithFont from '../../../shared/components/TextWithFont';
 import { SelectWallet } from '../components/SelectWallet';
 import { Button, TextButton } from '../components/Button';
 import { TokenList } from '../../../shared/components/TokenList';
-import UserGraph from '../components/UserGraph';
+import PriceGraph from '../components/PriceGraph';
 import NftTab from '../components/Tabs/NftTab';
 import ActionsTab from '../components/Tabs/ActionsTab';
 
@@ -22,6 +22,7 @@ import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
 import shortenAddress from '../../../shared/utils/shortAddress';
 import type { Token } from '../../../shared/types/Token';
 import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import usePriceHistory from '../hooks/usePriceHistory';
 
 type MainWalletScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -46,6 +47,7 @@ export default function MainWalletScreen() {
   const { walletList, error } = useWalletList(selectedWallet, setSelectedWallet);
   const { walletData, isLoadingWalletData } = useWalletData(selectedWallet);
   const { tokens, tokenError, tokenLoading, walletBalance, fetchTokensCosts } = useWalletTokens();
+  const priceHistory = usePriceHistory({tokens});
 
   const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens');
 
@@ -96,7 +98,7 @@ export default function MainWalletScreen() {
         <View
           className={`w-full ${screenStyles.containerPadding} bg-custom_border relative rounded-lg`}
         >
-          <UserGraph />
+          <PriceGraph lineData={priceHistory.data}/>
           <View className={`flex-row ${screenStyles.sendReceiveButtonGap}`}>
             <Button
               text="Send"
