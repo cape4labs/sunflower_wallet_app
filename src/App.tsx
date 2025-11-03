@@ -1,12 +1,17 @@
 import '../global.css';
 import { Navigation } from './navigation/RootNavigator';
 import { WalletProvider } from './providers/WalletContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <WalletProvider>
-      <Navigation />
-    </WalletProvider>
+    <QueryClientProvider client={queryClient}>
+      <WalletProvider>
+        <Navigation />
+      </WalletProvider>
+    </QueryClientProvider>
   );
 }
 
