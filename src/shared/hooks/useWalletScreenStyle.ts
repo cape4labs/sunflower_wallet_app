@@ -10,7 +10,7 @@ export const useScreenSize = (): ScreenSize => {
 
 const getResponsiveClassName = (
   size: ScreenSize,
-  classes: Record<string, string | undefined>
+  classes: Record<string, string | undefined>,
 ): string => {
   return classes[size] ?? classes.default ?? '';
 };
@@ -25,8 +25,7 @@ export const useWalletScreenStyles = () => {
   const margin = (s: number, m: number) =>
     getResponsiveClassName(size, { small: `m-${s}`, medium: `m-${m}` });
 
-  const textSize = (s: string, m: string) =>
-    getResponsiveClassName(size, { small: s, medium: m });
+  const textSize = (s: string, m: string) => getResponsiveClassName(size, { small: s, medium: m });
 
   const borderWidth = (s: number, m: number) =>
     getResponsiveClassName(size, { small: `border-[${s}px]`, medium: `border-[${m}px]` });
@@ -206,7 +205,10 @@ export const useWalletScreenStyles = () => {
       },
 
       tokenList: {
-        container: getResponsiveClassName(size, { small: 'p-3 border-[4px]', medium: 'p-4 border-[6px]' }),
+        container: getResponsiveClassName(size, {
+          small: 'p-3 border-[4px]',
+          medium: 'p-4 border-[6px]',
+        }),
         item: getResponsiveClassName(size, { small: 'm-1', medium: 'm-2' }),
       },
 
@@ -224,7 +226,10 @@ export const useWalletScreenStyles = () => {
           medium: 'py-2 px-4 mb-4 w-[160px] border-[6px]',
         }),
         triggerText: getResponsiveClassName(size, { small: 'text-base', medium: 'text-lg' }),
-        modal: getResponsiveClassName(size, { small: 'p-3 w-11/12 h-full', medium: 'p-4 w-3/4 h-full' }),
+        modal: getResponsiveClassName(size, {
+          small: 'p-3 w-11/12 h-full',
+          medium: 'p-4 w-3/4 h-full',
+        }),
         item: getResponsiveClassName(size, { small: 'p-3 mb-2', medium: 'p-4 mb-2' }),
         itemText: getResponsiveClassName(size, { small: 'text-sm', medium: 'text-lg' }),
         actionButton: getResponsiveClassName(size, { small: 'p-1.5 mt-3', medium: 'p-2 mt-4' }),

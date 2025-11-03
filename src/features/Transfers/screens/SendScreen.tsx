@@ -2,7 +2,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Wrapper from '../../../shared/components/Wrapper';
-import { Token } from '../../WalletHome/screens/MainWalletScreen';
+import { Token } from '../../../shared/types/Token';
 import { View, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react-native';
@@ -10,7 +10,6 @@ import { Button } from '../../NewWallet/components/Button';
 import Coin from '../../../shared/components/Coin';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
-
 
 type SendScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'SendScreen'>;
 
@@ -32,7 +31,9 @@ export default function SendScreen() {
     return (
       <Wrapper>
         <View className="flex-col flex-1 p-4">
-          <TextWithFont customStyle="text-white text-xl mb-4">No token or wallet data selected</TextWithFont>
+          <TextWithFont customStyle="text-white text-xl mb-4">
+            No token or wallet data selected
+          </TextWithFont>
           <Pressable onPress={() => navigation.goBack()} className="p-2 bg-gray-700 rounded-lg">
             <TextWithFont customStyle="text-white text-center">Back</TextWithFont>
           </Pressable>
@@ -73,11 +74,15 @@ export default function SendScreen() {
           <View />
         </View>
 
-        <View className={`${styles.coinsMargin} bg-custom_complement rounded-xl rounded-b-none border-custom_border ${styles.coinCard}`}>
+        <View
+          className={`${styles.coinsMargin} bg-custom_complement rounded-xl rounded-b-none border-custom_border ${styles.coinCard}`}
+        >
           <Coin token={token} />
         </View>
 
-        <View className={`bg-custom_complement rounded-lg rounded-t-none border-custom_border border-t-0 mb-3 ${styles.coinCard}`}>
+        <View
+          className={`bg-custom_complement rounded-lg rounded-t-none border-custom_border border-t-0 mb-3 ${styles.coinCard}`}
+        >
           <View className="flex-row justify-between w-full">
             <TextInput
               className={`text-white flex-1 ${styles.amountInput}`}
@@ -98,7 +103,9 @@ export default function SendScreen() {
           <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>${usdAmount}</TextWithFont>
         </View>
 
-        <View className={`bg-custom_complement rounded-xl mb-5 w-full border-custom_border ${styles.coinCard}`}>
+        <View
+          className={`bg-custom_complement rounded-xl mb-5 w-full border-custom_border ${styles.coinCard}`}
+        >
           <TextInput
             className={`text-gray-400 w-full ${styles.recipientInput}`}
             placeholder="Enter recipient"

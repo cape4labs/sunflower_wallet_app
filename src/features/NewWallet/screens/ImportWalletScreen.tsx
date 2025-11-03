@@ -11,7 +11,6 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
-
 type ImportWalletScreenNavigationProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
   'ImportWalletScreen'

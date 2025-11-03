@@ -13,7 +13,9 @@ export function MnemonicInput({ idx, onChange, value }: MnemonicWordType) {
   const styles = useWalletScreenStyles().mnemonicInput;
 
   return (
-    <View className={`flex-row w-full items-center rounded-lg bg-custom_border ${styles.container}`}>
+    <View
+      className={`flex-row w-full items-center rounded-lg bg-custom_border ${styles.container}`}
+    >
       <TextWithFont customStyle="text-white">{idx}.</TextWithFont>
       <TextInput
         className={`flex-1 h-full text-white rounded-md ${styles.input}`}

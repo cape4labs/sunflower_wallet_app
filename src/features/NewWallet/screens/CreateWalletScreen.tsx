@@ -13,7 +13,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
-
 type CreateWalletScreenNavigationProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
   'CreateWalletScreen'
@@ -45,10 +44,14 @@ export default function CreateWalletScreen() {
     <Wrapper>
       <View className="flex-col items-center">
         <View>
-          <TextWithFont customStyle={`${newWalletScreens.titleSize} font-bold text-white text-center`}>
+          <TextWithFont
+            customStyle={`${newWalletScreens.titleSize} font-bold text-white text-center`}
+          >
             Store your secret phrase
           </TextWithFont>
-          <TextWithFont customStyle={`text-white ${newWalletScreens.subtitleSize} text-center ${create.titleGap}`}>
+          <TextWithFont
+            customStyle={`text-white ${newWalletScreens.subtitleSize} text-center ${create.titleGap}`}
+          >
             This is your secret phrase, make
           </TextWithFont>
           <TextWithFont customStyle={`text-white ${newWalletScreens.subtitleSize} text-center`}>
@@ -62,7 +65,10 @@ export default function CreateWalletScreen() {
             }}
             className="flex-1 mt-10"
           >
-            <Image source={require('../../../../assets/icons/blur.png')} className={create.blurImageSize}/>
+            <Image
+              source={require('../../../../assets/icons/blur.png')}
+              className={create.blurImageSize}
+            />
           </Pressable>
         ) : (
           <MnemonicDisplay mnemonic={mnemonic} className={isHidden ? '' : ''} />
@@ -86,7 +92,7 @@ export default function CreateWalletScreen() {
                     source={require('../../../../assets/icons/copy.png')}
                     className={create.copyIconSize}
                   />
-                  <TextWithFont customStyle={`text-white ${create.copyText}`} >Copy</TextWithFont>
+                  <TextWithFont customStyle={`text-white ${create.copyText}`}>Copy</TextWithFont>
                 </Pressable>
               </View>
             </View>
@@ -94,8 +100,10 @@ export default function CreateWalletScreen() {
         )}
         {isHidden && <Button onPress={() => navigation.goBack()} text={'Go back'} accent={false} />}
         {!isHidden && (
-          <View className={`flex-row bg-custom_border rounded-xl justify-center ${create.bottomButtons}`}>            
-          <Button onPress={() => navigation.goBack()} text={'Back'} customStyle={'w-[50%]'} />
+          <View
+            className={`flex-row bg-custom_border rounded-xl justify-center ${create.bottomButtons}`}
+          >
+            <Button onPress={() => navigation.goBack()} text={'Back'} customStyle={'w-[50%]'} />
             <Button
               onPress={handleNext}
               accent={true}

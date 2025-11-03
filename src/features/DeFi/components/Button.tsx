@@ -15,7 +15,9 @@ export function Button({ onPress, text, customStyle, accent = false }: ButtonTyp
       onPress={onPress}
       className={`justify-center items-center w-[90%] h-14 border-4 border-custom_border rounded-lg ${accent ? 'bg-custom_accent' : 'bg-custom_complement'} ${customStyle ?? ''}`}
     >
-      <TextWithFont customStyle={`text-lg ${accent ? 'text-black' : 'text-white'}`}>{text}</TextWithFont>
+      <TextWithFont customStyle={`text-lg ${accent ? 'text-black' : 'text-white'}`}>
+        {text}
+      </TextWithFont>
     </Pressable>
   );
 }

@@ -18,7 +18,9 @@ export default function Toggle({ isToggled, setIsToggled }: ToggleType) {
           : 'bg-custom_border border-custom_accent justify-start'
       }`}
     >
-      <View className={`rounded-full mx-1 ${styles.thumb} ${isToggled ? 'bg-custom_border' : 'bg-custom_accent'}`} />
+      <View
+        className={`rounded-full mx-1 ${styles.thumb} ${isToggled ? 'bg-custom_border' : 'bg-custom_accent'}`}
+      />
     </Pressable>
   );
 }

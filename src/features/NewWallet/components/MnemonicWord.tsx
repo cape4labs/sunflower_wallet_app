@@ -12,7 +12,9 @@ export function MnemonicWord({ idx, word }: MnemonicWordType) {
   const styles = useWalletScreenStyles().mnemonicWord;
 
   return (
-    <View className={`flex-row w-full justify-center rounded-lg bg-custom_border ${styles.container}`}>
+    <View
+      className={`flex-row w-full justify-center rounded-lg bg-custom_border ${styles.container}`}
+    >
       <TextWithFont customStyle={`flex-1 p-2 text-white rounded-md ${styles.text}`}>
         {idx}. {word}
       </TextWithFont>
