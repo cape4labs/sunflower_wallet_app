@@ -1,5 +1,5 @@
 import { Pressable } from 'react-native';
-import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle } from 'lucide-react-native';
+import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle, ArrowRightLeft } from 'lucide-react-native';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
@@ -9,7 +9,7 @@ type ButtonType = {
   customStyle?: string;
   accent?: boolean;
   disable?: boolean;
-  iconName: 'Send' | 'Upload' | 'Settings' | 'RefreshCw' | 'DatabaseIcon' | 'PlusCircle';
+  iconName: 'Send' | 'Upload' | 'Settings' | 'RefreshCw' | 'DatabaseIcon' | 'PlusCircle' | 'ArrowRightLeft';
 };
 
 type TextButtonType = {
@@ -41,6 +41,8 @@ export function Button({
         return DatabaseIcon;
       case 'PlusCircle':
         return PlusCircle;
+      case 'ArrowRightLeft':
+        return ArrowRightLeft;
       default:
         return Send;
     }

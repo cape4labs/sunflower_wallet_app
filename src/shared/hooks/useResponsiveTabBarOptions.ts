@@ -20,7 +20,7 @@ export const useResponsiveTabBarOptions = (): BottomTabNavigationOptions & {
     height: isSmall ? 70 : 80,
     paddingTop: isSmall ? 12 : 15,
     iconSize: isSmall ? 25 : 30,
-    borderTopWidth: isSmall ? 4 : 5,
+    borderTopWidth: isSmall ? 2 : 2,
     labelSize: isSmall ? 11 : 12,
   };
 

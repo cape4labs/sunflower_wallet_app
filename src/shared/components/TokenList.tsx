@@ -28,7 +28,7 @@ export function TokenList({
 
   return (
     <View
-      className={`flex-col w-full bg-custom_complement rounded-2xl ${styles.container} ${customStyle}`}
+      className={`flex-col w-full bg-custom_complement border-custom_border rounded-2xl ${styles.container} ${customStyle}`}
     >
       <FlatList
         data={tokens}
