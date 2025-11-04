@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Token } from '../../../shared/types/Token';
+import calculatePriceDiff from '../utils/calculatePriceDiff';
+import { PricesData } from '../types/wallet';
 
-export default function useWalletTokens() {
+export default function useWalletTokens(priceHistory: PricesData) {
   const [tokens, setTokens] = useState<Token[]>([]);
   const [walletBalance, setWalletBalance] = useState<string | null>(null);
   const [tokenError, setTokenError] = useState<string | null>(null);
@@ -62,6 +64,7 @@ export default function useWalletTokens() {
           balanceUsd: (Number(stxBalance) * stxPrice).toFixed(2),
           balance: stxBalance,
           cost: stxPrice.toString(),
+          diff: (await calculatePriceDiff(priceHistory?.stx)).data,
         },
         {
           name: 'Bitcoin',
@@ -69,6 +72,7 @@ export default function useWalletTokens() {
           balanceUsd: (Number(btcBalance) * btcPrice).toFixed(2),
           balance: btcBalance,
           cost: btcPrice.toString(),
+          diff: (await calculatePriceDiff(priceHistory?.btc)).data,
         },
       ];
 

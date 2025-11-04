@@ -4,4 +4,5 @@ export interface Token {
   cost: string;
   balanceUsd: string;
   balance: string;
+  diff?: string | null;
 }

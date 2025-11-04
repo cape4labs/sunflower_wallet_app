@@ -30,7 +30,17 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
         <View className="ml-2">
           <View className="flex-row items-center">
             <TextWithFont customStyle={`text-white ${styles.nameText}`}>{token.name}</TextWithFont>
-            {inMainScreen && <TextWithFont customStyle="text-green-500 ml-1">+1.27%</TextWithFont>}
+            {inMainScreen &&
+              (token.diff == null ? (
+                <TextWithFont customStyle={`text-white-500 ml-1`}></TextWithFont>
+              ) : (
+                // Sign is supposed to be shown automatically because token.diff is a string
+                <TextWithFont
+                  customStyle={`text-${Number(token.diff) > 0 ? 'green' : 'red'}-500 ml-1`}
+                >
+                  {token.diff}%
+                </TextWithFont>
+              ))}
           </View>
           <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>
             ${formatNumber(token.balanceUsd)}

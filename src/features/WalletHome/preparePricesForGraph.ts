@@ -1,12 +1,15 @@
-import type { Token } from "../../shared/types/Token";
-import type { PricesData } from "./types/wallet";
+import type { Token } from '../../shared/types/Token';
+import type { PricesData } from './types/wallet';
 
 type preparePricesForGraphReturn = {
   data: { value: number }[] | null;
   error: string | null;
-}
+};
 
-export default function preparePricesForGraph(tokens: Token[] | null, prices: PricesData): preparePricesForGraphReturn {
+export default function preparePricesForGraph(
+  tokens: Token[] | null,
+  prices: PricesData,
+): preparePricesForGraphReturn {
   if (tokens == null || tokens.length < 2) {
     return {
       data: null,
@@ -17,13 +20,13 @@ export default function preparePricesForGraph(tokens: Token[] | null, prices: Pr
   if (prices == null) {
     return {
       data: null,
-      error: "Prices are required",
-    }
+      error: 'Prices are required',
+    };
   }
 
   // Assume that we support only 2 tokens
-  const stxAmount = Number(tokens[0].balance); 
-  const btcAmount = Number(tokens[1].balance); 
+  const stxAmount = Number(tokens[0].balance);
+  const btcAmount = Number(tokens[1].balance);
 
   // We don't use !stxAmount here because it treats 0 same as missing
   if (stxAmount == null || btcAmount == null) {
@@ -49,18 +52,17 @@ export default function preparePricesForGraph(tokens: Token[] | null, prices: Pr
   const processed = combined.map((v: number) => {
     if (range != 0) {
       return {
-        value: (v - min) / range * 100
-      }
+        value: ((v - min) / range) * 100,
+      };
     } else {
       return {
-        value: 0
-      }
+        value: 0,
+      };
     }
-  })
+  });
 
   return {
     data: processed,
     error: null,
-  }
+  };
 }
-
