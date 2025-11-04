@@ -31,7 +31,7 @@ export default function PriceGraph({ lineData }: PriceGraphType) {
     <View className="bg-custom_complement rounded-xl p-0">
       <LineChart
         data={lineData}
-        spacing={30}
+        spacing={1.85}
         maxValue={150}
         thickness={3}
         curved={true}

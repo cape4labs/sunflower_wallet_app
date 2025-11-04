@@ -41,7 +41,7 @@ export const useWalletScreenStyles = () => {
       containerPadding: padding(4, 5),
       title: textSize('text-xl', 'text-2xl'),
       subtitle: textSize('text-sm', 'text-lg'),
-      border: borderWidth(4, 6),
+      border: borderWidth(2, 2),
       buttonMargin: margin(1, 2),
       infoText: textSize('text-xs', 'text-sm'),
       arrowSize: iconSize(25, 30),
@@ -57,7 +57,7 @@ export const useWalletScreenStyles = () => {
         headerGap: gap(4, 10),
         balanceText: textSize('text-3xl', 'text-4xl'),
         addressText: textSize('text-xs', 'text-sm'),
-        addressCopyIcon: getResponsiveClassName(size, { small: 'w-3 h-3', medium: 'w-4 h-4' }),
+        addressCopyIcon: iconSize(12, 15),
         actionsHeight: getResponsiveClassName(size, { small: 'h-[64%]', medium: 'h-[65%]' }),
         sendReceiveButtonGap: getResponsiveClassName(size, { small: 'mt-0.5', medium: 'mt-1' }),
         tabsMargin: getResponsiveClassName(size, { small: 'mt-1', medium: 'mt-2' }),
@@ -92,16 +92,16 @@ export const useWalletScreenStyles = () => {
         dividerMargin: margin(4, 6),
         qrSize: iconSize(100, 200),
         addressText: textSize('text-xs', 'text-sm'),
-        copyIconSize: getResponsiveClassName(size, { small: 'w-4 h-4', medium: 'w-5 h-5' }),
         arrowSize: global.arrowSize,
+        copyIconSize: iconSize(12, 15),
       },
 
       sendScreen: {
         containerPadding: global.containerPadding,
         titleSize: global.title,
         coinCard: getResponsiveClassName(size, {
-          small: 'p-3 border-[4px]',
-          medium: 'p-5 border-4',
+          small: 'p-3 border-2',
+          medium: 'p-5 border-2',
         }),
         amountInput: textSize('text-2xl', 'text-3xl'),
         recipientInput: textSize('text-base', 'text-lg'),
@@ -150,8 +150,8 @@ export const useWalletScreenStyles = () => {
 
       nameWallet: {
         inputContainer: getResponsiveClassName(size, {
-          small: 'border-[4px] px-3',
-          medium: 'border-[6px] px-5',
+          small: 'border-2 px-3',
+          medium: 'border-2 px-5',
         }),
         inputText: textSize('text-lg', 'text-xl'),
         loadingGap: margin(3, 5),
@@ -160,7 +160,7 @@ export const useWalletScreenStyles = () => {
       // === Components ===
       button: {
         container: getResponsiveClassName(size, {
-          small: 'py-2 px-8 border-[4px] gap-2 rounded-xl',
+          small: 'py-2 px-8 border-2 gap-2 rounded-xl',
           medium: 'py-3 px-12 border-2 gap-3 rounded-2xl',
         }),
         text: textSize('text-base', 'text-lg'),
@@ -169,8 +169,8 @@ export const useWalletScreenStyles = () => {
 
       buttonNewWallet: {
         container: getResponsiveClassName(size, {
-          small: 'py-2 px-10 border-[4px] rounded-xl',
-          medium: 'py-3 px-14 border-[6px] rounded-2xl',
+          small: 'py-2 px-10 border-2 rounded-xl',
+          medium: 'py-3 px-14 border-2 rounded-2xl',
         }),
         text: textSize('text-base', 'text-lg'),
       },
@@ -206,16 +206,16 @@ export const useWalletScreenStyles = () => {
 
       tokenList: {
         container: getResponsiveClassName(size, {
-          small: 'p-3 border-[4px]',
-          medium: 'p-4 border-[6px]',
+          small: 'p-3 border-2',
+          medium: 'p-4 border-2',
         }),
         item: getResponsiveClassName(size, { small: 'm-1', medium: 'm-2' }),
       },
 
       mnemonic: {
         container: getResponsiveClassName(size, {
-          small: 'border-[4px] rounded-lg my-3',
-          medium: 'border-[6px] rounded-xl my-5',
+          small: 'border-2 rounded-lg my-3',
+          medium: 'border-2 rounded-xl my-5',
         }),
         columnMargin: margin(1, 2),
       },

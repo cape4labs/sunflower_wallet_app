@@ -2,7 +2,7 @@ import { View, Pressable, ActivityIndicator, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RefreshCcw } from 'lucide-react-native';
+import { RefreshCcw, Copy } from 'lucide-react-native';
 
 import Wrapper from '../../../shared/components/Wrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
@@ -91,16 +91,16 @@ export default function MainWalletScreen() {
               strokeWidth={1.5}
             />
           </Pressable>
-          <SelectWallet
-            selectedWallet={selectedWallet}
-            walletList={walletList}
-            onSelect={setSelectedWallet}
-          />
+            <SelectWallet
+              selectedWallet={selectedWallet}
+              walletList={walletList}
+              onSelect={setSelectedWallet}
+            />
           <View />
         </View>
 
         <View
-          className={`w-full ${screenStyles.containerPadding} bg-custom_border relative rounded-lg`}
+          className={`w-full ${screenStyles.containerPadding} mt-0 bg-custom_border relative rounded-lg`}
         >
           <PriceGraph lineData={priceHistoryForGraph.data} />
           <View className={`flex-row ${screenStyles.sendReceiveButtonGap}`}>
@@ -133,10 +133,7 @@ export default function MainWalletScreen() {
               <TextWithFont customStyle={`${screenStyles.addressText} text-yellow-50`}>
                 {shortenAddress(walletData?.stxAddress)}
               </TextWithFont>
-              <Image
-                source={require('../../../../assets/icons/copy.png')}
-                className={screenStyles.addressCopyIcon}
-              />
+              <Copy size={screenStyles.addressCopyIcon} color={'#fff'}/>
             </Pressable>
           </View>
         </View>
