@@ -23,6 +23,7 @@ import shortenAddress from '../../../shared/utils/shortAddress';
 import type { Token } from '../../../shared/types/Token';
 import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import usePriceHistory from '../hooks/usePriceHistory';
+import preparePricesForGraph from '../preparePricesForGraph';
 
 type MainWalletScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -47,7 +48,8 @@ export default function MainWalletScreen() {
   const { walletList, error } = useWalletList(selectedWallet, setSelectedWallet);
   const { walletData, isLoadingWalletData } = useWalletData(selectedWallet);
   const { tokens, tokenError, tokenLoading, walletBalance, fetchTokensCosts } = useWalletTokens();
-  const priceHistory = usePriceHistory({tokens});
+  const priceHistory = usePriceHistory();
+  const priceHistoryForGraph = preparePricesForGraph(tokens, priceHistory.data);
 
   const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens');
 
@@ -98,7 +100,7 @@ export default function MainWalletScreen() {
         <View
           className={`w-full ${screenStyles.containerPadding} bg-custom_border relative rounded-lg`}
         >
-          <PriceGraph lineData={priceHistory.data}/>
+          <PriceGraph lineData={priceHistoryForGraph.data}/>
           <View className={`flex-row ${screenStyles.sendReceiveButtonGap}`}>
             <Button
               text="Send"
