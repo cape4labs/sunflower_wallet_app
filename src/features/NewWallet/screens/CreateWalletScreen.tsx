@@ -1,5 +1,5 @@
 import { View, Pressable, Image } from 'react-native';
-import { Button } from '../components/Button';
+import { Button } from '../../../shared/components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { generateMnemonic } from '../../../../shared/crypto/mnemonic';
 import { useEffect, useState } from 'react';

@@ -2,11 +2,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainWalletScreen from '../screens/MainWalletScreen';
 import HistoryScreen from '../screens/HistoryScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 import { useResponsiveTabBarOptions } from '../../../shared/hooks/useResponsiveTabBarOptions';
 import WalletTabsProps from './type';
 import { View } from 'react-native';
-import { Home, History, Settings } from 'lucide-react-native';
+import { Home, FileText, Settings } from 'lucide-react-native';
+import SettingsScreen from '../../Settings/screens/SettingsScreen';
 
 const createTabIcon = (IconComponent: any) => {
   return ({ color, focused }: { color: string; focused: boolean }) => {
@@ -22,7 +22,7 @@ const createTabIcon = (IconComponent: any) => {
 };
 
 const HomeIcon = createTabIcon(Home);
-const HistoryIcon = createTabIcon(History);
+const HistoryIcon = createTabIcon(FileText);
 const SettingsIcon = createTabIcon(Settings);
 
 // Dynamic screenOptions
@@ -30,7 +30,7 @@ const getScreenOptions = (): any => {
   const options = useResponsiveTabBarOptions();
   return {
     headerShown: false,
-    sceneStyle: { backgroundColor: '#362F2E' },
+    sceneStyle: { backgroundColor: '#292928' },
     ...options,
   };
 };
