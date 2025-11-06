@@ -7,5 +7,5 @@ type WrapperType = {
 
 // Our Text
 export default function TextWithFont({ children, customStyle }: WrapperType) {
-  return <Text className={`font-[spacegrotesk] font-normal ${customStyle}`}>{children}</Text>;
+  return <Text className={`font-[spacegrotesk] ${customStyle}`}>{children}</Text>;
 }

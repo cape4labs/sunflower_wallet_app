@@ -2,6 +2,7 @@ import { Pressable } from 'react-native';
 import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle, ArrowRightLeft } from 'lucide-react-native';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import getIconComponent from '../../../shared/components/GetIcon';
 
 type ButtonType = {
   onPress?: () => void;
@@ -27,28 +28,8 @@ export function Button({
   disable = false,
   iconName,
 }: ButtonType) {
-  const getIconComponent = () => {
-    switch (iconName) {
-      case 'Send':
-        return Send;
-      case 'Upload':
-        return Upload;
-      case 'Settings':
-        return Settings;
-      case 'RefreshCw':
-        return RefreshCw;
-      case 'DatabaseIcon':
-        return DatabaseIcon;
-      case 'PlusCircle':
-        return PlusCircle;
-      case 'ArrowRightLeft':
-        return ArrowRightLeft;
-      default:
-        return Send;
-    }
-  };
 
-  const IconComponent = getIconComponent();
+  const IconComponent = getIconComponent(iconName);
   const styles = useWalletScreenStyles().button;
 
   return (

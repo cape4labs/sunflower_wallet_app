@@ -1,5 +1,5 @@
 import { View, Image, Pressable } from 'react-native';
-import { Button } from '../components/Button';
+import { Button } from '../../../shared/components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import ScrollableWrapper from '../../../shared/components/ScrollableWrapper';

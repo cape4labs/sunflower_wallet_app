@@ -6,7 +6,7 @@ import { Token } from '../../../shared/types/Token';
 import { View, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react-native';
-import { Button } from '../../NewWallet/components/Button';
+import { Button } from '../../../shared/components/Button';
 import Coin from '../../../shared/components/Coin';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
