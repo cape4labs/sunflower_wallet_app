@@ -6,12 +6,12 @@ type CalculatePriceDiffSinceReturn = {
 };
 
 /**
- * Calculate difference in percents.
+ * Calculate difference in percents for a group of values.
  * @param {PriceEntry} data - PriceEntry sorted descendingly by timestamp in seconds
  **/
-export default async function calculatePriceDiff(
+export default function calculatePriceDiff(
   data: PriceEntry,
-): Promise<CalculatePriceDiffSinceReturn> {
+): CalculatePriceDiffSinceReturn {
   if (data == null || data == undefined) {
     return {
       data: null,
@@ -26,7 +26,7 @@ export default async function calculatePriceDiff(
   for (let i = data.length - 1; i > 0; i--) {
     if (data[data.length - 1][0] - data[i][0] > inSeconds) {
       return {
-        data: (await calculateDiff(data[data.length - 1][1], data[i][1])).toFixed(2),
+        data: calculateDiff(data[data.length - 1][1], data[i][1]),
         error: null,
       };
     }
@@ -37,9 +37,25 @@ export default async function calculatePriceDiff(
   };
 }
 
-async function calculateDiff(n1: number, n2: number) {
-  if (n2 == 0) {
-    return 0;
+/**
+* Calculate diff between two numbers in percents.
+* @param {number} n1 - changed number
+* @param {number} n2 - base number
+**/
+export function calculateDiff(n1: number, n2: number, dec: number = 2): string | null {
+  // Situations when either n2 or n1 equal 0 are weird and not for calculating
+  if (n2 <= 0 || n1 <= 0) {
+    return null;
   }
-  return (n1 / n2) * 100 - 100;
+
+  const diff = (n1 / n2) * 100 - 100;
+
+  if (diff > 0) {
+      return "+" + diff.toFixed(dec) + "%";
+  } else if (diff < 0) {
+      // "-" is put automatically if number is negative
+      return diff.toFixed(dec) + "%";
+  } else {
+      return null;
+    }
 }

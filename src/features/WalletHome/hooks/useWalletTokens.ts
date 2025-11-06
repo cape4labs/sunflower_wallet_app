@@ -64,7 +64,7 @@ export default function useWalletTokens(priceHistory: PricesData) {
           balanceUsd: (Number(stxBalance) * stxPrice).toFixed(2),
           balance: stxBalance,
           cost: stxPrice.toString(),
-          diff: (await calculatePriceDiff(priceHistory?.stx)).data,
+          diff: calculatePriceDiff(priceHistory?.stx).data,
         },
         {
           name: 'Bitcoin',
@@ -72,7 +72,7 @@ export default function useWalletTokens(priceHistory: PricesData) {
           balanceUsd: (Number(btcBalance) * btcPrice).toFixed(2),
           balance: btcBalance,
           cost: btcPrice.toString(),
-          diff: (await calculatePriceDiff(priceHistory?.btc)).data,
+          diff: calculatePriceDiff(priceHistory?.btc).data,
         },
       ];
 
