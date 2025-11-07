@@ -34,9 +34,8 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
               (token.diff == null ? (
                 <TextWithFont customStyle={`text-white-500 ml-1`}></TextWithFont>
               ) : (
-                // Sign is supposed to be shown automatically because token.diff is a string
                 <TextWithFont
-                  customStyle={`text-${Number(token.diff) > 0 ? 'green' : 'red'}-500 ml-1`}
+                  customStyle={`text-${token.diff.startsWith('+')  ? 'green' : 'red'}-500 ml-1`}
                 >
                   {token.diff}%
                 </TextWithFont>
