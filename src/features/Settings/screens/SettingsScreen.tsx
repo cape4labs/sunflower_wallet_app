@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
-import { View, Animated, TouchableOpacity } from 'react-native';
-import Wrapper from '../../../shared/components/Wrapper';
+import { View, Animated } from 'react-native';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { Button } from '../../../shared/components/Button';
@@ -49,7 +48,7 @@ export default function SettingsScreen() {
       const target = (willOpen && key === id) ? (heights[key] || 180) : 0;
       Animated.timing(animatedValues[key], {
         toValue: target,
-        duration: 350,
+        duration: 250,
         useNativeDriver: false,
       }).start();
     });
@@ -94,13 +93,13 @@ export default function SettingsScreen() {
                         extrapolate: 'clamp',
                       }),
                       animatedValues.networks.interpolate({
-                        inputRange: [0, 100],
+                        inputRange: [0, 300],
                         outputRange: [0, -200],
                         extrapolate: 'clamp',
                       })
                     ),
                     animatedValues.help.interpolate({
-                      inputRange: [0, 100],
+                      inputRange: [0, 300],
                       outputRange: [0, -300],
                       extrapolate: 'clamp',
                     })

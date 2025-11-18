@@ -53,7 +53,7 @@ export const useWalletScreenStyles = () => {
 
       // === Screens ===
       mainWalletScreen: {
-        containerPadding: padding(2, 3),
+        containerPadding: padding(1, 1),
         headerGap: gap(4, 10),
         balanceText: textSize('text-3xl', 'text-4xl'),
         addressText: textSize('text-xs', 'text-sm'),
@@ -227,7 +227,7 @@ export const useWalletScreenStyles = () => {
       selectWallet: {
         trigger: getResponsiveClassName(size, {
           small: 'py-1.5 px-3 mb-3 w-[130px] border-[4px]',
-          medium: 'py-2 px-4 mb-4 w-[160px] border-[6px]',
+          medium: 'py-2 px-4 mb-4 w-[160px] border-[4px]',
         }),
         triggerText: getResponsiveClassName(size, { small: 'text-base', medium: 'text-lg' }),
         modal: getResponsiveClassName(size, {
