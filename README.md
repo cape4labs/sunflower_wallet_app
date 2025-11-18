@@ -20,8 +20,16 @@ Before starting, make sure you’ve completed the [React Native environment setu
    npm start android
    ```
 
-4. Install pre-commit hooks:
+### Various useful commands
+
+- Install pre-commit hooks:
+
    ```bash
    npm run prepare
    ```
 
+- Change the app's title:
+
+```bash
+npx react-native-rename "NEW APP TITLE"
+```

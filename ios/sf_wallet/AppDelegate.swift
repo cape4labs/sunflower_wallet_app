@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
 
     factory.startReactNative(
-      withModuleName: "sf_wallet",
+      withModuleName: "Sunflower Wallet",
       in: window,
       launchOptions: launchOptions
     )
