@@ -7,8 +7,6 @@ import { publicKeyToBtcAddress } from '@stacks/encryption';
 const WALLET_LIST_KEY = 'walletList';
 
 export interface WalletData {
-  mnemonic: string;
-  stxPrivateKey: string;
   publicKey: any;
   stxAddress: string;
   btcAddress: string;
@@ -81,7 +79,7 @@ export async function clearAllWallets(): Promise<void> {
 export async function createAndSaveWallet(
   mnemonic: string,
   walletName: string,
-): Promise<WalletData> {
+) {
   try {
     const wallet = await generateWallet({ secretKey: mnemonic, password: '' });
     const root = getRootNode(wallet);
@@ -108,15 +106,18 @@ export async function createAndSaveWallet(
 
     console.log(`Wallet created and saved successfully for ${walletName}`);
     await addWalletName(walletName);
-
-    return { mnemonic, stxPrivateKey, publicKey, stxAddress, btcAddress };
   } catch (error) {
     console.error(`Error creating wallet for ${walletName}:`, error);
     throw error;
   }
 }
 
-export async function getWalletData(walletName: string): Promise<WalletData | null> {
+export type WalletPrivateDataType = {
+  mnemonic: string;
+  stxPrivateKey: string;
+}
+
+export async function getPrivateWalletData(walletName: string): Promise<WalletPrivateDataType | null> {
   try {
     const mnemonicService = `SunflowerWallet_${walletName}_mnemonic`;
     const mnemonicCreds = await Keychain.getGenericPassword({ service: mnemonicService });
@@ -127,12 +128,26 @@ export async function getWalletData(walletName: string): Promise<WalletData | nu
     const stxPrivateKey = privateKeyCreds ? privateKeyCreds.password : null;
 
     if (!mnemonic || !stxPrivateKey) return null;
+    return {
+      mnemonic,
+      stxPrivateKey,
+    }
+  } catch (error) {
+    console.error(`Error retrieving private wallet data for ${walletName}:`, error);
+    return null;
+  }
+}
 
+export async function getWalletData(walletName: string): Promise<WalletData | null> {
+  try {
     const publicJson = await AsyncStorage.getItem(`walletPublicData_${walletName}`);
     const publicData = publicJson ? JSON.parse(publicJson) : null;
 
     if (!publicData) {
-      // If pulic data is missing generating it from mnemonic
+      // If public data is missing - regenerate it
+      const privateData = await getPrivateWalletData(walletName);
+      if (!privateData) throw new Error(`Could not retrieve private data for ${walletName}`);
+      const { mnemonic, stxPrivateKey } = privateData;
       console.warn(`Public data missing for ${walletName}, regenerating...`);
       const wallet = await generateWallet({ secretKey: mnemonic, password: '' });
       const root = getRootNode(wallet);
@@ -143,10 +158,10 @@ export async function getWalletData(walletName: string): Promise<WalletData | nu
       const btcAddress = publicKeyToBtcAddress(publicKey);
       const newPublicData = { publicKey, stxAddress, btcAddress };
       await AsyncStorage.setItem(`walletPublicData_${walletName}`, JSON.stringify(newPublicData));
-      return { mnemonic, stxPrivateKey, ...newPublicData };
+      return newPublicData;
     }
 
-    return { mnemonic, stxPrivateKey, ...publicData };
+    return { ...publicData };
   } catch (error) {
     console.error(`Error retrieving wallet data for ${walletName}:`, error);
     return null;

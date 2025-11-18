@@ -8,7 +8,7 @@ import { ArrowLeft, CircleUser } from 'lucide-react-native';
 import { makeSTXTokenTransfer, broadcastTransaction } from '@stacks/transactions';
 import { Button } from '../../../shared/components/Button';
 import Coin from '../../../shared/components/Coin';
-import { useWalletData } from '../../../shared/hooks/useWalletData';
+import { useWalletData, useWalletPrivateData } from '../../../shared/hooks/useWalletData';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { Token } from '../../../shared/types/Token';
@@ -39,6 +39,7 @@ export default function SendInfoScreen() {
   const route = useRoute();
   const { token, amount, recipient, walletName } = (route.params || {}) as RouteParams;
   const { walletData } = useWalletData(walletName);
+  const { privateData, privateDataError } = useWalletPrivateData(walletName);
 
   const [txState, setTxState] = useState<TransactionState>('estimating');
   const [gasFee, setGasFee] = useState<bigint | null>(null);
@@ -58,7 +59,7 @@ export default function SendInfoScreen() {
 
   useEffect(() => {
     const estimateGas = async () => {
-      if (!walletData?.stxPrivateKey) return;
+      if (!privateData?.stxPrivateKey) return;
       setTxState('estimating');
       try {
         const response = await fetch('https://api.hiro.so/v2/fees/transfer');
@@ -77,10 +78,10 @@ export default function SendInfoScreen() {
       }
     };
     estimateGas();
-  }, [amount, walletData?.stxPrivateKey]);
+  }, [amount, privateData?.stxPrivateKey]);
 
   const handleSend = async () => {
-    if (!gasFee || !walletData?.stxPrivateKey) return;
+    if (!gasFee || !privateData?.stxPrivateKey) return;
 
     setTxState('sending');
     setError(null);
@@ -89,7 +90,7 @@ export default function SendInfoScreen() {
       const transaction = await makeSTXTokenTransfer({
         recipient,
         amount: amountInMicroSTX,
-        senderKey: walletData.stxPrivateKey,
+        senderKey: privateData.stxPrivateKey,
         network: 'mainnet',
         memo: 'Sunflower Wallet',
         fee: gasFee,
