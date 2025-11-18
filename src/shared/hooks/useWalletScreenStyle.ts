@@ -157,6 +157,10 @@ export const useWalletScreenStyles = () => {
         loadingGap: margin(3, 5),
       },
 
+      settingsScreen: {
+
+      },
+
       // === Components ===
       button: {
         container: getResponsiveClassName(size, {

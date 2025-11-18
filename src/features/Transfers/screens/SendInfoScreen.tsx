@@ -6,7 +6,7 @@ import { View, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import { ArrowLeft, CircleUser } from 'lucide-react-native';
 import { makeSTXTokenTransfer, broadcastTransaction } from '@stacks/transactions';
-import { Button } from '../../NewWallet/components/Button';
+import { Button } from '../../../shared/components/Button';
 import Coin from '../../../shared/components/Coin';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import TextWithFont from '../../../shared/components/TextWithFont';

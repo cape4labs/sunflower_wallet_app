@@ -83,7 +83,7 @@ export default function ReceiveScreen() {
     const arrowColor = isOpen ? '#FF5500' : '#FFFFFF';
 
     return (
-      <View key={asset} className="mb-4">
+      <View key={asset} className="m-4">
         <Pressable
           onPress={() => toggleAsset(asset)}
           className="flex-row justify-between items-center"
@@ -124,7 +124,7 @@ export default function ReceiveScreen() {
   return (
     <Wrapper>
       <View className={`flex-col w-full h-full`}>
-        <View className="flex-row items-center justify-between mb-6">
+        <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
             <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
           </Pressable>
