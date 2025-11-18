@@ -1,5 +1,5 @@
 import { User2Icon, ImageIcon, Shield, Globe, LucideCircleQuestionMark } from 'lucide-react-native';
-import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle, ArrowRightLeft } from 'lucide-react-native';
+import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle, ArrowRightLeft, Image, LayoutGrid, LockOpen, PenLine, AtSign, SendHorizonal, Book, ExternalLink } from 'lucide-react-native';
 
 
 export default function getIconComponent (iconName: string){
@@ -14,6 +14,22 @@ export default function getIconComponent (iconName: string){
         return Globe;
     case 'Help':
         return LucideCircleQuestionMark;
+    case 'Image': 
+        return Image;
+    case 'Apps':
+        return LayoutGrid;
+    case 'Lock':
+        return LockOpen;
+    case 'Pen':
+        return PenLine;
+    case 'AtSign':
+        return AtSign;
+    case 'Plane':
+        return SendHorizonal;
+    case 'Learn':
+        return Book;
+    case 'Link':
+        return ExternalLink;
     case 'Send':
         return Send;
     case 'Upload':
