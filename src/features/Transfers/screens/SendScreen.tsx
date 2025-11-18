@@ -120,8 +120,9 @@ export default function SendScreen() {
             {sendError}
           </TextWithFont>
         ) : (
-          <Button text="Send" onPress={handleSend} accent />
+          <></>
         )}
+        <Button text="Send" onPress={handleSend} accent />
       </View>
     </Wrapper>
   );
