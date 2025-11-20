@@ -27,11 +27,9 @@ export default function CreateWalletScreen() {
   const newWalletScreens = styles.newWalletScreens;
   const create = styles.createWallet;
 
-  const handleNext = async () => {
+  const handleNext = () => {
     if (!isHidden && isSaved && mnemonic) {
       navigation.navigate('NameWalletScreen', { mnemonic });
-    } else {
-      console.log('Please, save your secret phareses first');
     }
   };
 
