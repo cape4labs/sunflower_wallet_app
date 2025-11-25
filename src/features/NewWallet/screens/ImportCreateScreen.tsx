@@ -13,6 +13,7 @@ type ImportCreateScreenNavigationProp = NativeStackNavigationProp<
 
 export default function ImportCreateScreen() {
   const navigation = useNavigation<ImportCreateScreenNavigationProp>();
+
   return (
     <Wrapper>
       <View className="flex-1 justify-center align-middle items-center">
