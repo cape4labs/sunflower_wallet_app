@@ -1,12 +1,12 @@
-import Wrapper from '../../../shared/components/Wrapper';
+import Wrapper from '@/shared/components/Wrapper';
 import { View, SectionList, ActivityIndicator, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
-import { useWalletData } from '../../../shared/hooks/useWalletData';
-import { useWalletContext } from '../../../providers/WalletContext';
+import { useWalletData } from '@/shared/hooks/useWalletData';
+import { useWalletContext } from '@/providers/WalletContext';
 import { Send, Upload, RefreshCw, Repeat, Copy } from 'lucide-react-native';
-import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
-import TextWithFont from '../../../shared/components/TextWithFont';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { CopyToClipboard } from '@/shared/utils/copyToClipboard';
+import TextWithFont from '@/shared/components/TextWithFont';
+import { useWalletScreenStyles } from '@/shared/hooks/useWalletScreenStyle';
 
 interface Transaction {
   tx_id: string;
@@ -119,9 +119,8 @@ export default function HistoryScreen() {
       <View className="w-full mb-2">
         <Pressable
           onPress={() => setExpandedTxId(isExpanded ? null : item.tx_id)}
-          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${
-            isExpanded ? 'border-b-0 rounded-b-none' : ''
-          } ${screenStyles.txContainer}`}
+          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${isExpanded ? 'border-b-0 rounded-b-none' : ''
+            } ${screenStyles.txContainer}`}
         >
           <View className="flex-row items-center">
             <IconComponent
@@ -143,9 +142,8 @@ export default function HistoryScreen() {
               {item.amount} STX
             </TextWithFont>
             <TextWithFont
-              customStyle={`${screenStyles.txStatus} ${
-                item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
-              }`}
+              customStyle={`${screenStyles.txStatus} ${item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
+                }`}
             >
               {item.tx_status}
             </TextWithFont>
@@ -187,7 +185,7 @@ export default function HistoryScreen() {
             onPress={refreshTransactions}
             className={`rounded-full ${globalStyles.refreshIconSize}`}
           >
-            <RefreshCw color="#FF4800" size={parseInt(globalStyles.refreshIconSize)} className='mb-2'/>
+            <RefreshCw color="#FF4800" size={parseInt(globalStyles.refreshIconSize)} className='mb-2' />
           </Pressable>
         </View>
         {isLoadingWalletData || isLoadingTransactions ? (
