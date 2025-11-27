@@ -1,81 +1,60 @@
+import { ReactNode } from 'react';
 import { View } from 'react-native';
 import { MnemonicInput } from './MnemonicInput';
-import { useEffect, useState } from 'react';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type MnemonicDisplayType = {
-  mnemonicLength: number | null;
-  onChange: (words: string[]) => void;
-  initialWords?: string[];
+  mnemonic: string[];
+  setMnemonic: (words: string[]) => void;
 };
 
 export function MnemonicDisplayInput({
-  mnemonicLength,
-  onChange,
-  initialWords,
+  mnemonic,
+  setMnemonic,
 }: MnemonicDisplayType) {
-  const styles = useWalletScreenStyles().mnemonic;
-
-  // Init state
-  const [words, setWords] = useState<string[]>(() => {
-    console.log('Initializing words with:', initialWords);
-    return initialWords && mnemonicLength && initialWords.length === mnemonicLength
-      ? [...initialWords]
-      : Array.from({ length: mnemonicLength || 0 }, () => '');
-  });
-
-  // Sync with initialWords for pasted words
-  useEffect(() => {
-    if (
-      mnemonicLength &&
-      initialWords &&
-      initialWords.length === mnemonicLength &&
-      JSON.stringify(initialWords) !== JSON.stringify(words)
-    ) {
-      console.log('Syncing words with initialWords:', initialWords);
-      setWords([...initialWords]);
-    }
-  }, [initialWords, mnemonicLength, words]);
-
-  // If words was changed
-  useEffect(() => {
-    console.log('Words updated in effect:', words);
-    if (onChange && mnemonicLength) onChange(words);
-  }, [words, onChange, mnemonicLength]);
-
-  if (!mnemonicLength) return null;
 
   // Two columns
-  const half = mnemonicLength / 2;
+  const half = mnemonic.length / 2;
+
+  if (half != mnemonic.length - half) {
+    throw new Error("Critical error: half != mnemonicLength - half")
+  }
 
   const handleChange = (text: string, idx: number) => {
-    const updated = [...words];
+    const updated = [...mnemonic];
     updated[idx] = text;
-    setWords(updated);
+    setMnemonic(updated);
   };
 
   return (
-    <View className={`flex-row h-auto bg-custom_complement ${styles.container}`}>
-      <View className={`flex-1 flex-col justify-between ${styles.columnMargin}`}>
+    <View className='flex-row h-auto bg-custom_complement border-2 rounded-lg my-3 md:rounded-xl md:my-5'>
+      <Column>
         {Array.from({ length: half }, (_, i) => (
           <MnemonicInput
             key={`left-${i}`}
             idx={i + 1}
             onChange={text => handleChange(text, i)}
-            value={words[i] || ''}
+            value={mnemonic[i] || ''}
           />
         ))}
-      </View>
-      <View className={`flex-1 flex-col justify-between ${styles.columnMargin}`}>
+      </Column>
+      <Column>
         {Array.from({ length: half }, (_, i) => (
           <MnemonicInput
             key={`right-${i}`}
             idx={i + 1 + half}
             onChange={text => handleChange(text, i + half)}
-            value={words[i + half] || ''}
+            value={mnemonic[i + half] || ''}
           />
         ))}
-      </View>
+      </Column>
     </View>
   );
+}
+
+const Column = ({ children }: { children: ReactNode }) => {
+  return (
+    <View className='flex-1 flex-col justify-between m-1 md:m-2'>
+      {children}
+    </View>
+  )
 }

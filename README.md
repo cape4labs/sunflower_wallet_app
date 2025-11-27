@@ -1,6 +1,6 @@
 ### Setup Instructions
 
-Before starting, make sure you’ve completed the [React Native environment setup](https://reactnative.dev/docs/set-up-your-environment).
+Before starting, make sure you have completed the [React Native environment setup](https://reactnative.dev/docs/set-up-your-environment).
 
 1. Install dependencies:
 

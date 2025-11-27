@@ -1,12 +1,12 @@
-import Wrapper from '@/shared/components/Wrapper';
+import Wrapper from '../../../shared/components/Wrapper';
 import { View, SectionList, ActivityIndicator, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
-import { useWalletData } from '@/shared/hooks/useWalletData';
-import { useWalletContext } from '@/providers/WalletContext';
+import { useWalletData } from '../../../shared/hooks/useWalletData';
+import { useWalletContext } from '../../../providers/WalletContext';
 import { Send, Upload, RefreshCw, Repeat, Copy } from 'lucide-react-native';
-import { CopyToClipboard } from '@/shared/utils/copyToClipboard';
-import TextWithFont from '@/shared/components/TextWithFont';
-import { useWalletScreenStyles } from '@/shared/hooks/useWalletScreenStyle';
+import { copyToClipboard } from '../../../shared/utils/clipboard';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 interface Transaction {
   tx_id: string;
@@ -158,7 +158,7 @@ export default function HistoryScreen() {
               <TextWithFont customStyle="text-sm text-white">
                 TXid: {shortenTxId(item.tx_id)}
               </TextWithFont>
-              <Pressable onPress={() => CopyToClipboard(item.tx_id)} className="p-1">
+              <Pressable onPress={() => copyToClipboard(item.tx_id)} className="p-1">
                 <Copy color="white" size={parseInt(screenStyles.copyIconSize)} strokeWidth={1.5} />
               </Pressable>
             </View>

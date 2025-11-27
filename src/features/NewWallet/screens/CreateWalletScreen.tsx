@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { generateMnemonic } from '../../../../shared/crypto/mnemonic';
 import { useEffect, useState } from 'react';
 import { MnemonicDisplay } from '../components/MnemonicDisplay';
-import { CopyToClipboard as copyToClipboard } from '../../../shared/utils/copyToClipboard';
+import { copyToClipboard } from '../../../shared/utils/clipboard';
 import Toggle from '../components/Toggle';
 import Wrapper from '../../../shared/components/Wrapper';
 import { StepIndicator } from '../components/StepIndicator';

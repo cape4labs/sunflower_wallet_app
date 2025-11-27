@@ -3,9 +3,8 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "nativewind-env.d.ts",
-    "__mocks__/windowDimensions.js"
-  ],
+    "nativewind-env.d.ts"
+, "__mocks__/windowDimensions.js"  ],
   "exclude": [
     "node_modules",
     "Pods",
@@ -17,12 +16,7 @@
   ],
   "compilerOptions": {
     "strict": true,
-    "strictNullChecks": true,
-    "moduleResolution": "bundler",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
+    "strictNullChecks": true ,
+    "moduleResolution": "bundler"
   }
 }

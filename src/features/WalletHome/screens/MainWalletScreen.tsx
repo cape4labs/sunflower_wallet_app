@@ -1,27 +1,27 @@
-import { View, Pressable, ActivityIndicator } from 'react-native';
+import { View, Pressable, ActivityIndicator, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RefreshCcw, Copy } from 'lucide-react-native';
 
-import Wrapper from '@/shared/components/Wrapper';
-import TextWithFont from '@/shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
+import TextWithFont from '../../../shared/components/TextWithFont';
 import { SelectWallet } from '../components/SelectWallet';
 import { Button, TextButton } from '../components/Button';
-import { TokenList } from '@/shared/components/TokenList';
+import { TokenList } from '../../../shared/components/TokenList';
 import PriceGraph from '../components/PriceGraph';
 import NftTab from '../components/Tabs/NftTab';
 import ActionsTab from '../components/Tabs/ActionsTab';
 
-import { useWalletScreenStyles } from '@/shared/hooks/useWalletScreenStyle';
-import { useWalletContext } from '@/providers/WalletContext';
-import { useWalletData } from '@/shared/hooks/useWalletData';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { useWalletContext } from '../../../providers/WalletContext';
+import { useWalletData } from '../../../shared/hooks/useWalletData';
 import useWalletTokens from '../hooks/useWalletTokens';
 import useWalletList from '../hooks/useWalletList';
-import { CopyToClipboard } from '@/shared/utils/copyToClipboard';
-import shortenAddress from '@/shared/utils/shortAddress';
-import type { Token } from '@/shared/types/Token';
-import type { RootNavigatorTypeParamListType } from '@/navigation/types';
+import { copyToClipboard } from '../../../shared/utils/clipboard';
+import shortenAddress from '../../../shared/utils/shortAddress';
+import type { Token } from '../../../shared/types/Token';
+import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import usePriceHistory from '../hooks/usePriceHistory';
 import preparePricesForGraph from '../preparePricesForGraph';
 
@@ -127,7 +127,7 @@ export default function MainWalletScreen() {
               ${walletBalance || '0.00'}
             </TextWithFont>
             <Pressable
-              onPress={() => CopyToClipboard(walletData?.stxAddress || null)}
+              onPress={() => copyToClipboard(walletData?.stxAddress || null)}
               className="flex-row gap-2 justify-center items-center"
             >
               <TextWithFont customStyle={`${screenStyles.addressText} text-yellow-50`}>
