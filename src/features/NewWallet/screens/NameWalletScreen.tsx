@@ -44,7 +44,7 @@ export default function NameWalletScreen() {
         await createAndSaveWallet(mnemonic, walletName);
         navigation.navigate('SuccessScreen', { walletName });
       } catch (error) {
-        console.error('Failed to save mnemonic with name:', error);
+        console.error('Failed to save mnemonic:', error);
       } finally {
         setIsLoading(false);
       }
@@ -96,13 +96,13 @@ export default function NameWalletScreen() {
               onPress={() => navigation.goBack()}
               text="Back"
               customStyle="w-full"
-              disable={isLoading}
+              disabled={isLoading}
             />
             <Button
               onPress={handleNext}
               accent
               text={isLoading ? 'Creating...' : 'Next'}
-              disable={isLoading}
+              disabled={isLoading}
               customStyle={`w-full mt-2 ${walletName.trim().length > 0 && !isLoading ? 'bg-custom_accent' : 'bg-white'}`}
             />
           </View>

@@ -1,9 +1,9 @@
 import Wrapper from '../../../shared/components/Wrapper';
-import { Pressable, Image, View, Animated, Dimensions } from 'react-native';
+import { Pressable, View, Animated, Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { getWalletData } from '../../../shared/walletPersitance';
 import { useEffect, useState, useRef } from 'react';
-import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
+import { copyToClipboard } from '../../../shared/utils/clipboard';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { ArrowLeft, ChevronDown, ChevronLeft, Copy } from 'lucide-react-native';
@@ -45,7 +45,7 @@ export default function ReceiveScreen() {
           });
         }
       } catch (err) {
-        setError('Ошибка загрузки адресов');
+        setError('Error loading addresses');
       }
     };
     fetchAddresses();
@@ -110,8 +110,8 @@ export default function ReceiveScreen() {
 
               <View className="flex-row items-center justify-between">
                 <TextWithFont customStyle="text-white text-sm flex-1 mr-3">{address}</TextWithFont>
-                <Pressable onPress={() => CopyToClipboard(address)} className=''>
-                  <Copy size={styles.copyIconSize} color={'#fff'}/>
+                <Pressable onPress={() => copyToClipboard(address)} className=''>
+                  <Copy size={styles.copyIconSize} color={'#fff'} />
                 </Pressable>
               </View>
             </View>

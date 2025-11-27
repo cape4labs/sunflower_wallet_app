@@ -18,7 +18,7 @@ import { useWalletContext } from '../../../providers/WalletContext';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import useWalletTokens from '../hooks/useWalletTokens';
 import useWalletList from '../hooks/useWalletList';
-import { CopyToClipboard } from '../../../shared/utils/copyToClipboard';
+import { copyToClipboard } from '../../../shared/utils/clipboard';
 import shortenAddress from '../../../shared/utils/shortAddress';
 import type { Token } from '../../../shared/types/Token';
 import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
@@ -91,11 +91,11 @@ export default function MainWalletScreen() {
               strokeWidth={1.5}
             />
           </Pressable>
-            <SelectWallet
-              selectedWallet={selectedWallet}
-              walletList={walletList}
-              onSelect={setSelectedWallet}
-            />
+          <SelectWallet
+            selectedWallet={selectedWallet}
+            walletList={walletList}
+            onSelect={setSelectedWallet}
+          />
           <View />
         </View>
 
@@ -127,13 +127,13 @@ export default function MainWalletScreen() {
               ${walletBalance || '0.00'}
             </TextWithFont>
             <Pressable
-              onPress={() => CopyToClipboard(walletData?.stxAddress || null)}
+              onPress={() => copyToClipboard(walletData?.stxAddress || null)}
               className="flex-row gap-2 justify-center items-center"
             >
               <TextWithFont customStyle={`${screenStyles.addressText} text-yellow-50`}>
                 {shortenAddress(walletData?.stxAddress)}
               </TextWithFont>
-              <Copy size={screenStyles.addressCopyIcon} color={'#fff'}/>
+              <Copy size={screenStyles.addressCopyIcon} color={'#fff'} />
             </Pressable>
           </View>
         </View>
