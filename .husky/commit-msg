@@ -1,10 +1,9 @@
 #!/usr/bin/env sh
 
 message="$(cat $1)"
-requiredPattern="^(feat|fix|docs|style|refactor|test|chore)(\([^)]+\))?: .*$"
+requiredPattern="^(feat|fix|docs|style|refactor|test|chore|revert)(\([^)]+\))?: .*$"
 
-if ! [[ $message =~ $requiredPattern ]];
-then
+if ! [[ $message =~ $requiredPattern ]]; then
   echo "-"
   echo "-"
   echo "-"

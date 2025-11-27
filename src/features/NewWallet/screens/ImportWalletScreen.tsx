@@ -9,6 +9,7 @@ import PasteMnemonic from '../../../shared/utils/pasteFromClipboard';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type ImportWalletScreenNavigationProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -24,6 +25,7 @@ export default function ImportWalletScreen() {
   const route = useRoute();
   const { mnemonicLength } = route.params as RouteParams;
   const [mnemonic, setMnemonic] = useState<string[]>([]);
+  const styles = useWalletScreenStyles().newWalletScreens;
 
   // Check if all fields are filled in
   const isAllFilled =
@@ -55,10 +57,10 @@ export default function ImportWalletScreen() {
     <ScrollableWrapper>
       <View className="flex-col flex-1 mt-5 items-center">
         <View>
-          <TextWithFont customStyle='text-xl md:text-2xl  text-white text-center font-bold'>
+          <TextWithFont customStyle={`${styles.titleSize} text-white text-center font-bold`}>
             Write your seed phrase
           </TextWithFont>
-          <TextWithFont customStyle={`text-white text-center mt-2 text-sm md:text-lg`}>
+          <TextWithFont customStyle={`text-white text-center mt-2 ${styles.subtitleSize}`}>
             Make sure no one can see your screen
           </TextWithFont>
         </View>

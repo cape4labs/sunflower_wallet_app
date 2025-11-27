@@ -2,7 +2,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainWalletScreen from '../screens/MainWalletScreen';
 import HistoryScreen from '../screens/HistoryScreen';
-import { useResponsiveTabBarOptions } from '@/shared/hooks/useResponsiveTabBarOptions';
+import { useResponsiveTabBarOptions } from '../../../shared/hooks/useResponsiveTabBarOptions';
 import WalletTabsProps from './type';
 import { View } from 'react-native';
 import { Home, FileText, Settings } from 'lucide-react-native';
