@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 message="$(cat $1)"
-requiredPattern="^(feat|fix|docs|style|refactor|test|chore|revert)(\([^)]+\))?: .*$"
+requiredPattern="^(feat|fix|docs|style|refactor|test|chore|revert|build|perf|ops)(\([^)]+\))?: .*$"
 
 if ! [[ $message =~ $requiredPattern ]]; then
   echo "-"
