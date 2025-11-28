@@ -1,15 +1,16 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Wrapper from '../../../shared/components/Wrapper';
-import { Token } from '../../../shared/types/Token';
-import { View, TextInput, Pressable } from 'react-native';
-import { useState } from 'react';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ArrowLeft } from 'lucide-react-native';
+import { useState } from 'react';
+import { Pressable, TextInput, View } from 'react-native';
+
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { Button } from '../../../shared/components/Button';
 import Coin from '../../../shared/components/Coin';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { Token } from '../../../shared/types/Token';
 
 type SendScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'SendScreen'>;
 
@@ -60,12 +61,17 @@ export default function SendScreen() {
       return;
     }
 
-    navigation.navigate('SendInfoScreen', { token, amount, recipient, walletName });
+    navigation.navigate('SendInfoScreen', {
+      token,
+      amount,
+      recipient,
+      walletName,
+    });
   };
 
   return (
     <Wrapper>
-      <View className={`flex-col w-full h-full`}>
+      <View className={'flex-col w-full h-full'}>
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
             <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />

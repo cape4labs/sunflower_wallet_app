@@ -1,5 +1,5 @@
-import type { Token } from '../../shared/types/Token';
-import type { PricesData } from './types/wallet';
+import type { Token } from '../../../shared/types/Token';
+import type { PricesData } from '../types/wallet';
 
 type preparePricesForGraphReturn = {
   data: { value: number }[] | null;
@@ -50,7 +50,7 @@ export default function preparePricesForGraph(
   const min = Math.min(...combined);
   const range = Math.max(...combined) - min;
   const processed = combined.map((v: number) => {
-    if (range != 0) {
+    if (range !== 0) {
       return {
         value: ((v - min) / range) * 100,
       };

@@ -1,29 +1,28 @@
-import { View, Pressable, ActivityIndicator, Image } from 'react-native';
-import { useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RefreshCcw, Copy } from 'lucide-react-native';
+import { Copy, RefreshCcw } from 'lucide-react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, Pressable, View } from 'react-native';
 
-import Wrapper from '../../../shared/components/Wrapper';
-import TextWithFont from '../../../shared/components/TextWithFont';
-import { SelectWallet } from '../components/SelectWallet';
-import { Button, TextButton } from '../components/Button';
-import { TokenList } from '../../../shared/components/TokenList';
-import PriceGraph from '../components/PriceGraph';
-import NftTab from '../components/Tabs/NftTab';
-import ActionsTab from '../components/Tabs/ActionsTab';
-
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useWalletContext } from '../../../providers/WalletContext';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import { TokenList } from '../../../shared/components/TokenList';
+import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
-import useWalletTokens from '../hooks/useWalletTokens';
-import useWalletList from '../hooks/useWalletList';
+import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import type { Token } from '../../../shared/types/Token';
 import { copyToClipboard } from '../../../shared/utils/clipboard';
 import shortenAddress from '../../../shared/utils/shortAddress';
-import type { Token } from '../../../shared/types/Token';
-import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { Button, TextButton } from '../components/Button';
+import PriceGraph from '../components/PriceGraph';
+import { SelectWallet } from '../components/SelectWallet';
+import ActionsTab from '../components/Tabs/ActionsTab';
+import NftTab from '../components/Tabs/NftTab';
 import usePriceHistory from '../hooks/usePriceHistory';
-import preparePricesForGraph from '../preparePricesForGraph';
+import useWalletList from '../hooks/useWalletList';
+import useWalletTokens from '../hooks/useWalletTokens';
+import preparePricesForGraph from '../utils/preparePricesForGraph';
 
 type MainWalletScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -114,7 +113,10 @@ export default function MainWalletScreen() {
               text="Receive"
               onPress={() =>
                 selectedWallet &&
-                navigation.navigate('ReceiveScreen', { walletName: selectedWallet, tokens })
+                navigation.navigate('ReceiveScreen', {
+                  walletName: selectedWallet,
+                  tokens,
+                })
               }
               customStyle="w-1/2"
               accent

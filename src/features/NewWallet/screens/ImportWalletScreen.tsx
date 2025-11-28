@@ -1,14 +1,15 @@
-import { View, Image, Pressable } from 'react-native';
-import { Button } from '../../../shared/components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useState, useEffect } from 'react';
-import ScrollableWrapper from '../../../shared/components/ScrollableWrapper';
-import { StepIndicator } from '../components/StepIndicator';
-import { MnemonicDisplayInput } from '../components/MnemonicDisplayInput';
-import { pasteMnemonicFromClipboard } from '../../../shared/utils/clipboard';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useState } from 'react';
+import { Image, Pressable, View } from 'react-native';
+
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { Button } from '../../../shared/components/Button';
+import ScrollableWrapper from '../../../shared/components/ScrollableWrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { pasteMnemonicFromClipboard } from '../../../shared/utils/clipboard';
+import MnemonicDisplayInput from '../components/MnemonicDisplayInput';
+import { StepIndicator } from '../components/StepIndicator';
 
 type ImportWalletScreenNavigationProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -26,7 +27,7 @@ export default function ImportWalletScreen() {
   const { mnemonicLength } = route.params as RouteParams;
 
   const [mnemonic, setMnemonic] = useState<string[]>(
-    Array.from({ length: mnemonicLength }, () => '')
+    Array.from({ length: mnemonicLength }, () => ''),
   );
 
   // Check if all fields are filled in
@@ -38,7 +39,9 @@ export default function ImportWalletScreen() {
       try {
         // TODO remove this
         const fullMnemonic = mnemonic.join(' ');
-        navigation.navigate('NameWalletScreen', { mnemonic: fullMnemonic });
+        navigation.navigate('NameWalletScreen', {
+          mnemonic: fullMnemonic,
+        });
       } catch (error) {
         console.error('Failed to save mnemonic:', error);
       }
@@ -55,18 +58,15 @@ export default function ImportWalletScreen() {
     <ScrollableWrapper>
       <View className="flex-col flex-1 mt-5 items-center">
         <View>
-          <TextWithFont customStyle='text-xl text-2xl text-white text-center font-bold'>
+          <TextWithFont customStyle="text-xl text-2xl text-white text-center font-bold">
             Write your seed phrase
           </TextWithFont>
-          <TextWithFont customStyle='text-white text-center mt-2 text-sm md:text-lg'>
+          <TextWithFont customStyle="text-white text-center mt-2 text-sm md:text-lg">
             Make sure no one can see your screen
           </TextWithFont>
         </View>
 
-        <MnemonicDisplayInput
-          mnemonic={mnemonic}
-          setMnemonic={setMnemonic}
-        />
+        <MnemonicDisplayInput mnemonic={mnemonic} setMnemonic={setMnemonic} />
 
         <Pressable onPress={handlePaste} className="flex-row gap-1 items-center">
           <Image source={require('../../../../assets/icons/copy.png')} />
@@ -82,8 +82,8 @@ export default function ImportWalletScreen() {
             customStyle={`bg-${isAllFilled ? 'custom_accent' : 'white'} w-1/2`}
           />
         </View>
-      </View >
+      </View>
       <StepIndicator totalSteps={5} currentStep={3} />
-    </ScrollableWrapper >
+    </ScrollableWrapper>
   );
 }

@@ -14,6 +14,7 @@ module.exports = {
     quotes: ['warn', 'single'],
     semi: ['warn', 'always'],
     '@typescript-eslint/no-require-imports': 'warn',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'no-unused-vars': 'warn',
     'no-undef': 'warn',
   },

@@ -1,5 +1,6 @@
-import { LineChart } from 'react-native-gifted-charts';
 import { View } from 'react-native';
+import { LineChart } from 'react-native-gifted-charts';
+
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 
 type PriceGraphType = {

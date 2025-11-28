@@ -1,18 +1,19 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStaticNavigation } from '@react-navigation/native';
-import { RootNavigatorTypeParamListType } from './types';
-import LogoScreen from '../features/NewWallet/screens/LogoScreen.tsx';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import ChooseLengthScreen from '../features/NewWallet/screens/ChooseLengthScreen.tsx';
+import { CreateWalletScreen } from '../features/NewWallet/screens/CreateWalletScreen.tsx';
 import ImportCreateScreen from '../features/NewWallet/screens/ImportCreateScreen.tsx';
+import ImportWalletScreen from '../features/NewWallet/screens/ImportWalletScreen.tsx';
+import LogoScreen from '../features/NewWallet/screens/LogoScreen.tsx';
 import NameWalletScreen from '../features/NewWallet/screens/NameWalletScreen.tsx';
 import SuccessScreen from '../features/NewWallet/screens/SuccessScreen.tsx';
-import CreateWalletScreen from '../features/NewWallet/screens/CreateWalletScreen.tsx';
-import ImportWalletScreen from '../features/NewWallet/screens/ImportWalletScreen.tsx';
-import ChooseLengthScreen from '../features/NewWallet/screens/ChooseLengthScreen.tsx';
-import { WalletTabs } from '../features/WalletHome/navigation/WalletBottomNavigation.tsx';
 import ChooseCoinScreen from '../features/Transfers/screens/ChooseCoinScreen.tsx';
-import SendScreen from '../features/Transfers/screens/SendScreen.tsx';
-import SendInfoScreen from '../features/Transfers/screens/SendInfoScreen.tsx';
 import ReceiveScreen from '../features/Transfers/screens/ReceiveScreen.tsx';
+import SendInfoScreen from '../features/Transfers/screens/SendInfoScreen.tsx';
+import SendScreen from '../features/Transfers/screens/SendScreen.tsx';
+import { WalletTabs } from '../features/WalletHome/navigation/WalletBottomNavigation.tsx';
+import { RootNavigatorTypeParamListType } from './types';
 
 const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>({
   initialRouteName: 'LogoScreen',

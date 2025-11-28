@@ -1,10 +1,11 @@
-import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
+import { Image, View } from 'react-native';
+
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { Button } from '../../../shared/components/Button';
 import Wrapper from '../../../shared/components/Wrapper';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { getWalletList } from '../../../shared/walletPersitance';
 
 type LogoScreenNavigationProp = NativeStackNavigationProp<

@@ -9,10 +9,8 @@ type CalculatePriceDiffSinceReturn = {
  * Calculate difference in percents for a group of values.
  * @param {PriceEntry} data - PriceEntry sorted descendingly by timestamp in seconds
  **/
-export default function calculatePriceDiff(
-  data: PriceEntry,
-): CalculatePriceDiffSinceReturn {
-  if (data == null || data == undefined) {
+export default function calculatePriceDiff(data: PriceEntry): CalculatePriceDiffSinceReturn {
+  if (data === null || data === undefined) {
     return {
       data: null,
       error: 'Data must be present',
@@ -38,10 +36,10 @@ export default function calculatePriceDiff(
 }
 
 /**
-* Calculate diff between two numbers in percents.
-* @param {number} n1 - changed number
-* @param {number} n2 - base number
-**/
+ * Calculate diff between two numbers in percents.
+ * @param {number} n1 - changed number
+ * @param {number} n2 - base number
+ **/
 export function calculateDiff(n1: number, n2: number, dec: number = 2): string | null {
   // Situations when either n2 or n1 equal 0 are weird and not for calculating
   if (n2 <= 0 || n1 <= 0) {
@@ -51,11 +49,11 @@ export function calculateDiff(n1: number, n2: number, dec: number = 2): string |
   const diff = (n1 / n2) * 100 - 100;
 
   if (diff > 0) {
-      return "+" + diff.toFixed(dec) + "%";
+    return '+' + diff.toFixed(dec) + '%';
   } else if (diff < 0) {
-      // "-" is put automatically if number is negative
-      return diff.toFixed(dec) + "%";
+    // "-" is put automatically if number is negative
+    return diff.toFixed(dec) + '%';
   } else {
-      return null;
-    }
+    return null;
+  }
 }

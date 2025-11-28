@@ -1,12 +1,13 @@
-import Wrapper from '../../../shared/components/Wrapper';
-import { View, SectionList, ActivityIndicator, Pressable } from 'react-native';
-import { useState, useEffect } from 'react';
-import { useWalletData } from '../../../shared/hooks/useWalletData';
+import { Copy, RefreshCw, Repeat, Send, Upload } from 'lucide-react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Pressable, SectionList, View } from 'react-native';
+
 import { useWalletContext } from '../../../providers/WalletContext';
-import { Send, Upload, RefreshCw, Repeat, Copy } from 'lucide-react-native';
-import { copyToClipboard } from '../../../shared/utils/clipboard';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
+import { useWalletData } from '../../../shared/hooks/useWalletData';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { copyToClipboard } from '../../../shared/utils/clipboard';
 
 interface Transaction {
   tx_id: string;
@@ -119,8 +120,9 @@ export default function HistoryScreen() {
       <View className="w-full mb-2">
         <Pressable
           onPress={() => setExpandedTxId(isExpanded ? null : item.tx_id)}
-          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${isExpanded ? 'border-b-0 rounded-b-none' : ''
-            } ${screenStyles.txContainer}`}
+          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${
+            isExpanded ? 'border-b-0 rounded-b-none' : ''
+          } ${screenStyles.txContainer}`}
         >
           <View className="flex-row items-center">
             <IconComponent
@@ -142,8 +144,9 @@ export default function HistoryScreen() {
               {item.amount} STX
             </TextWithFont>
             <TextWithFont
-              customStyle={`${screenStyles.txStatus} ${item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
-                }`}
+              customStyle={`${screenStyles.txStatus} ${
+                item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
+              }`}
             >
               {item.tx_status}
             </TextWithFont>
@@ -176,7 +179,7 @@ export default function HistoryScreen() {
 
   return (
     <Wrapper>
-      <View className={`flex-1 w-full h-full`}>
+      <View className={'flex-1 w-full h-full'}>
         <View className="flex-row justify-between items-center mb-4 border-b-2 border-gray-500 ">
           <TextWithFont customStyle={`${screenStyles.headerTitle} font-bold text-white mb-2`}>
             History
@@ -185,7 +188,11 @@ export default function HistoryScreen() {
             onPress={refreshTransactions}
             className={`rounded-full ${globalStyles.refreshIconSize}`}
           >
-            <RefreshCw color="#FF4800" size={parseInt(globalStyles.refreshIconSize)} className='mb-2' />
+            <RefreshCw
+              color="#FF4800"
+              size={parseInt(globalStyles.refreshIconSize)}
+              className="mb-2"
+            />
           </Pressable>
         </View>
         {isLoadingWalletData || isLoadingTransactions ? (
@@ -215,7 +222,10 @@ export default function HistoryScreen() {
             renderItem={renderTransaction}
             renderSectionHeader={renderSectionHeader}
             keyExtractor={item => item.tx_id}
-            contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: 4 }}
+            contentContainerStyle={{
+              paddingBottom: 20,
+              paddingHorizontal: 4,
+            }}
           />
         )}
       </View>

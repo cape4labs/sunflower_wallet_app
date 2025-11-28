@@ -1,8 +1,8 @@
-import * as Keychain from 'react-native-keychain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { generateWallet, getRootNode, deriveStxPrivateKey } from '@stacks/wallet-sdk';
-import { privateKeyToPublic, publicKeyToAddress } from '@stacks/transactions';
 import { publicKeyToBtcAddress } from '@stacks/encryption';
+import { privateKeyToPublic, publicKeyToAddress } from '@stacks/transactions';
+import { deriveStxPrivateKey, generateWallet, getRootNode } from '@stacks/wallet-sdk';
+import * as Keychain from 'react-native-keychain';
 
 const WALLET_LIST_KEY = 'walletList';
 
@@ -15,8 +15,12 @@ export interface WalletData {
 // Delete wallet from keychain
 export async function clearWallet(walletName: string): Promise<void> {
   try {
-    await Keychain.resetGenericPassword({ service: `SunflowerWallet_${walletName}_mnemonic` });
-    await Keychain.resetGenericPassword({ service: `SunflowerWallet_${walletName}_privateKey` });
+    await Keychain.resetGenericPassword({
+      service: `SunflowerWallet_${walletName}_mnemonic`,
+    });
+    await Keychain.resetGenericPassword({
+      service: `SunflowerWallet_${walletName}_privateKey`,
+    });
     await AsyncStorage.removeItem(`walletPublicData_${walletName}`);
     await removeWalletName(walletName);
     console.log(`Wallet cleared for ${walletName}`);
@@ -76,12 +80,12 @@ export async function clearAllWallets(): Promise<void> {
   }
 }
 
-export async function createAndSaveWallet(
-  mnemonic: string,
-  walletName: string,
-) {
+export async function createAndSaveWallet(mnemonic: string, walletName: string) {
   try {
-    const wallet = await generateWallet({ secretKey: mnemonic, password: '' });
+    const wallet = await generateWallet({
+      secretKey: mnemonic,
+      password: '',
+    });
     const root = getRootNode(wallet);
     const stxPrivateKey = deriveStxPrivateKey({ rootNode: root, index: 0 });
     const publicKey = privateKeyToPublic(stxPrivateKey);
@@ -115,23 +119,29 @@ export async function createAndSaveWallet(
 export type WalletPrivateDataType = {
   mnemonic: string;
   stxPrivateKey: string;
-}
+};
 
-export async function getPrivateWalletData(walletName: string): Promise<WalletPrivateDataType | null> {
+export async function getPrivateWalletData(
+  walletName: string,
+): Promise<WalletPrivateDataType | null> {
   try {
     const mnemonicService = `SunflowerWallet_${walletName}_mnemonic`;
-    const mnemonicCreds = await Keychain.getGenericPassword({ service: mnemonicService });
+    const mnemonicCreds = await Keychain.getGenericPassword({
+      service: mnemonicService,
+    });
     const mnemonic = mnemonicCreds ? mnemonicCreds.password : null;
 
     const privateKeyService = `SunflowerWallet_${walletName}_privateKey`;
-    const privateKeyCreds = await Keychain.getGenericPassword({ service: privateKeyService });
+    const privateKeyCreds = await Keychain.getGenericPassword({
+      service: privateKeyService,
+    });
     const stxPrivateKey = privateKeyCreds ? privateKeyCreds.password : null;
 
     if (!mnemonic || !stxPrivateKey) return null;
     return {
       mnemonic,
       stxPrivateKey,
-    }
+    };
   } catch (error) {
     console.error(`Error retrieving private wallet data for ${walletName}:`, error);
     return null;
@@ -149,9 +159,15 @@ export async function getWalletData(walletName: string): Promise<WalletData | nu
       if (!privateData) throw new Error(`Could not retrieve private data for ${walletName}`);
       const { mnemonic, stxPrivateKey } = privateData;
       console.warn(`Public data missing for ${walletName}, regenerating...`);
-      const wallet = await generateWallet({ secretKey: mnemonic, password: '' });
+      const wallet = await generateWallet({
+        secretKey: mnemonic,
+        password: '',
+      });
       const root = getRootNode(wallet);
-      const derivedPrivateKey = deriveStxPrivateKey({ rootNode: root, index: 0 });
+      const derivedPrivateKey = deriveStxPrivateKey({
+        rootNode: root,
+        index: 0,
+      });
       if (derivedPrivateKey !== stxPrivateKey) throw new Error('Private key mismatch');
       const publicKey = privateKeyToPublic(stxPrivateKey);
       const stxAddress = publicKeyToAddress(publicKey);

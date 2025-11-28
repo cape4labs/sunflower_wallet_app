@@ -1,7 +1,8 @@
 import { Pressable } from 'react-native';
+
+import getIconComponent from '../../../shared/components/GetIcon';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
-import getIconComponent from '../../../shared/components/GetIcon';
 
 type ButtonType = {
   onPress?: () => void;
@@ -9,7 +10,14 @@ type ButtonType = {
   customStyle?: string;
   accent?: boolean;
   disabled?: boolean;
-  iconName: 'Send' | 'Upload' | 'Settings' | 'RefreshCw' | 'DatabaseIcon' | 'PlusCircle' | 'ArrowRightLeft';
+  iconName:
+    | 'Send'
+    | 'Upload'
+    | 'Settings'
+    | 'RefreshCw'
+    | 'DatabaseIcon'
+    | 'PlusCircle'
+    | 'ArrowRightLeft';
 };
 
 type TextButtonType = {
@@ -27,15 +35,15 @@ export function Button({
   disabled = false,
   iconName,
 }: ButtonType) {
-
   const IconComponent = getIconComponent(iconName);
   const styles = useWalletScreenStyles().button;
 
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center ${styles.container} flex-row  border-custom_border relative overflow-hidden ${accent ? 'bg-custom_accent' : 'bg-custom_complement'
-        } ${customStyle ?? ''}`}
+      className={`justify-center items-center ${styles.container} flex-row  border-custom_border relative overflow-hidden ${
+        accent ? 'bg-custom_accent' : 'bg-custom_complement'
+      } ${customStyle ?? ''}`}
       disabled={disabled}
     >
       <TextWithFont customStyle={`${accent ? 'text-black' : 'text-white'} ${styles.text} z-10`}>
@@ -56,8 +64,9 @@ export function TextButton({ onPress, text, customStyle, accent = false }: TextB
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center ${styles.textButton.container} flex-row overflow-hidden ${accent ? 'border-white' : 'border-gray-500'
-        } ${customStyle ?? ''}`}
+      className={`justify-center items-center ${styles.textButton.container} flex-row overflow-hidden ${
+        accent ? 'border-white' : 'border-gray-500'
+      } ${customStyle ?? ''}`}
     >
       <TextWithFont
         customStyle={`${styles.textButton.text} ${accent ? 'text-custom_accent' : 'text-white'} z-10`}

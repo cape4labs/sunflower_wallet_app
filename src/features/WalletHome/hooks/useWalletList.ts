@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { getWalletList } from '../../../shared/walletPersitance';
 
 export default function useWalletList(

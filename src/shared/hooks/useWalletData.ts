@@ -1,5 +1,11 @@
-import { useState, useEffect } from 'react';
-import { getPrivateWalletData, getWalletData, WalletData, WalletPrivateDataType } from '../walletPersitance';
+import { useEffect, useState } from 'react';
+
+import {
+  WalletData,
+  WalletPrivateDataType,
+  getPrivateWalletData,
+  getWalletData,
+} from '../walletPersitance';
 
 export function useWalletData(walletName: string | null) {
   const [walletData, setWalletData] = useState<WalletData | null>(null);
@@ -62,9 +68,9 @@ export function useWalletPrivateData(walletName: string | null) {
         setError((error as Error).message);
         setData(null);
       }
-    }
+    };
     loadData();
-  }, [walletName])
+  }, [walletName]);
 
   return { privateData: data, privateDataError: error };
 }

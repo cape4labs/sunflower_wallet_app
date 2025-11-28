@@ -1,12 +1,13 @@
-import { View, Image } from 'react-native';
-import Wrapper from '../../../shared/components/Wrapper';
-import { Button } from '../../../shared/components/Button';
 import { useNavigation } from '@react-navigation/native';
-import { StepIndicator } from '../components/StepIndicator';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Image, View } from 'react-native';
+
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { Button } from '../../../shared/components/Button';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { StepIndicator } from '../components/StepIndicator';
 
 type ChooseLengthScreenNavigationProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -29,12 +30,20 @@ export default function ChooseLengthScreen() {
       </View>
       <View className="flex-col flex-1 w-full mt-10">
         <Button
-          onPress={() => navigation.navigate('ImportWalletScreen', { mnemonicLength: 12 })}
+          onPress={() =>
+            navigation.navigate('ImportWalletScreen', {
+              mnemonicLength: 12,
+            })
+          }
           text="12 words"
           customStyle={styles.buttonMargin}
         />
         <Button
-          onPress={() => navigation.navigate('ImportWalletScreen', { mnemonicLength: 24 })}
+          onPress={() =>
+            navigation.navigate('ImportWalletScreen', {
+              mnemonicLength: 24,
+            })
+          }
           text="24 words"
           customStyle={styles.buttonMargin}
         />

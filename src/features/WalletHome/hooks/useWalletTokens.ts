@@ -1,7 +1,8 @@
 import { useState } from 'react';
+
 import { Token } from '../../../shared/types/Token';
-import calculatePriceDiff from '../utils/calculatePriceDiff';
 import { PricesData } from '../types/wallet';
+import calculatePriceDiff from '../utils/calculatePriceDiff';
 
 export default function useWalletTokens(priceHistory: PricesData) {
   const [tokens, setTokens] = useState<Token[]>([]);
@@ -92,5 +93,11 @@ export default function useWalletTokens(priceHistory: PricesData) {
       setWalletBalance('0.00');
     }
   };
-  return { tokens, walletBalance, tokenError, tokenLoading, fetchTokensCosts };
+  return {
+    tokens,
+    walletBalance,
+    tokenError,
+    tokenLoading,
+    fetchTokensCosts,
+  };
 }

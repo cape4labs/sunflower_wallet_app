@@ -1,8 +1,9 @@
 // components/NetworkToggleRow.tsx
 import React, { useEffect, useRef } from 'react';
-import { TouchableOpacity, Animated, View } from 'react-native';
-import TextWithFont from '../../../shared/components/TextWithFont';
+import { Animated, TouchableOpacity, View } from 'react-native';
+
 import getIconComponent from '../../../shared/components/GetIcon';
+import TextWithFont from '../../../shared/components/TextWithFont';
 
 interface NetworkToggleRowProps {
   title: string;
@@ -23,7 +24,6 @@ const NetworkToggleRow = ({
 }: NetworkToggleRowProps) => {
   const animatedValue = useRef(new Animated.Value(isActive ? 1 : 0)).current;
 
-  // Синхронизация с пропсом isActive
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: isActive ? 1 : 0,
@@ -61,7 +61,6 @@ const NetworkToggleRow = ({
       className="flex-row items-center w-full py-2.5"
       disabled={!isEnabled}
     >
-      {/* Левая часть */}
       <View className="flex-row items-center flex-1">
         <View className="w-8 h-8 rounded-full border border-gray-600 bg-[#1a1a1a] items-center justify-center mr-3">
           <IconComponent size={16} color="#fff" strokeWidth={0.8} />
@@ -73,43 +72,39 @@ const NetworkToggleRow = ({
         </View>
       </View>
 
-      {/* Правая часть — toggle */}
       <View className="w-1/2 h-9 relative">
         <View className="absolute inset-0 flex-row items-center justify-end">
-            <View className='absolute inset-0 flex-row items-center justify-end'>
-                <Animated.View
-                    className="bg-white rounded-full"
-                    style={{
-                    height: 2,
-                    width: '25%', 
-                    transform: [
-                        { rotate: rotateLeft },
-                        { translateX: translateXLeft },
-                    ],
-                    transformOrigin: 'left center',
-                    }}
-                />
-                <View
-                    className="bg-white rounded-full"
-                    style={{
-                    height: 2,
-                    width: '75%',
-                    }}
-                />
-            </View>
-                <Animated.View
-                    className="absolute right-0 w-6 h-6 rounded-full border-2 border-white/50"
-                    style={{
-                    backgroundColor: circleBg,
-                    shadowColor: '#ff6b6b',
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowOpacity: animatedValue,
-                    shadowRadius: circleShadow,
-                    elevation: circleShadow,
-                    }}
-                />
-            </View>
+          <View className="absolute inset-0 flex-row items-center justify-end">
+            <Animated.View
+              className="bg-white rounded-full"
+              style={{
+                height: 2,
+                width: '25%',
+                transform: [{ rotate: rotateLeft }, { translateX: translateXLeft }],
+                transformOrigin: 'left center',
+              }}
+            />
+            <View
+              className="bg-white rounded-full"
+              style={{
+                height: 2,
+                width: '75%',
+              }}
+            />
+          </View>
+          <Animated.View
+            className="absolute right-0 w-6 h-6 rounded-full border-2 border-white/50"
+            style={{
+              backgroundColor: circleBg,
+              shadowColor: '#ff6b6b',
+              shadowOffset: { width: 0, height: 0 },
+              shadowOpacity: animatedValue,
+              shadowRadius: circleShadow,
+              elevation: circleShadow,
+            }}
+          />
         </View>
+      </View>
     </TouchableOpacity>
   );
 };

@@ -1,5 +1,5 @@
-import { useWindowDimensions } from 'react-native';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
+import { useWindowDimensions } from 'react-native';
 
 export interface TabBarConfig {
   height: number;

@@ -1,24 +1,24 @@
-import { View, Pressable, Image } from 'react-native';
-import { Button } from '../../../shared/components/Button';
 import { useNavigation } from '@react-navigation/native';
-import { generateMnemonic } from '../../../../shared/crypto/mnemonic';
-import { useEffect, useState } from 'react';
-import { MnemonicDisplay } from '../components/MnemonicDisplay';
-import { copyToClipboard } from '../../../shared/utils/clipboard';
-import Toggle from '../components/Toggle';
-import Wrapper from '../../../shared/components/Wrapper';
-import { StepIndicator } from '../components/StepIndicator';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useEffect, useState } from 'react';
+import { Image, Pressable, View } from 'react-native';
+
+import { generateMnemonic } from '../../../../shared/crypto/mnemonic';
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { Button } from '../../../shared/components/Button';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { copyToClipboard } from '../../../shared/utils/clipboard';
+import { MnemonicDisplay } from '../components/MnemonicDisplay';
+import { StepIndicator } from '../components/StepIndicator';
 
 type CreateWalletScreenNavigationProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
   'CreateWalletScreen'
 >;
 
-export default function CreateWalletScreen() {
+export function CreateWalletScreen() {
   const navigation = useNavigation<CreateWalletScreenNavigationProp>();
   const [mnemonic, setMnemonic] = useState<string | null>(null);
   const [isHidden, setIsHidden] = useState(true);
@@ -113,5 +113,26 @@ export default function CreateWalletScreen() {
       </View>
       <StepIndicator totalSteps={5} currentStep={3} />
     </Wrapper>
+  );
+}
+
+type ToggleType = {
+  isToggled: boolean;
+  setIsToggled: (v: boolean) => void;
+};
+
+export function Toggle({ isToggled, setIsToggled }: ToggleType) {
+  return (
+    <Pressable
+      onPress={() => setIsToggled(!isToggled)}
+      className={`rounded-full flex-row items-center border-2 w-16 h-7 md:w-20 md:h-9 ${isToggled
+          ? 'bg-custom_accent border-custom_border justify-end'
+          : 'bg-custom_border border-custom_accent justify-start'
+        }`}
+    >
+      <View
+        className={`rounded-full mx-1 h-5 w-5 md:h-6 md:w-6 ${isToggled ? 'bg-custom_border' : 'bg-custom_accent'}`}
+      />
+    </Pressable>
   );
 }
