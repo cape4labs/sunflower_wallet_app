@@ -1,8 +1,9 @@
-import { View, FlatList, Pressable, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, View } from 'react-native';
+
+import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 import { Token } from '../types/Token';
 import Coin from './Coin';
 import TextWithFont from './TextWithFont';
-import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 
 interface TokenListProps {
   tokens: Token[];

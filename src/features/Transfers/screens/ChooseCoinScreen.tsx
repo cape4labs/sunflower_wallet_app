@@ -1,15 +1,16 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Wrapper from '../../../shared/components/Wrapper';
-import { TokenList } from '../../../shared/components/TokenList';
-import { Token } from '../../../shared/types/Token';
-import { View, Pressable } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ArrowLeft } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
-import { useWalletData } from '../../../shared/hooks/useWalletData';
+import { Pressable, View } from 'react-native';
+
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import { TokenList } from '../../../shared/components/TokenList';
+import Wrapper from '../../../shared/components/Wrapper';
+import { useWalletData } from '../../../shared/hooks/useWalletData';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { Token } from '../../../shared/types/Token';
 
 type ChooseCoinScreenProp = NativeStackNavigationProp<
   RootNavigatorTypeParamListType,
@@ -150,7 +151,7 @@ export default function ChooseCoinScreen() {
             <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
           </Pressable>
           <TextWithFont customStyle={`text-white ${styles.titleSize}`}>Choose crypto</TextWithFont>
-          <TextWithFont customStyle=""></TextWithFont>
+          <TextWithFont customStyle="" />
         </View>
         {isLoadingWalletData ? (
           <View className="flex-1 justify-center items-center">

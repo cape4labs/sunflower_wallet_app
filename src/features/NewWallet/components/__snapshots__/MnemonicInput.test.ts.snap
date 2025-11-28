@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MnemonicInput snapshot 1`] = `
+<View
+  className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+>
+  <Text
+    className="font-[spacegrotesk] text-white"
+  >
+    0
+    .
+  </Text>
+  <TextInput
+    autoCapitalize="none"
+    className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+    onChangeText={[Function]}
+    value="test"
+  />
+</View>
+`;

@@ -10,4 +10,3 @@ coverage
 *.lock
 *.log
 .DS_Store
-eslint.config.mjs

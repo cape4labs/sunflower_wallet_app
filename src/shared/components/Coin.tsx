@@ -1,8 +1,9 @@
-import { View, Image } from 'react-native';
+import { Image, View } from 'react-native';
+
 import formatNumber from '../../shared/utils/formatNumber';
+import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 import { Token } from '../types/Token';
 import TextWithFont from './TextWithFont';
-import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 
 const getIcon = (symbol: string) => {
   switch (symbol.toUpperCase()) {
@@ -32,10 +33,10 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
             <TextWithFont customStyle={`text-white ${styles.nameText}`}>{token.name}</TextWithFont>
             {inMainScreen &&
               (token.diff == null ? (
-                <TextWithFont customStyle={`text-white-500 ml-1`}></TextWithFont>
+                <TextWithFont customStyle={'text-white-500 ml-1'} />
               ) : (
                 <TextWithFont
-                  customStyle={`text-${token.diff.startsWith('+')  ? 'green' : 'red'}-500 ml-1`}
+                  customStyle={`text-${token.diff.startsWith('+') ? 'green' : 'red'}-500 ml-1`}
                 >
                   {token.diff}%
                 </TextWithFont>

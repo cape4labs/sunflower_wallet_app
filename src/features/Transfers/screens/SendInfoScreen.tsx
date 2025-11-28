@@ -1,15 +1,16 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Wrapper from '../../../shared/components/Wrapper';
-import { View, Pressable, ActivityIndicator, Alert } from 'react-native';
-import { useState, useEffect } from 'react';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { broadcastTransaction, makeSTXTokenTransfer } from '@stacks/transactions';
 import { ArrowLeft, CircleUser } from 'lucide-react-native';
-import { makeSTXTokenTransfer, broadcastTransaction } from '@stacks/transactions';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Pressable, View } from 'react-native';
+
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { Button } from '../../../shared/components/Button';
 import Coin from '../../../shared/components/Coin';
-import { useWalletData, useWalletPrivateData } from '../../../shared/hooks/useWalletData';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
+import { useWalletData, useWalletPrivateData } from '../../../shared/hooks/useWalletData';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { Token } from '../../../shared/types/Token';
 
@@ -97,7 +98,10 @@ export default function SendInfoScreen() {
       });
 
       setTxState('broadcasted');
-      const broadcastResponse = await broadcastTransaction({ transaction, network: 'mainnet' });
+      const broadcastResponse = await broadcastTransaction({
+        transaction,
+        network: 'mainnet',
+      });
 
       if (!broadcastResponse.txid) throw new Error('No txid returned');
 
@@ -144,7 +148,7 @@ export default function SendInfoScreen() {
 
   return (
     <Wrapper>
-      <View className={`flex-col w-full h-full`}>
+      <View className={'flex-col w-full h-full'}>
         <View className="flex-row items-center justify-between mb-10">
           <Pressable onPress={goBack}>
             <ArrowLeft color={'#FF5500'} size={styles.arrowSize} />

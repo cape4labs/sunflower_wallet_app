@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+
 import TextWithFont from '../../../shared/components/TextWithFont';
 
 type MnemonicWordType = {

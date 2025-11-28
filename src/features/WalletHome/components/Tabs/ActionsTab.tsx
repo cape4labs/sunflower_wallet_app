@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+
 // import { Button } from '../../components/Button';
 import TextWithFont from '../../../../shared/components/TextWithFont';
 
@@ -19,7 +20,9 @@ export default function ActionsTab({ actionsHeight }: ActionsTabType) {
     //   </View>
     // </View>
     <View className="mt-4">
-      <TextWithFont customStyle="text-white text-center ">Actions Content Will Be Here Soon</TextWithFont>
+      <TextWithFont customStyle="text-white text-center ">
+        Actions Content Will Be Here Soon
+      </TextWithFont>
     </View>
-      );
+  );
 }

@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MnemonicDisplayInput snapshot 1`] = `
+<View
+  className="flex-row h-auto bg-custom_complement border-2 rounded-lg my-3 md:rounded-xl md:my-5"
+>
+  <View
+    className="flex-1 flex-col justify-between m-1 md:m-2"
+  >
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        1
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        2
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        3
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        4
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        5
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        6
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+  </View>
+  <View
+    className="flex-1 flex-col justify-between m-1 md:m-2"
+  >
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        7
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        8
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        9
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        10
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        11
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+    <View
+      className="flex-row w-full items-center rounded-lg bg-custom_border px-1 p-1.5 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] text-white"
+      >
+        12
+        .
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        className="flex-1 h-full text-white rounded-md text-base md:text-lg"
+        onChangeText={[Function]}
+        value="word"
+      />
+    </View>
+  </View>
+</View>
+`;

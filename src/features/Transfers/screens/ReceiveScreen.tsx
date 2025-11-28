@@ -1,15 +1,16 @@
-import Wrapper from '../../../shared/components/Wrapper';
-import { Pressable, View, Animated, Dimensions } from 'react-native';
-import QRCode from 'react-native-qrcode-svg';
-import { getWalletData } from '../../../shared/walletPersitance';
-import { useEffect, useState, useRef } from 'react';
-import { copyToClipboard } from '../../../shared/utils/clipboard';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import TextWithFont from '../../../shared/components/TextWithFont';
 import { ArrowLeft, ChevronDown, ChevronLeft, Copy } from 'lucide-react-native';
+import { useEffect, useRef, useState } from 'react';
+import { Animated, Dimensions, Pressable, View } from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
+
 import Coin from '../../../shared/components/Coin';
-import { Token } from '../../../shared/types/Token';
+import TextWithFont from '../../../shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { Token } from '../../../shared/types/Token';
+import { copyToClipboard } from '../../../shared/utils/clipboard';
+import { getWalletData } from '../../../shared/walletPersitance';
 
 type RouteParams = {
   walletName: string;
@@ -110,7 +111,7 @@ export default function ReceiveScreen() {
 
               <View className="flex-row items-center justify-between">
                 <TextWithFont customStyle="text-white text-sm flex-1 mr-3">{address}</TextWithFont>
-                <Pressable onPress={() => copyToClipboard(address)} className=''>
+                <Pressable onPress={() => copyToClipboard(address)} className="">
                   <Copy size={styles.copyIconSize} color={'#fff'} />
                 </Pressable>
               </View>
@@ -123,7 +124,7 @@ export default function ReceiveScreen() {
 
   return (
     <Wrapper>
-      <View className={`flex-col w-full h-full`}>
+      <View className={'flex-col w-full h-full'}>
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
             <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />

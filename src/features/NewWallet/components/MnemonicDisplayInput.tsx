@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { View } from 'react-native';
+
 import { MnemonicInput } from './MnemonicInput';
 
 type MnemonicDisplayType = {
@@ -7,16 +8,12 @@ type MnemonicDisplayType = {
   setMnemonic: (words: string[]) => void;
 };
 
-export function MnemonicDisplayInput({
-  mnemonic,
-  setMnemonic,
-}: MnemonicDisplayType) {
-
+export default function MnemonicDisplayInput({ mnemonic, setMnemonic }: MnemonicDisplayType) {
   // Two columns
   const half = mnemonic.length / 2;
 
-  if (half != mnemonic.length - half) {
-    throw new Error("Critical error: half != mnemonicLength - half")
+  if (half !== mnemonic.length - half) {
+    throw new Error('Critical error: half != mnemonicLength - half');
   }
 
   const handleChange = (text: string, idx: number) => {
@@ -26,7 +23,7 @@ export function MnemonicDisplayInput({
   };
 
   return (
-    <View className='flex-row h-auto bg-custom_complement border-2 rounded-lg my-3 md:rounded-xl md:my-5'>
+    <View className="flex-row h-auto bg-custom_complement border-2 rounded-lg my-3 md:rounded-xl md:my-5">
       <Column>
         {Array.from({ length: half }, (_, i) => (
           <MnemonicInput
@@ -52,9 +49,5 @@ export function MnemonicDisplayInput({
 }
 
 const Column = ({ children }: { children: ReactNode }) => {
-  return (
-    <View className='flex-1 flex-col justify-between m-1 md:m-2'>
-      {children}
-    </View>
-  )
-}
+  return <View className="flex-1 flex-col justify-between m-1 md:m-2">{children}</View>;
+};

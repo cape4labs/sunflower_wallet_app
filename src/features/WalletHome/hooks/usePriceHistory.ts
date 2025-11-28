@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import type { QueryFunctionContext, UseQueryResult } from '@tanstack/react-query';
-import { Token } from '../../../shared/types/Token';
+
 import type { PricesData } from '../types/wallet';
 
 type usePriceHistoryReturn = {

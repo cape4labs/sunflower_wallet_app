@@ -2,7 +2,6 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { validateMnemonic } from '@scure/bip39';
 import { wordlist } from '@scure/bip39/wordlists/english';
 
-
 export const copyToClipboard = (data: string | null) => {
   if (!data) {
     return null;
@@ -15,7 +14,10 @@ type PasteMnemonicProps = {
   setMnemonic: (words: string[]) => void;
 };
 
-export async function pasteMnemonicFromClipboard({ mnemonicLength, setMnemonic }: PasteMnemonicProps) {
+export async function pasteMnemonicFromClipboard({
+  mnemonicLength,
+  setMnemonic,
+}: PasteMnemonicProps) {
   try {
     const clipboardText = await Clipboard.getString();
     if (!clipboardText) {

@@ -8,11 +8,11 @@ interface StepIndicatorProps {
 export function StepIndicator({ totalSteps, currentStep }: StepIndicatorProps) {
   return (
     <View className="flex-row justify-center mt-4 space-x-2">
-      {Array.from({ length: totalSteps }).map((_, indx) => {
-        const isActive = indx + 1 === currentStep;
+      {Array.from({ length: totalSteps }).map((_, idx) => {
+        const isActive = idx + 1 === currentStep;
         return (
           <View
-            key={indx}
+            key={idx}
             className={`w-3 h-3 rounded-full mx-1 ${
               isActive ? 'bg-white' : 'bg-gray-500 opacity-50'
             }`}

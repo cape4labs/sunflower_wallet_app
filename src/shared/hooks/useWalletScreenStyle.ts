@@ -1,5 +1,5 @@
-import { useWindowDimensions } from 'react-native';
 import { useMemo } from 'react';
+import { useWindowDimensions } from 'react-native';
 
 export type ScreenSize = 'small' | 'medium';
 
@@ -28,7 +28,10 @@ export const useWalletScreenStyles = () => {
   const textSize = (s: string, m: string) => getResponsiveClassName(size, { small: s, medium: m });
 
   const borderWidth = (s: number, m: number) =>
-    getResponsiveClassName(size, { small: `border-[${s}px]`, medium: `border-[${m}px]` });
+    getResponsiveClassName(size, {
+      small: `border-[${s}px]`,
+      medium: `border-[${m}px]`,
+    });
 
   const gap = (s: number, m: number) =>
     getResponsiveClassName(size, { small: `gap-${s}`, medium: `gap-${m}` });
@@ -58,9 +61,18 @@ export const useWalletScreenStyles = () => {
         balanceText: textSize('text-3xl', 'text-4xl'),
         addressText: textSize('text-xs', 'text-sm'),
         addressCopyIcon: iconSize(12, 15),
-        actionsHeight: getResponsiveClassName(size, { small: 'h-[64%]', medium: 'h-[65%]' }),
-        sendReceiveButtonGap: getResponsiveClassName(size, { small: 'mt-0.5', medium: 'mt-1' }),
-        tabsMargin: getResponsiveClassName(size, { small: 'mt-1', medium: 'mt-2' }),
+        actionsHeight: getResponsiveClassName(size, {
+          small: 'h-[64%]',
+          medium: 'h-[65%]',
+        }),
+        sendReceiveButtonGap: getResponsiveClassName(size, {
+          small: 'mt-0.5',
+          medium: 'mt-1',
+        }),
+        tabsMargin: getResponsiveClassName(size, {
+          small: 'mt-1',
+          medium: 'mt-2',
+        }),
       },
 
       historyScreen: {
@@ -72,17 +84,26 @@ export const useWalletScreenStyles = () => {
         txAddress: textSize('text-xs', 'text-sm'),
         expandedTx: padding(2, 4),
         refreshIconSize: global.refreshIconSize,
-        refreshButton: getResponsiveClassName(size, { small: 'p-1.5', medium: 'p-2' }),
+        refreshButton: getResponsiveClassName(size, {
+          small: 'p-1.5',
+          medium: 'p-2',
+        }),
         txIconSize: iconSize(12, 15),
         copyIconSize: iconSize(15, 17),
-        retryButton: getResponsiveClassName(size, { small: 'p-1.5', medium: 'p-2' }),
+        retryButton: getResponsiveClassName(size, {
+          small: 'p-1.5',
+          medium: 'p-2',
+        }),
         txStatus: textSize('text-xs', 'text-sm'),
       },
 
       chooseCoinScreen: {
         containerPadding: global.containerPadding,
         titleSize: global.title,
-        tokenListMargin: getResponsiveClassName(size, { small: 'mt-6', medium: 'mt-10' }),
+        tokenListMargin: getResponsiveClassName(size, {
+          small: 'mt-6',
+          medium: 'mt-10',
+        }),
         arrowSize: global.arrowSize,
       },
 
@@ -109,7 +130,10 @@ export const useWalletScreenStyles = () => {
         maxButton: textSize('text-sm', 'text-base'),
         errorText: textSize('text-xs', 'text-sm'),
         arrowSize: global.arrowSize,
-        coinsMargin: getResponsiveClassName(size, { small: 'mt-6', medium: 'mt-10' }),
+        coinsMargin: getResponsiveClassName(size, {
+          small: 'mt-6',
+          medium: 'mt-10',
+        }),
       },
 
       sendInfoScreen: {
@@ -141,10 +165,17 @@ export const useWalletScreenStyles = () => {
 
       createWallet: {
         titleGap: margin(1, 2),
-        blurImageSize: getResponsiveClassName(size, { medium: 'h-auto' }),
+        blurImageSize: getResponsiveClassName(size, {
+          medium: 'h-auto',
+        }),
         toggleGap: gap(3, 5),
-        copyIconSize: getResponsiveClassName(size, { small: 'w-3 h-3', medium: 'w-4 h-4' }),
-        bottomButtons: getResponsiveClassName(size, { medium: 'p-1 my-5' }),
+        copyIconSize: getResponsiveClassName(size, {
+          small: 'w-3 h-3',
+          medium: 'w-4 h-4',
+        }),
+        bottomButtons: getResponsiveClassName(size, {
+          medium: 'p-1 my-5',
+        }),
         copyText: textSize('text-base', 'text-lg'),
       },
 
@@ -157,9 +188,7 @@ export const useWalletScreenStyles = () => {
         loadingGap: margin(3, 5),
       },
 
-      settingsScreen: {
-
-      },
+      settingsScreen: {},
 
       // === Components ===
       button: {
@@ -196,7 +225,10 @@ export const useWalletScreenStyles = () => {
           small: 'h-5 w-5',
           medium: 'h-6 w-6',
         }),
-        border: getResponsiveClassName(size, { small: 'border-2', medium: 'border-2' }),
+        border: getResponsiveClassName(size, {
+          small: 'border-2',
+          medium: 'border-2',
+        }),
       },
 
       coin: {
@@ -205,7 +237,10 @@ export const useWalletScreenStyles = () => {
         usdText: textSize('text-sm', 'text-base'),
         balanceText: textSize('text-lg', 'text-xl'),
         costText: textSize('text-sm', 'text-base'),
-        iconSize: getResponsiveClassName(size, { small: 'w-6 h-6', medium: 'w-8 h-8' }),
+        iconSize: getResponsiveClassName(size, {
+          small: 'w-6 h-6',
+          medium: 'w-8 h-8',
+        }),
       },
 
       tokenList: {
@@ -213,7 +248,10 @@ export const useWalletScreenStyles = () => {
           small: 'p-3 border-2',
           medium: 'p-4 border-2',
         }),
-        item: getResponsiveClassName(size, { small: 'm-1', medium: 'm-2' }),
+        item: getResponsiveClassName(size, {
+          small: 'm-1',
+          medium: 'm-2',
+        }),
       },
 
       mnemonic: {
@@ -229,19 +267,37 @@ export const useWalletScreenStyles = () => {
           small: 'py-1.5 px-3 mb-3 w-[130px] border-[4px]',
           medium: 'py-2 px-4 mb-4 w-[160px] border-[4px]',
         }),
-        triggerText: getResponsiveClassName(size, { small: 'text-base', medium: 'text-lg' }),
+        triggerText: getResponsiveClassName(size, {
+          small: 'text-base',
+          medium: 'text-lg',
+        }),
         modal: getResponsiveClassName(size, {
           small: 'p-3 w-11/12 h-full',
           medium: 'p-4 w-3/4 h-full',
         }),
-        item: getResponsiveClassName(size, { small: 'p-3 mb-2', medium: 'p-4 mb-2' }),
-        itemText: getResponsiveClassName(size, { small: 'text-sm', medium: 'text-lg' }),
-        actionButton: getResponsiveClassName(size, { small: 'p-1.5 mt-3', medium: 'p-2 mt-4' }),
-        actionText: getResponsiveClassName(size, { small: 'text-base', medium: 'text-lg' }),
+        item: getResponsiveClassName(size, {
+          small: 'p-3 mb-2',
+          medium: 'p-4 mb-2',
+        }),
+        itemText: getResponsiveClassName(size, {
+          small: 'text-sm',
+          medium: 'text-lg',
+        }),
+        actionButton: getResponsiveClassName(size, {
+          small: 'p-1.5 mt-3',
+          medium: 'p-2 mt-4',
+        }),
+        actionText: getResponsiveClassName(size, {
+          small: 'text-base',
+          medium: 'text-lg',
+        }),
       },
 
       userGraph: {
-        height: getResponsiveClassName(size, { small: 'h-[130px]', medium: 'h-[170px]' }),
+        height: getResponsiveClassName(size, {
+          small: 'h-[130px]',
+          medium: 'h-[170px]',
+        }),
       },
 
       mnemonicWord: {

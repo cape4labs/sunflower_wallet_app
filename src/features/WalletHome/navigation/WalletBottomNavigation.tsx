@@ -1,12 +1,13 @@
 // navigation/WalletTabs.tsx
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MainWalletScreen from '../screens/MainWalletScreen';
-import HistoryScreen from '../screens/HistoryScreen';
-import { useResponsiveTabBarOptions } from '../../../shared/hooks/useResponsiveTabBarOptions';
-import WalletTabsProps from './type';
+import { FileText, Home, Settings } from 'lucide-react-native';
 import { View } from 'react-native';
-import { Home, FileText, Settings } from 'lucide-react-native';
+
+import { useResponsiveTabBarOptions } from '../../../shared/hooks/useResponsiveTabBarOptions';
 import SettingsScreen from '../../Settings/screens/SettingsScreen';
+import HistoryScreen from '../screens/HistoryScreen';
+import MainWalletScreen from '../screens/MainWalletScreen';
+import WalletTabsProps from './type';
 
 const createTabIcon = (IconComponent: any) => {
   return ({ color, focused }: { color: string; focused: boolean }) => {

@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+
 import { MnemonicWord } from '../components/MnemonicWord';
 
 type MnemonicDisplayType = {

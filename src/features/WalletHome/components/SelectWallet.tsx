@@ -1,7 +1,8 @@
-import { Pressable, Modal, FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useState } from 'react';
+import { FlatList, Modal, Pressable, View } from 'react-native';
+
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';

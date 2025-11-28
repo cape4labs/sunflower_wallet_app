@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MnemonicDisplay snapshot 1`] = `
+<View
+  className="flex-row h-auto bg-custom_complement border-2 rounded-lg my-3 md:rounded-xl md:my-5  "
+>
+  <View
+    className="flex-1 flex-col justify-between m-1 md:m-2"
+  >
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        1
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        2
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        3
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        4
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        5
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        6
+        . 
+        word
+      </Text>
+    </View>
+  </View>
+  <View
+    className="flex-1 flex-col justify-between m-1 md:m-2"
+  >
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        7
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        8
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        9
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        10
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        11
+        . 
+        word
+      </Text>
+    </View>
+    <View
+      className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+    >
+      <Text
+        className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+      >
+        12
+        . 
+        word
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`MnemonicWord snapshot 1`] = `
+<View
+  className="flex-row w-full justify-center rounded-lg bg-custom_border px-1 p-2 my-0.5 md:px-2 md:p-2 md:my-1"
+>
+  <Text
+    className="font-[spacegrotesk] flex-1 p-2 text-white rounded-md text-base md:text-lg"
+  >
+    1
+    . 
+    word
+  </Text>
+</View>
+`;

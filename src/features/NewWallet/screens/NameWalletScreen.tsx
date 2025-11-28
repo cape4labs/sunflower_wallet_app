@@ -1,14 +1,15 @@
-import { View, TextInput, ActivityIndicator } from 'react-native';
-import { Button } from '../../../shared/components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useState, useEffect } from 'react';
-import Wrapper from '../../../shared/components/Wrapper';
-import { StepIndicator } from '../components/StepIndicator';
-import { createAndSaveWallet } from '../../../shared/walletPersitance';
-import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, TextInput, View } from 'react-native';
+
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { Button } from '../../../shared/components/Button';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { createAndSaveWallet } from '../../../shared/walletPersitance';
+import { StepIndicator } from '../components/StepIndicator';
 
 type RouteParams = {
   mnemonic?: string;

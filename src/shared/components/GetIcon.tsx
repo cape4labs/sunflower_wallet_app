@@ -1,50 +1,65 @@
-import { User2Icon, ImageIcon, Shield, Globe, LucideCircleQuestionMark } from 'lucide-react-native';
-import { Send, Upload, Settings, RefreshCw, DatabaseIcon, PlusCircle, ArrowRightLeft, Image, LayoutGrid, LockOpen, PenLine, AtSign, SendHorizonal, Book, ExternalLink } from 'lucide-react-native';
+import { Globe, ImageIcon, LucideCircleQuestionMark, Shield, User2Icon } from 'lucide-react-native';
+import {
+  ArrowRightLeft,
+  AtSign,
+  Book,
+  DatabaseIcon,
+  ExternalLink,
+  Image,
+  LayoutGrid,
+  LockOpen,
+  PenLine,
+  PlusCircle,
+  RefreshCw,
+  Send,
+  SendHorizonal,
+  Settings,
+  Upload,
+} from 'lucide-react-native';
 
-
-export default function getIconComponent (iconName: string){
-    switch (iconName) {
+export default function getIconComponent(iconName: string) {
+  switch (iconName) {
     case 'User':
-        return User2Icon;
+      return User2Icon;
     case 'Display':
-        return ImageIcon;
+      return ImageIcon;
     case 'Security':
-        return Shield;
+      return Shield;
     case 'Networks':
-        return Globe;
+      return Globe;
     case 'Help':
-        return LucideCircleQuestionMark;
-    case 'Image': 
-        return Image;
+      return LucideCircleQuestionMark;
+    case 'Image':
+      return Image;
     case 'Apps':
-        return LayoutGrid;
+      return LayoutGrid;
     case 'Lock':
-        return LockOpen;
+      return LockOpen;
     case 'Pen':
-        return PenLine;
+      return PenLine;
     case 'AtSign':
-        return AtSign;
+      return AtSign;
     case 'Plane':
-        return SendHorizonal;
+      return SendHorizonal;
     case 'Learn':
-        return Book;
+      return Book;
     case 'Link':
-        return ExternalLink;
+      return ExternalLink;
     case 'Send':
-        return Send;
+      return Send;
     case 'Upload':
-        return Upload;
+      return Upload;
     case 'Settings':
-        return Settings;
+      return Settings;
     case 'RefreshCw':
-        return RefreshCw;
+      return RefreshCw;
     case 'DatabaseIcon':
-        return DatabaseIcon;
+      return DatabaseIcon;
     case 'PlusCircle':
-        return PlusCircle;
+      return PlusCircle;
     case 'ArrowRightLeft':
-        return ArrowRightLeft;
+      return ArrowRightLeft;
     default:
-        return User2Icon;
-    }
-};
+      return User2Icon;
+  }
+}

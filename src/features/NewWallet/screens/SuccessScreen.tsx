@@ -1,12 +1,13 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { StepIndicator } from '../components/StepIndicator';
-import { View, Image } from 'react-native';
-import { useEffect } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useEffect } from 'react';
+import { Image, View } from 'react-native';
+
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
-import Wrapper from '../../../shared/components/Wrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
+import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
+import { StepIndicator } from '../components/StepIndicator';
 
 type RouteParams = {
   walletName?: string;
