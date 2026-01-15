@@ -1,4 +1,4 @@
-import { Copy, RefreshCw, Repeat, Send, Upload } from 'lucide-react-native';
+import { Copy, RefreshCw, Repeat, Send, Upload, Database, Layers, Activity } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, SectionList, View } from 'react-native';
 
@@ -17,7 +17,22 @@ interface Transaction {
   sender_address: string;
   timestamp: number;
   tx_status: string;
+  contract_name?: string;
+  contract_id?: string;
+  function_name?: string;
 }
+
+const BTCFI_CONTRACTS: Record<string, { label: string, icon: any, description: string }> = {
+  'stableswap-core-v-1-4': { label: 'Bitflow Pool', icon: Database, description: 'Stable Swap' },
+  'amm-pool-v2-01': { label: 'ALEX Pool', icon: Layers, description: 'AMM Liquidity' },
+  'stacking-dao-core-v1': { label: 'Stacking DAO', icon: Activity, description: 'Liquid Stacking' },
+  'stacking-dao-core-v2': { label: 'Stacking DAO', icon: Activity, description: 'Liquid Stacking' },
+  'btcz-token': { label: 'Zest Protocol', icon: Database, description: 'BTC Borrowing' },
+};
+
+const formatFunctionName = (name: string) => {
+  return name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
 
 export default function HistoryScreen() {
   const { walletName } = useWalletContext();
@@ -44,17 +59,46 @@ export default function HistoryScreen() {
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
       const data = await response.json();
-      const txs = data.results.map((tx: any) => ({
-        tx_id: tx.tx_id,
-        tx_type: tx.tx_type,
-        amount: tx.token_transfer?.amount
-          ? (Number(tx.token_transfer.amount) / 1e6).toFixed(6)
-          : '0',
-        recipient_address: tx.token_transfer?.recipient_address || 'N/A',
-        sender_address: tx.sender_address || 'N/A',
-        timestamp: tx.burn_block_time_iso ? new Date(tx.burn_block_time_iso).getTime() : Date.now(),
-        tx_status: tx.tx_status || 'pending',
-      }));
+      const txs = data.results.map((tx: any) => {
+        let contractName = undefined;
+        let functionName = undefined;
+        let contractId = undefined;
+
+        if (tx.tx_type === 'contract_call' && tx.contract_call) {
+          contractId = tx.contract_call.contract_id;
+          contractName = contractId.split('.')[1];
+          functionName = tx.contract_call.function_name;
+        }
+
+        let amount = '0 STX';
+        if (tx.tx_type === 'token_transfer') {
+          amount = `${(Number(tx.token_transfer.amount || 0) / 1e6).toFixed(2)} STX`;
+        } else if (tx.tx_type === 'contract_call') {
+          // Check for FT transfers within contract call
+          const ftTransfer = tx.ft_transfers?.[0];
+          if (ftTransfer) {
+            const assetId = ftTransfer.asset_identifier;
+            const assetName = assetId.split('::')[1] || 'FT';
+            const decimals = assetId.includes('token-alex') ? 8 : 6;
+            amount = `${(Number(ftTransfer.amount || 0) / Math.pow(10, decimals)).toFixed(2)} ${assetName}`;
+          } else if (tx.fee_rate && tx.sender_address === walletData?.stxAddress) {
+            amount = 'Contract Call';
+          }
+        }
+
+        return {
+          tx_id: tx.tx_id,
+          tx_type: tx.tx_type,
+          amount,
+          recipient_address: tx.token_transfer?.recipient_address || (contractId ? 'Contract' : 'N/A'),
+          sender_address: tx.sender_address || 'N/A',
+          timestamp: tx.burn_block_iso ? new Date(tx.burn_block_iso).getTime() : Date.now(),
+          tx_status: tx.tx_status || 'pending',
+          contract_name: contractName,
+          contract_id: contractId,
+          function_name: functionName,
+        };
+      });
 
       setTransactions(txs);
     } catch (err) {
@@ -80,13 +124,31 @@ export default function HistoryScreen() {
     const icon = isSent ? Send : Upload;
     const label = isSent ? 'Sent' : 'Received';
 
+    if (tx.tx_type === 'contract_call' && tx.contract_name) {
+      const info = BTCFI_CONTRACTS[tx.contract_name];
+      if (info) {
+        return {
+          icon: info.icon,
+          label: info.label,
+          subLabel: tx.function_name ? formatFunctionName(tx.function_name) : info.description
+        };
+      }
+      return {
+        icon: Repeat,
+        label: formatFunctionName(tx.contract_name),
+        subLabel: tx.function_name ? formatFunctionName(tx.function_name) : 'Contract Interaction'
+      };
+    }
+
     switch (tx.tx_type) {
+      case 'token_transfer':
+        return { icon, label, subLabel: tx.recipient_address.slice(0, 10) + '...' };
       case 'contract_call':
-        return { icon: Repeat, label: 'Swap' };
+        return { icon: Repeat, label: tx.contract_name || 'Swap', subLabel: tx.function_name };
       case 'coinbase':
-        return { icon: Upload, label: 'Received' };
+        return { icon: Upload, label: 'Received', subLabel: 'Coinbase Reward' };
       default:
-        return { icon, label };
+        return { icon, label, subLabel: tx.tx_id.slice(0, 10) + '...' };
     }
   };
 
@@ -120,9 +182,8 @@ export default function HistoryScreen() {
       <View className="w-full mb-2">
         <Pressable
           onPress={() => setExpandedTxId(isExpanded ? null : item.tx_id)}
-          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${
-            isExpanded ? 'border-b-0 rounded-b-none' : ''
-          } ${screenStyles.txContainer}`}
+          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${isExpanded ? 'border-b-0 rounded-b-none' : ''
+            } ${screenStyles.txContainer}`}
         >
           <View className="flex-row items-center">
             <IconComponent
@@ -135,18 +196,17 @@ export default function HistoryScreen() {
                 {label}
               </TextWithFont>
               <TextWithFont customStyle={`text-gray-400 ${screenStyles.txAddress}`}>
-                {item.recipient_address.slice(0, 8)}...
+                {getTransactionDetails(item).subLabel}
               </TextWithFont>
             </View>
           </View>
           <View className="flex-col items-end">
             <TextWithFont customStyle={`text-white ${screenStyles.txAmount}`}>
-              {item.amount} STX
+              {item.amount}
             </TextWithFont>
             <TextWithFont
-              customStyle={`${screenStyles.txStatus} ${
-                item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
-              }`}
+              customStyle={`${screenStyles.txStatus} ${item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
+                }`}
             >
               {item.tx_status}
             </TextWithFont>

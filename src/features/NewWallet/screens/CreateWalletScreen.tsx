@@ -125,10 +125,11 @@ export function Toggle({ isToggled, setIsToggled }: ToggleType) {
   return (
     <Pressable
       onPress={() => setIsToggled(!isToggled)}
-      className={`rounded-full flex-row items-center border-2 w-16 h-7 md:w-20 md:h-9 ${isToggled
+      className={`rounded-full flex-row items-center border-2 w-16 h-7 md:w-20 md:h-9 ${
+        isToggled
           ? 'bg-custom_accent border-custom_border justify-end'
           : 'bg-custom_border border-custom_accent justify-start'
-        }`}
+      }`}
     >
       <View
         className={`rounded-full mx-1 h-5 w-5 md:h-6 md:w-6 ${isToggled ? 'bg-custom_border' : 'bg-custom_accent'}`}

@@ -1,28 +1,26 @@
 import { View } from 'react-native';
-
-// import { Button } from '../../components/Button';
-import TextWithFont from '../../../../shared/components/TextWithFont';
+import { Button } from '../../components/Button';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootNavigatorTypeParamListType } from '../../../../navigation/types';
 
 type ActionsTabType = {
   actionsHeight: string;
+  walletName: string | null;
 };
 
-export default function ActionsTab({ actionsHeight }: ActionsTabType) {
+export default function ActionsTab({ actionsHeight, walletName }: ActionsTabType) {
+  const navigation = useNavigation<NavigationProp<RootNavigatorTypeParamListType>>();
+
   return (
-    // <View className={`flex-col items-center bg-custom_border p-1 rounded-xl ${actionsHeight}`}>
-    //   <View className="flex-row h-1/2">
-    //     <Button text="Swap" customStyle="w-1/2" iconName="RefreshCw" />
-    //     <Button text="Bridge" customStyle="w-1/2" iconName="ArrowRightLeft" />
-    //   </View>
-    //   <View className="flex-row h-1/2">
-    //     <Button text="BTCfi" customStyle="w-1/2" iconName="DatabaseIcon" accent />
-    //     <Button text="Buy" customStyle="w-1/2" iconName="PlusCircle" />
-    //   </View>
-    // </View>
-    <View className="mt-4">
-      <TextWithFont customStyle="text-white text-center ">
-        Actions Content Will Be Here Soon
-      </TextWithFont>
+    <View className={`flex-col items-center bg-custom_border rounded-xl ${actionsHeight}`}>
+      <View className="flex-row h-1/2">
+        <Button text="Swap" customStyle="w-1/2" iconName="RefreshCw" />
+        <Button text="Bridge" customStyle="w-1/2" iconName="ArrowRightLeft" />
+      </View>
+      <View className="flex-row h-1/2">
+        <Button text="BTCfi" customStyle="w-1/2" iconName="DatabaseIcon" accent onPress={() => navigation.navigate('MainBTCfiScreen', {walletName: walletName || ""})} />
+        <Button text="Buy" customStyle="w-1/2" iconName="PlusCircle" />
+      </View>
     </View>
   );
 }

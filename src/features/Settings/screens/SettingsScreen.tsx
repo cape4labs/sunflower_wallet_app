@@ -74,8 +74,8 @@ export default function SettingsScreen() {
             iconName="User"
             isFirst
             direction="rigth"
-            onToggle={() => {}}
-            onLayoutHeight={() => {}}
+            onToggle={() => { }}
+            onLayoutHeight={() => { }}
             animatedHeight={animatedValues.wallet}
           />
         </View>
@@ -219,7 +219,7 @@ export default function SettingsScreen() {
         <View className="border-b-2 border-gray-400 pt-6 mt-auto">
           <View className="mb-4">
             <TextWithFont customStyle="text-white">Version</TextWithFont>
-            <TextWithFont customStyle="text-gray-400">0.1.0 / 04.11.2025</TextWithFont>
+            <TextWithFont customStyle="text-gray-400">0.2.0 / 16.01.2026</TextWithFont>
           </View>
           <View className="mb-6">
             <TextWithFont customStyle="text-white">Device ID</TextWithFont>
@@ -228,7 +228,7 @@ export default function SettingsScreen() {
         </View>
         <View className="mt-4">
           <View className="items-center">
-            <Button text="Lock app" customStyle="w-2/3 rounded-2xl" onPress={() => {}} />
+            <Button text="Lock app" customStyle="w-2/3 rounded-2xl" onPress={() => { }} />
           </View>
         </View>
       </View>

@@ -10,7 +10,7 @@ export default function preparePricesForGraph(
   tokens: Token[] | null,
   prices: PricesData,
 ): preparePricesForGraphReturn {
-  if (tokens == null || tokens.length < 2) {
+  if (tokens == null) {
     return {
       data: null,
       error: 'Tokens are required',
@@ -24,17 +24,11 @@ export default function preparePricesForGraph(
     };
   }
 
-  // Assume that we support only 2 tokens
-  const stxAmount = Number(tokens[0].balance);
-  const btcAmount = Number(tokens[1].balance);
+  const stxToken = tokens.find(t => t.symbol === 'STX');
+  const btcToken = tokens.find(t => t.symbol === 'BTC');
 
-  // We don't use !stxAmount here because it treats 0 same as missing
-  if (stxAmount == null || btcAmount == null) {
-    return {
-      data: null,
-      error: 'stxAmount and btcAmount required',
-    };
-  }
+  const stxAmount = stxToken ? Number(stxToken.balance) : 0;
+  const btcAmount = btcToken ? Number(btcToken.balance) : 0;
 
   // Align price arrays
   const shortest = Math.min(prices.stx.length, prices.btc.length);
