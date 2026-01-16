@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ArrowLeft } from 'lucide-react-native';
-import { useEffect, useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
@@ -11,7 +11,6 @@ import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { Token } from '../../../shared/types/Token';
-
 import useWalletTokens from '../../WalletHome/hooks/useWalletTokens';
 
 type ChooseCoinScreenProp = NativeStackNavigationProp<
@@ -34,7 +33,7 @@ export default function ChooseCoinScreen() {
   const { tokens, tokenLoading, tokenError } = useWalletTokens(
     null,
     walletData?.stxAddress,
-    walletData?.btcAddress
+    walletData?.btcAddress,
   );
 
   const filteredTokens = useMemo(() => tokens.filter(t => !t.isDeFi), [tokens]);

@@ -1,4 +1,13 @@
-import { Copy, RefreshCw, Repeat, Send, Upload, Database, Layers, Activity } from 'lucide-react-native';
+import {
+  Activity,
+  Copy,
+  Database,
+  Layers,
+  RefreshCw,
+  Repeat,
+  Send,
+  Upload,
+} from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, SectionList, View } from 'react-native';
 
@@ -22,7 +31,7 @@ interface Transaction {
   function_name?: string;
 }
 
-const BTCFI_CONTRACTS: Record<string, { label: string, icon: any, description: string }> = {
+const BTCFI_CONTRACTS: Record<string, { label: string; icon: any; description: string }> = {
   'stableswap-core-v-1-4': { label: 'Bitflow Pool', icon: Database, description: 'Stable Swap' },
   'amm-pool-v2-01': { label: 'ALEX Pool', icon: Layers, description: 'AMM Liquidity' },
   'stacking-dao-core-v1': { label: 'Stacking DAO', icon: Activity, description: 'Liquid Stacking' },
@@ -31,7 +40,10 @@ const BTCFI_CONTRACTS: Record<string, { label: string, icon: any, description: s
 };
 
 const formatFunctionName = (name: string) => {
-  return name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  return name
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 };
 
 export default function HistoryScreen() {
@@ -60,9 +72,9 @@ export default function HistoryScreen() {
 
       const data = await response.json();
       const txs = data.results.map((tx: any) => {
-        let contractName = undefined;
-        let functionName = undefined;
-        let contractId = undefined;
+        let contractName;
+        let functionName;
+        let contractId;
 
         if (tx.tx_type === 'contract_call' && tx.contract_call) {
           contractId = tx.contract_call.contract_id;
@@ -90,7 +102,8 @@ export default function HistoryScreen() {
           tx_id: tx.tx_id,
           tx_type: tx.tx_type,
           amount,
-          recipient_address: tx.token_transfer?.recipient_address || (contractId ? 'Contract' : 'N/A'),
+          recipient_address:
+            tx.token_transfer?.recipient_address || (contractId ? 'Contract' : 'N/A'),
           sender_address: tx.sender_address || 'N/A',
           timestamp: tx.burn_block_iso ? new Date(tx.burn_block_iso).getTime() : Date.now(),
           tx_status: tx.tx_status || 'pending',
@@ -130,13 +143,13 @@ export default function HistoryScreen() {
         return {
           icon: info.icon,
           label: info.label,
-          subLabel: tx.function_name ? formatFunctionName(tx.function_name) : info.description
+          subLabel: tx.function_name ? formatFunctionName(tx.function_name) : info.description,
         };
       }
       return {
         icon: Repeat,
         label: formatFunctionName(tx.contract_name),
-        subLabel: tx.function_name ? formatFunctionName(tx.function_name) : 'Contract Interaction'
+        subLabel: tx.function_name ? formatFunctionName(tx.function_name) : 'Contract Interaction',
       };
     }
 
@@ -182,8 +195,9 @@ export default function HistoryScreen() {
       <View className="w-full mb-2">
         <Pressable
           onPress={() => setExpandedTxId(isExpanded ? null : item.tx_id)}
-          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${isExpanded ? 'border-b-0 rounded-b-none' : ''
-            } ${screenStyles.txContainer}`}
+          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${
+            isExpanded ? 'border-b-0 rounded-b-none' : ''
+          } ${screenStyles.txContainer}`}
         >
           <View className="flex-row items-center">
             <IconComponent
@@ -205,8 +219,9 @@ export default function HistoryScreen() {
               {item.amount}
             </TextWithFont>
             <TextWithFont
-              customStyle={`${screenStyles.txStatus} ${item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
-                }`}
+              customStyle={`${screenStyles.txStatus} ${
+                item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
+              }`}
             >
               {item.tx_status}
             </TextWithFont>

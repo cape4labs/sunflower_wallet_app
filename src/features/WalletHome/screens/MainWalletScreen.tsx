@@ -1,7 +1,7 @@
-import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Copy, RefreshCcw } from 'lucide-react-native';
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Image, Pressable, View } from 'react-native';
 
 import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
@@ -51,7 +51,7 @@ export default function MainWalletScreen() {
   const { tokens, tokenError, tokenLoading, walletBalance, fetchTokensCosts } = useWalletTokens(
     priceHistory.data,
     walletData?.stxAddress,
-    walletData?.btcAddress
+    walletData?.btcAddress,
   );
 
   const filteredTokens = useMemo(() => tokens.filter(t => !t.isDeFi), [tokens]);
@@ -68,7 +68,7 @@ export default function MainWalletScreen() {
   useFocusEffect(
     useCallback(() => {
       fetchTokensCosts();
-    }, [fetchTokensCosts])
+    }, [fetchTokensCosts]),
   );
 
   const handleSend = (tokensForChoose: Token[]) => {
@@ -83,11 +83,7 @@ export default function MainWalletScreen() {
     <Wrapper>
       <View className="flex-col flex-1 w-full">
         <View className={`flex-row justify-around items-center ${screenStyles.headerGap}`}>
-          <Pressable
-            onPress={() =>
-              fetchTokensCosts()
-            }
-          >
+          <Pressable onPress={() => fetchTokensCosts()}>
             <RefreshCcw
               size={parseInt(globalStyles.refreshIconSize)}
               color="#fff"

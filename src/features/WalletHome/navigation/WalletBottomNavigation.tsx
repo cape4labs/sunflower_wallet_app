@@ -7,7 +7,7 @@ import { useResponsiveTabBarOptions } from '../../../shared/hooks/useResponsiveT
 import SettingsScreen from '../../Settings/screens/SettingsScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import MainWalletScreen from '../screens/MainWalletScreen';
-import WalletTabsProps from './type';
+import type { WalletTabsProps } from './types';
 
 const createTabIcon = (IconComponent: any) => {
   return ({ color, focused }: { color: string; focused: boolean }) => {

@@ -23,5 +23,5 @@ export type RootNavigatorTypeParamListType = {
     walletName: string;
   };
   ReceiveScreen: { walletName: string; tokens: Token[] };
-  MainBTCfiScreen: {walletName: string};
+  MainBTCfiScreen: { walletName: string };
 };

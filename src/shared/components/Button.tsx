@@ -1,6 +1,5 @@
 import { Pressable } from 'react-native';
 
-import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 import TextWithFont from './TextWithFont';
 
 type ButtonType = {

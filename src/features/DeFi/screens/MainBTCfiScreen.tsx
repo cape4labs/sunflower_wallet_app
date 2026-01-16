@@ -1,17 +1,20 @@
-import { View, Pressable, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ChevronLeft, DatabaseIcon } from 'lucide-react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
+import { Pressable, ScrollView, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import TextWithFont from '../../../shared/components/TextWithFont';
-import StackingDaoCard from '../components/stake/StakingDAO';
-import BitflowPoolCard from '../components/pool/BitflowPool';
 import BTCzCard from '../components/borrow/BTCz';
+import BitflowPoolCard from '../components/pool/BitflowPool';
+import StackingDaoCard from '../components/stake/StakingDAO';
 
-type MainBTCfiScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'MainBTCfiScreen'>;
+type MainBTCfiScreenProp = NativeStackNavigationProp<
+  RootNavigatorTypeParamListType,
+  'MainBTCfiScreen'
+>;
 type RouteParams = { walletName: string };
 
 const TABS = ['Stake', 'Pools', 'Borrow', 'Vote'];
@@ -22,7 +25,7 @@ const STAKING_PROTOCOLS = [
     name: 'Stacking DAO',
     icon: 'Layers',
     apy: '~8.81%',
-    description: 'Liquid Staking for STX'
+    description: 'Liquid Staking for STX',
   },
 ];
 
@@ -32,8 +35,8 @@ const POOLS_PROTOCOLS = [
     name: 'Bitflow pool',
     icon: 'Layers',
     apy: 'Dynamic',
-    description: 'STX-stSTX'
-  }
+    description: 'STX-stSTX',
+  },
 ];
 
 const BORROW_PROTOCOLS = [
@@ -42,8 +45,8 @@ const BORROW_PROTOCOLS = [
     name: 'BTCz Protocol',
     icon: 'Database',
     apy: 'Dynamic',
-    description: 'Bitcoin Lending'
-  }
+    description: 'Bitcoin Lending',
+  },
 ];
 
 export default function MainBTCfiScreen() {
@@ -54,29 +57,37 @@ export default function MainBTCfiScreen() {
   const [selectedProtocol, setSelectedProtocol] = useState<string | null>(null);
   const handleProtocolSelect = (id: string) => {
     setSelectedProtocol(id);
-  }
+  };
 
   const handleBackToProtocols = () => {
     setSelectedProtocol(null);
-  }
+  };
 
   const getProtocolsForTab = () => {
     switch (activeTab) {
-      case 'Stake': return STAKING_PROTOCOLS;
-      case 'Pools': return POOLS_PROTOCOLS;
-      case 'Borrow': return BORROW_PROTOCOLS;
-      default: return [];
+      case 'Stake':
+        return STAKING_PROTOCOLS;
+      case 'Pools':
+        return POOLS_PROTOCOLS;
+      case 'Borrow':
+        return BORROW_PROTOCOLS;
+      default:
+        return [];
     }
-  }
+  };
 
   const renderProtocolDetail = () => {
     switch (selectedProtocol) {
-      case 'stacking-dao': return <StackingDaoCard walletName={walletName} />;
-      case 'bitflow': return <BitflowPoolCard walletName={walletName} />;
-      case 'zest': return <BTCzCard walletName={walletName} />
-      default: return null;
+      case 'stacking-dao':
+        return <StackingDaoCard walletName={walletName} />;
+      case 'bitflow':
+        return <BitflowPoolCard walletName={walletName} />;
+      case 'zest':
+        return <BTCzCard walletName={walletName} />;
+      default:
+        return null;
     }
-  }
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-custom_background px-4">
@@ -85,20 +96,20 @@ export default function MainBTCfiScreen() {
           <ChevronLeft color="white" size={24} />
         </Pressable>
         <TextWithFont customStyle="text-2xl text-white">BTCfi</TextWithFont>
-        <Pressable>
-        </Pressable>
+        <Pressable />
       </View>
 
       <View className="flex-row mt-4 bg-custom_border overflow-hidden border-2 border-r-0 border-custom_border">
-        {TABS.map((tab) => (
+        {TABS.map(tab => (
           <Pressable
             key={tab}
-            onPress={() => { setActiveTab(tab); setSelectedProtocol(null); }}
+            onPress={() => {
+              setActiveTab(tab);
+              setSelectedProtocol(null);
+            }}
             className={`flex-1 py-3 items-center justify-center ${activeTab === tab ? 'bg-custom_accent' : 'bg-custom_complement'} border-r-2 border-custom_border`}
           >
-            <TextWithFont
-              customStyle={`${activeTab === tab ? 'text-black' : 'text-white'}`}
-            >
+            <TextWithFont customStyle={`${activeTab === tab ? 'text-black' : 'text-white'}`}>
               {tab}
             </TextWithFont>
           </Pressable>
@@ -108,7 +119,7 @@ export default function MainBTCfiScreen() {
       <ScrollView className="mt-4">
         {!selectedProtocol ? (
           <View className="gap-4">
-            {getProtocolsForTab().map((protocol) => (
+            {getProtocolsForTab().map(protocol => (
               <Pressable
                 key={protocol.id}
                 onPress={() => handleProtocolSelect(protocol.id)}
@@ -116,11 +127,15 @@ export default function MainBTCfiScreen() {
               >
                 <View className="flex-row items-center gap-4">
                   <View className="w-10 h-10 bg-custom_background rounded-full items-center justify-center">
-                    <DatabaseIcon strokeWidth={2} color={"#fff"} />
+                    <DatabaseIcon strokeWidth={2} color={'#fff'} />
                   </View>
                   <View>
-                    <TextWithFont customStyle="text-white text-lg font-bold">{protocol.name}</TextWithFont>
-                    <TextWithFont customStyle="text-white text-xs">{protocol.description}</TextWithFont>
+                    <TextWithFont customStyle="text-white text-lg font-bold">
+                      {protocol.name}
+                    </TextWithFont>
+                    <TextWithFont customStyle="text-white text-xs">
+                      {protocol.description}
+                    </TextWithFont>
                   </View>
                 </View>
                 <View className="items-end">

@@ -74,8 +74,8 @@ export default function SettingsScreen() {
             iconName="User"
             isFirst
             direction="rigth"
-            onToggle={() => { }}
-            onLayoutHeight={() => { }}
+            onToggle={() => {}}
+            onLayoutHeight={() => {}}
             animatedHeight={animatedValues.wallet}
           />
         </View>
@@ -228,7 +228,7 @@ export default function SettingsScreen() {
         </View>
         <View className="mt-4">
           <View className="items-center">
-            <Button text="Lock app" customStyle="w-2/3 rounded-2xl" onPress={() => { }} />
+            <Button text="Lock app" customStyle="w-2/3 rounded-2xl" onPress={() => {}} />
           </View>
         </View>
       </View>

@@ -6,7 +6,8 @@ import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 import { Token } from '../types/Token';
 import TextWithFont from './TextWithFont';
 
-const getLocalIcon = (symbol: string) => {
+// TODO remove it
+function getLocalIcon(symbol: string) {
   switch (symbol.toUpperCase()) {
     case 'BTC':
       return require('../../../assets/icons/bitcoin.png');
@@ -15,7 +16,7 @@ const getLocalIcon = (symbol: string) => {
     default:
       return null;
   }
-};
+}
 
 type CoinProp = {
   token: Token;
@@ -29,20 +30,12 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
   const localIcon = getLocalIcon(token.symbol);
 
   // Potential remote icon URL (e.g. from a public repo or service)
-  const remoteIconUrl = `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/${token.symbol.toLowerCase()}.png`;
+  // TODO fix token names
 
   const renderIcon = () => {
-    if (localIcon && !iconError) {
-      return <Image source={localIcon} className={styles.iconSize} onError={() => setIconError(true)} />;
-    }
-
-    if (!iconError) {
+    if (localIcon) {
       return (
-        <Image
-          source={{ uri: remoteIconUrl }}
-          className={styles.iconSize}
-          onError={() => setIconError(true)}
-        />
+        <Image source={localIcon} className={styles.iconSize} onError={() => setIconError(true)} />
       );
     }
 
