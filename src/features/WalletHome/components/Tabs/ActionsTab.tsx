@@ -1,7 +1,8 @@
-import { View } from 'react-native';
-import { Button } from '../../components/Button';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { View } from 'react-native';
+
 import { RootNavigatorTypeParamListType } from '../../../../navigation/types';
+import { Button } from '../../components/Button';
 
 type ActionsTabType = {
   actionsHeight: string;
@@ -18,7 +19,13 @@ export default function ActionsTab({ actionsHeight, walletName }: ActionsTabType
         <Button text="Bridge" customStyle="w-1/2" iconName="ArrowRightLeft" />
       </View>
       <View className="flex-row h-1/2">
-        <Button text="BTCfi" customStyle="w-1/2" iconName="DatabaseIcon" accent onPress={() => navigation.navigate('MainBTCfiScreen', {walletName: walletName || ""})} />
+        <Button
+          text="BTCfi"
+          customStyle="w-1/2"
+          iconName="DatabaseIcon"
+          accent
+          onPress={() => navigation.navigate('MainBTCfiScreen', { walletName: walletName || '' })}
+        />
         <Button text="Buy" customStyle="w-1/2" iconName="PlusCircle" />
       </View>
     </View>

@@ -1,19 +1,20 @@
-import { useMemo, useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
+
+import {
+  useBtcBalanceQuery,
+  useStacksBalancesQuery,
+  useTokenPricesQuery,
+} from '../../../shared/hooks/useTokenQueries';
 import { Token } from '../../../shared/types/Token';
+import { TOKEN_REGISTRY } from '../../../shared/types/tokenRegistry';
+import { parseStacksTokens } from '../../../shared/utils/parseStacksTokens';
 import { PricesData } from '../types/wallet';
 import calculatePriceDiff from '../utils/calculatePriceDiff';
-import { parseStacksTokens } from '../../../shared/utils/parseStacksTokens';
-import { TOKEN_REGISTRY } from '../../../shared/types/tokenRegistry';
-import {
-  useStacksBalancesQuery,
-  useBtcBalanceQuery,
-  useTokenPricesQuery
-} from '../../../shared/hooks/useTokenQueries';
 
 export default function useWalletTokens(
   priceHistory: PricesData | null,
   stxAddress?: string | null,
-  btcAddress?: string | null
+  btcAddress?: string | null,
 ) {
   const {
     data: stacksData,
@@ -29,22 +30,23 @@ export default function useWalletTokens(
     refetch: refetchBtc,
   } = useBtcBalanceQuery(btcAddress);
 
-  // Derive price IDs ** not working for fungible tokens ** 
+  // Derive price IDs ** not working for fungible tokens **
   const parsedTokens = useMemo(() => {
-    console.log(stacksData?.fungible_tokens)
+    console.log(stacksData?.fungible_tokens);
     return stxAddress && stacksData?.fungible_tokens
       ? parseStacksTokens(stacksData.fungible_tokens)
       : [];
   }, [stxAddress, stacksData]);
 
   // Derive price IDs for all tokens to fetch their prices
-  const priceIds = useMemo(() => [
-    TOKEN_REGISTRY.STX.coingeckoId!,
-    'bitcoin',
-    ...parsedTokens
-      .map(t => t?.coingeckoId)
-      .filter((id): id is string => !!id),
-  ], [parsedTokens]);
+  const priceIds = useMemo(
+    () => [
+      TOKEN_REGISTRY.STX.coinGeckoId!,
+      'bitcoin',
+      ...parsedTokens.map(t => t?.coingeckoId).filter((id): id is string => !!id),
+    ],
+    [parsedTokens],
+  );
 
   const {
     data: prices,
@@ -53,7 +55,7 @@ export default function useWalletTokens(
     refetch: refetchPrices,
   } = useTokenPricesQuery(priceIds);
 
-  // Aggregates data from multiple sources (Stacks, BTC, CoinGecko) 
+  // Aggregates data from multiple sources (Stacks, BTC, CoinGecko)
   // into a single list of tokens with prices and USD values.
   const tokens: Token[] = useMemo(() => {
     const result: Token[] = [];
@@ -75,7 +77,7 @@ export default function useWalletTokens(
         coingeckoId: 'blockstack',
       });
 
-      // Map Fungible Tokens (SIP-010) 
+      // Map Fungible Tokens (SIP-010)
       for (const t of parsedTokens) {
         if (!t) continue; // Safety check for TypeScript
         const price = prices[t.coingeckoId!]?.usd ?? 0;
@@ -115,9 +117,7 @@ export default function useWalletTokens(
 
   // Combined portfolio balance in USD
   const walletBalance = useMemo(() => {
-    return tokens
-      .reduce((acc, token) => acc + Number(token.balanceUsd), 0)
-      .toFixed(2);
+    return tokens.reduce((acc, token) => acc + Number(token.balanceUsd), 0).toFixed(2);
   }, [tokens]);
 
   /**

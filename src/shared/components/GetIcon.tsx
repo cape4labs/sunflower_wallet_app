@@ -1,20 +1,24 @@
-import { Globe, ImageIcon, LucideCircleQuestionMark, Shield, User2Icon } from 'lucide-react-native';
 import {
   ArrowRightLeft,
   AtSign,
   Book,
   DatabaseIcon,
   ExternalLink,
+  Globe,
   Image,
+  ImageIcon,
   LayoutGrid,
   LockOpen,
+  LucideCircleQuestionMark,
   PenLine,
   PlusCircle,
   RefreshCw,
   Send,
   SendHorizonal,
   Settings,
+  Shield,
   Upload,
+  User2Icon,
 } from 'lucide-react-native';
 
 export default function getIconComponent(iconName: string) {
