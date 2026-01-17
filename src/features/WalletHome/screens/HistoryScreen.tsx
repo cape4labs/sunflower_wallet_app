@@ -16,7 +16,7 @@ import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
-import { copyToClipboard } from '../../../shared/utils/clipboard';
+import { copyTextToClipboard } from '../../../shared/utils/clipboard';
 
 interface Transaction {
   tx_id: string;
@@ -236,7 +236,7 @@ export default function HistoryScreen() {
               <TextWithFont customStyle="text-sm text-white">
                 TXid: {shortenTxId(item.tx_id)}
               </TextWithFont>
-              <Pressable onPress={() => copyToClipboard(item.tx_id)} className="p-1">
+              <Pressable onPress={() => copyTextToClipboard(item.tx_id)} className="p-1">
                 <Copy color="white" size={parseInt(screenStyles.copyIconSize)} strokeWidth={1.5} />
               </Pressable>
             </View>

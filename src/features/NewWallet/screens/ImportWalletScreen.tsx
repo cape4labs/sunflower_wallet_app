@@ -7,7 +7,7 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { Button } from '../../../shared/components/Button';
 import ScrollableWrapper from '../../../shared/components/ScrollableWrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
-import { pasteMnemonicFromClipboard } from '../../../shared/utils/clipboard';
+import pasteMnemonicFromClipboard from '../../../shared/utils/pasteMnemonicFromClipboard';
 import MnemonicDisplayInput from '../components/MnemonicDisplayInput';
 import { StepIndicator } from '../components/StepIndicator';
 
@@ -51,7 +51,7 @@ export default function ImportWalletScreen() {
   };
 
   const handlePaste = async () => {
-    await pasteMnemonicFromClipboard({ mnemonicLength, setMnemonic });
+    await pasteMnemonicFromClipboard(mnemonicLength, setMnemonic);
   };
 
   return (

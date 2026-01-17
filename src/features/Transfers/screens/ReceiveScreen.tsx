@@ -9,7 +9,7 @@ import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { Token } from '../../../shared/types/Token';
-import { copyToClipboard } from '../../../shared/utils/clipboard';
+import { copyTextToClipboard } from '../../../shared/utils/clipboard';
 import { getWalletData } from '../../../shared/walletPersitance';
 
 type RouteParams = {
@@ -111,7 +111,7 @@ export default function ReceiveScreen() {
 
               <View className="flex-row items-center justify-between">
                 <TextWithFont customStyle="text-white text-sm flex-1 mr-3">{address}</TextWithFont>
-                <Pressable onPress={() => copyToClipboard(address)} className="">
+                <Pressable onPress={() => copyTextToClipboard(address)} className="">
                   <Copy size={styles.copyIconSize} color={'#fff'} />
                 </Pressable>
               </View>

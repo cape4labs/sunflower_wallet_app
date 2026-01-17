@@ -1,44 +1,20 @@
-import Clipboard from '@react-native-clipboard/clipboard';
-import { validateMnemonic } from '@scure/bip39';
-import { wordlist } from '@scure/bip39/wordlists/english';
+import * as Clipboard from '@react-native-clipboard/clipboard';
 
-export const copyToClipboard = (data: string | null) => {
+// TODO: "null | void" looks ugly, refactor functions that use null
+export function copyTextToClipboard(data: string | null): null | void {
   if (!data) {
     return null;
   }
-  Clipboard.setString(data);
-};
 
-type PasteMnemonicProps = {
-  mnemonicLength: number | null;
-  setMnemonic: (words: string[]) => void;
-};
+  Clipboard.default.setString(data);
+}
 
-export async function pasteMnemonicFromClipboard({
-  mnemonicLength,
-  setMnemonic,
-}: PasteMnemonicProps) {
-  try {
-    const clipboardText = await Clipboard.getString();
-    if (!clipboardText) {
-      console.error('Clipboard is empty');
-      return;
-    }
-
-    const words = clipboardText.trim().split(/\s+/);
-    if (mnemonicLength === null || words.length !== mnemonicLength) {
-      console.error(`Mnemonic must contain ${mnemonicLength} words`);
-      return;
-    }
-
-    const fullMnemonic = words.join(' ');
-    if (!validateMnemonic(fullMnemonic, wordlist)) {
-      console.error('Invalid mnemonic phrase');
-      return;
-    }
-
-    setMnemonic(words);
-  } catch (error) {
-    console.error('Paste error', error);
+export async function pasteTextFromClipboard(): Promise<string | void> {
+  const clipboardText = await Clipboard.default.getString();
+  if (!clipboardText) {
+    // TODO: show a warning to user that there's no text in the clipboard
+    return;
   }
+
+  return clipboardText;
 }
