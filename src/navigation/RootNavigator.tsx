@@ -14,6 +14,7 @@ import SendInfoScreen from '../features/Transfers/screens/SendInfoScreen.tsx';
 import SendScreen from '../features/Transfers/screens/SendScreen.tsx';
 import { WalletTabs } from '../features/WalletHome/navigation/WalletBottomNavigation.tsx';
 import { RootNavigatorTypeParamListType } from './types';
+import MainBTCfiScreen from '../features/DeFi/screens/MainBTCfiScreen.tsx';
 
 const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>({
   initialRouteName: 'LogoScreen',
@@ -33,6 +34,7 @@ const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>
     SendScreen: SendScreen,
     SendInfoScreen: SendInfoScreen,
     ReceiveScreen: ReceiveScreen,
+    MainBTCfiScreen: MainBTCfiScreen,
   },
   screenOptions: {
     headerShown: false,

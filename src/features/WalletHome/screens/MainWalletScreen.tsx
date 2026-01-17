@@ -1,7 +1,7 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Copy, RefreshCcw } from 'lucide-react-native';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { ActivityIndicator, Image, Pressable, View } from 'react-native';
 
 import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
@@ -50,22 +50,26 @@ export default function MainWalletScreen() {
 
   const { tokens, tokenError, tokenLoading, walletBalance, fetchTokensCosts } = useWalletTokens(
     priceHistory.data,
+    walletData?.stxAddress,
+    walletData?.btcAddress
   );
-  const priceHistoryForGraph = preparePricesForGraph(tokens, priceHistory.data);
+
+  const filteredTokens = useMemo(() => tokens.filter(t => !t.isDeFi), [tokens]);
+  const priceHistoryForGraph = preparePricesForGraph(filteredTokens, priceHistory.data);
   const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens');
 
   const globalStyles = useWalletScreenStyles().global;
   const screenStyles = useWalletScreenStyles().mainWalletScreen;
 
   useEffect(() => {
-    if (walletData?.stxAddress && walletData?.btcAddress) {
-      fetchTokensCosts(walletData.stxAddress, walletData.btcAddress);
-    }
-  }, [walletData]);
-
-  useEffect(() => {
     if (selectedWallet) setWalletName(selectedWallet);
   }, [selectedWallet]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchTokensCosts();
+    }, [fetchTokensCosts])
+  );
 
   const handleSend = (tokensForChoose: Token[]) => {
     if (!selectedWallet) return;
@@ -81,7 +85,7 @@ export default function MainWalletScreen() {
         <View className={`flex-row justify-around items-center ${screenStyles.headerGap}`}>
           <Pressable
             onPress={() =>
-              walletData && fetchTokensCosts(walletData.stxAddress, walletData.btcAddress)
+              fetchTokensCosts()
             }
           >
             <RefreshCcw
@@ -105,7 +109,7 @@ export default function MainWalletScreen() {
           <View className={`flex-row ${screenStyles.sendReceiveButtonGap}`}>
             <Button
               text="Send"
-              onPress={() => handleSend(tokens)}
+              onPress={() => handleSend(filteredTokens)}
               customStyle="w-1/2"
               iconName="Send"
             />
@@ -115,7 +119,7 @@ export default function MainWalletScreen() {
                 selectedWallet &&
                 navigation.navigate('ReceiveScreen', {
                   walletName: selectedWallet,
-                  tokens,
+                  tokens: filteredTokens,
                 })
               }
               customStyle="w-1/2"
@@ -159,13 +163,13 @@ export default function MainWalletScreen() {
             <TextWithFont customStyle="text-red-500 text-center">{error}</TextWithFont>
           ) : activeTab === 'Tokens' ? (
             <TokenList
-              tokens={tokens}
+              tokens={filteredTokens}
               isLoading={tokenLoading}
               error={tokenError}
               customStyle="h-full"
             />
           ) : activeTab === 'Actions' ? (
-            <ActionsTab actionsHeight={screenStyles.actionsHeight} />
+            <ActionsTab actionsHeight={screenStyles.actionsHeight} walletName={selectedWallet} />
           ) : (
             <NftTab />
           )}
