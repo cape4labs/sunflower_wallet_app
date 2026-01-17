@@ -9,7 +9,7 @@ import { Button } from '../../../shared/components/Button';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
-import { copyToClipboard } from '../../../shared/utils/clipboard';
+import { copyTextToClipboard } from '../../../shared/utils/clipboard';
 import { MnemonicDisplay } from '../components/MnemonicDisplay';
 import { StepIndicator } from '../components/StepIndicator';
 
@@ -83,7 +83,7 @@ export function CreateWalletScreen() {
               </View>
               <View className="flex-row">
                 <Pressable
-                  onPress={() => copyToClipboard(mnemonic)}
+                  onPress={() => copyTextToClipboard(mnemonic)}
                   className="flex-row gap-1 items-center"
                 >
                   <Image

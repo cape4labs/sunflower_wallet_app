@@ -12,7 +12,7 @@ import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import type { Token } from '../../../shared/types/Token';
-import { copyToClipboard } from '../../../shared/utils/clipboard';
+import { copyTextToClipboard } from '../../../shared/utils/clipboard';
 import shortenAddress from '../../../shared/utils/shortAddress';
 import { Button, TextButton } from '../components/Button';
 import PriceGraph from '../components/PriceGraph';
@@ -129,7 +129,7 @@ export default function MainWalletScreen() {
               ${walletBalance || '0.00'}
             </TextWithFont>
             <Pressable
-              onPress={() => copyToClipboard(walletData?.stxAddress || null)}
+              onPress={() => copyTextToClipboard(walletData?.stxAddress || null)}
               className="flex-row gap-2 justify-center items-center"
             >
               <TextWithFont customStyle={`${screenStyles.addressText} text-yellow-50`}>
