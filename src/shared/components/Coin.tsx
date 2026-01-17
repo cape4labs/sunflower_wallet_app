@@ -8,11 +8,19 @@ import TextWithFont from './TextWithFont';
 
 // TODO remove it
 function getLocalIcon(symbol: string) {
-  switch (symbol.toUpperCase()) {
-    case 'BTC':
+  switch (symbol.toLowerCase()) {
+    case 'btc':
       return require('../../../assets/icons/bitcoin.png');
-    case 'STX':
+    case 'stx':
       return require('../../../assets/icons/stacks.png');
+    case 'btcz':
+      return require('../../../assets/icons/btcz.png');
+    case 'ststx':
+      return require('../../../assets/icons/ststx.png');
+    case 'alex':
+      return require('../../../assets/icons/alex.png');
+    case 'sbtc':
+      return require('../../../assets/icons/sbtc.png');
     default:
       return null;
   }
