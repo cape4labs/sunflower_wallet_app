@@ -4,9 +4,9 @@ import type { QueryFunctionContext, UseQueryResult } from '@tanstack/react-query
 import type { PricesData } from '../types/wallet';
 
 type usePriceHistoryReturn = {
-  data: PricesData;
+  data?: PricesData;
   isLoading: boolean;
-  error: string | null;
+  error?: string;
 };
 
 type CoinGeckoResponse = {
@@ -29,11 +29,10 @@ export default function usePriceHistory(): usePriceHistoryReturn {
     queryFn: fetchPriceHistory,
   });
   const isLoading = stxQuery.isLoading || btcQuery.isLoading;
-  const error = stxQuery.error?.message ?? btcQuery.error?.message ?? null;
+  const error = stxQuery.error?.message ?? btcQuery.error?.message;
 
   if (stxQuery.isError || btcQuery.isError) {
     return {
-      data: null,
       isLoading,
       error: stxQuery.error?.message ?? btcQuery.error?.message ?? 'Unknown',
     };
@@ -41,7 +40,7 @@ export default function usePriceHistory(): usePriceHistoryReturn {
 
   // Just in case
   if (!stxQuery.data || !btcQuery.data) {
-    return { data: null, isLoading, error };
+    return { isLoading, error };
   }
 
   return {

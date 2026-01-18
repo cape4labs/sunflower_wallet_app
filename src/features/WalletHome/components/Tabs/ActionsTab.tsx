@@ -15,8 +15,8 @@ export default function ActionsTab({ actionsHeight, walletName }: ActionsTabType
   return (
     <View className={`flex-col items-center bg-custom_border rounded-xl ${actionsHeight}`}>
       <View className="flex-row h-1/2">
-        <Button text="Swap" customStyle="w-1/2" iconName="RefreshCw" />
-        <Button text="Bridge" customStyle="w-1/2" iconName="ArrowRightLeft" />
+        <Button onPress={() => {}} text="Swap" customStyle="w-1/2" iconName="RefreshCw" />
+        <Button onPress={() => {}} text="Bridge" customStyle="w-1/2" iconName="ArrowRightLeft" />
       </View>
       <View className="flex-row h-1/2">
         <Button
@@ -26,7 +26,7 @@ export default function ActionsTab({ actionsHeight, walletName }: ActionsTabType
           accent
           onPress={() => navigation.navigate('MainBTCfiScreen', { walletName: walletName || '' })}
         />
-        <Button text="Buy" customStyle="w-1/2" iconName="PlusCircle" />
+        <Button onPress={() => {}} text="Buy" customStyle="w-1/2" iconName="PlusCircle" />
       </View>
     </View>
   );
