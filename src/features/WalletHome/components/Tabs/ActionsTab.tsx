@@ -2,7 +2,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 
 import { RootNavigatorTypeParamListType } from '../../../../navigation/types';
-import { Button } from '../../components/Button';
+import { Button } from '../../../../shared/components/Button';
 
 type ActionsTabType = {
   actionsHeight: string;

@@ -20,7 +20,7 @@ exports[`Button snapshot 1`] = `
     }
   }
   accessible={true}
-  className="justify-center items-center relative overflow-hidden border-custom_border py-2 px-10 border-2 rounded-xl md:py-3 md:px-14 md:rounded-2xl bg-custom_complement "
+  className="justify-center items-center relative overflow-hidden border-custom_border py-2 px-5 border-2 rounded-xl md:py-3 md:px-14 md:rounded-2xl bg-custom_complement "
   collapsable={false}
   focusable={true}
   onBlur={[Function]}

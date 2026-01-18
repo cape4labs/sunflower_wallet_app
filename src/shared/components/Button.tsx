@@ -1,5 +1,7 @@
-import { Pressable } from 'react-native';
+import { Book } from 'lucide-react-native';
+import { Pressable, View } from 'react-native';
 
+import getIconComponent from './GetIcon';
 import TextWithFont from './TextWithFont';
 
 type ButtonType = {
@@ -8,20 +10,37 @@ type ButtonType = {
   customStyle?: string;
   accent?: boolean;
   disabled?: boolean;
+  iconName?:
+    | 'Send'
+    | 'Upload'
+    | 'Settings'
+    | 'RefreshCw'
+    | 'DatabaseIcon'
+    | 'PlusCircle'
+    | 'ArrowRightLeft';
 };
 
-// A general button used in this feature
 export function Button({
   onPress,
   text,
   customStyle,
   accent = false,
   disabled = false,
+  iconName,
 }: ButtonType) {
+  let isIcon = false;
+
+  if (iconName) {
+    isIcon = true;
+    var Icon: CallableFunction = () => getIconComponent(iconName);
+  } else {
+    var Icon: CallableFunction = () => null;
+  }
+
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center relative overflow-hidden border-custom_border py-2 px-10 border-2 rounded-xl md:py-3 md:px-14 md:rounded-2xl ${
+      className={`justify-center items-center relative overflow-hidden border-custom_border py-2 px-5 border-2 rounded-xl md:py-3 md:px-14 md:rounded-2xl ${
         accent ? 'bg-custom_accent' : 'bg-custom_complement'
       } ${customStyle ?? ''}`}
       disabled={disabled}
@@ -31,6 +50,12 @@ export function Button({
       >
         {text}
       </TextWithFont>
+      {isIcon ??
+        Icon({
+          className: 'sm:h-[12px] md:h-[24px]',
+          strokeWidth: 2,
+          color: accent ? 'black' : 'white',
+        })}
     </Pressable>
   );
 }
