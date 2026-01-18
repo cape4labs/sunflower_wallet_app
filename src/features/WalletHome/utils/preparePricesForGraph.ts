@@ -2,24 +2,22 @@ import type { Token } from '../../../shared/types/Token';
 import type { PricesData } from '../types/wallet';
 
 type preparePricesForGraphReturn = {
-  data: { value: number }[] | null;
-  error: string | null;
+  data?: { value: number }[];
+  error?: string;
 };
 
 export default function preparePricesForGraph(
-  tokens: Token[] | null,
-  prices: PricesData,
+  prices?: PricesData,
+  tokens?: Token[],
 ): preparePricesForGraphReturn {
-  if (tokens == null) {
+  if (!tokens) {
     return {
-      data: null,
       error: 'Tokens are required',
     };
   }
 
-  if (prices == null) {
+  if (!prices) {
     return {
-      data: null,
       error: 'Prices are required',
     };
   }
@@ -57,6 +55,5 @@ export default function preparePricesForGraph(
 
   return {
     data: processed,
-    error: null,
   };
 }
