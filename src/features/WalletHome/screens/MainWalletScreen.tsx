@@ -49,13 +49,13 @@ export default function MainWalletScreen() {
   const { walletData, isLoadingWalletData } = useWalletData(selectedWallet);
 
   const { tokens, tokenError, tokenLoading, walletBalance, fetchTokensCosts } = useWalletTokens(
-    priceHistory.data,
+    priceHistory.data || null,
     walletData?.stxAddress,
     walletData?.btcAddress,
   );
 
   const filteredTokens = useMemo(() => tokens.filter(t => !t.isDeFi), [tokens]);
-  const priceHistoryForGraph = preparePricesForGraph(filteredTokens, priceHistory.data);
+  const priceHistoryForGraph = preparePricesForGraph(priceHistory.data, filteredTokens);
   const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens');
 
   const globalStyles = useWalletScreenStyles().global;
