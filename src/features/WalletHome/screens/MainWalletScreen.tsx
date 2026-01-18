@@ -6,6 +6,7 @@ import { ActivityIndicator, Image, Pressable, View } from 'react-native';
 
 import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useWalletContext } from '../../../providers/WalletContext';
+import { Button } from '../../../shared/components/Button';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import { TokenList } from '../../../shared/components/TokenList';
 import Wrapper from '../../../shared/components/Wrapper';
@@ -14,7 +15,6 @@ import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyl
 import type { Token } from '../../../shared/types/Token';
 import { copyTextToClipboard } from '../../../shared/utils/clipboard';
 import shortenAddress from '../../../shared/utils/shortAddress';
-import { Button, TextButton } from '../components/Button';
 import PriceGraph from '../components/PriceGraph';
 import { SelectWallet } from '../components/SelectWallet';
 import ActionsTab from '../components/Tabs/ActionsTab';
@@ -142,7 +142,7 @@ export default function MainWalletScreen() {
 
         <View className={`flex-row ${globalStyles.containerPadding}`}>
           {['Tokens', 'Actions', 'NFT'].map(tab => (
-            <TextButton
+            <Button
               key={tab}
               text={tab}
               customStyle="w-1/3"

@@ -10,6 +10,7 @@ import {
   LayoutGrid,
   LockOpen,
   LucideCircleQuestionMark,
+  LucideIcon,
   PenLine,
   PlusCircle,
   RefreshCw,
@@ -21,7 +22,7 @@ import {
   User2Icon,
 } from 'lucide-react-native';
 
-export default function getIconComponent(iconName: string) {
+export default function getIconComponent(iconName: string): LucideIcon {
   switch (iconName) {
     case 'User':
       return User2Icon;

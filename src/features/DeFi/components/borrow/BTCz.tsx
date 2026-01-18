@@ -8,9 +8,9 @@ import {
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, TextInput, View } from 'react-native';
 
+import { Button } from '../../../../shared/components/Button';
 import TextWithFont from '../../../../shared/components/TextWithFont';
 import { useWalletData, useWalletPrivateData } from '../../../../shared/hooks/useWalletData';
-import { Button } from '../../../WalletHome/components/Button';
 import useWalletTokens from '../../../WalletHome/hooks/useWalletTokens';
 
 type BTCzCardProps = {
