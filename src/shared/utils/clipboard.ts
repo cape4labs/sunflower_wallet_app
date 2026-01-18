@@ -1,9 +1,8 @@
 import * as Clipboard from '@react-native-clipboard/clipboard';
 
-// TODO: "null | void" looks ugly, refactor functions that use null
-export function copyTextToClipboard(data: string | null): null | void {
+export function copyTextToClipboard(data: string | null): void {
   if (!data) {
-    return null;
+    return;
   }
 
   Clipboard.default.setString(data);
