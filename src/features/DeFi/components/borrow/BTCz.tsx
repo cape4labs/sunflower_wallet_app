@@ -1,9 +1,7 @@
 import {
-  Pc,
   PostConditionMode,
   broadcastTransaction,
   bufferCV,
-  contractPrincipalCV,
   makeContractCall,
   uintCV,
 } from '@stacks/transactions';
@@ -22,7 +20,6 @@ type BTCzCardProps = {
 // Zest Protocol BTCz Contracts (Need verification of mainnet addresses)
 const BTCZ_CONTRACT_ADDRESS = 'SP2VCQYTC9SYVQ37Y3G6T08C6TYPPCQ086K3P6MB';
 const BTCZ_CONTRACT_NAME = 'btcz-token';
-const BTCZ_CORE_CONTRACT = 'pool-0-reserve';
 
 export default function BTCzCard({ walletName }: BTCzCardProps) {
   const [btczAmount, setBtczAmount] = useState('');

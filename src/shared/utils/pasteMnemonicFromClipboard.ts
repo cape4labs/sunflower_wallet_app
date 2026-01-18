@@ -27,18 +27,18 @@ export default async function pasteMnemonicFromClipboard(
 
 export function checkMnemonic(potentialMnemonic: string[], expectedMnemonicLength: number): void {
   if (expectedMnemonicLength != 12 && expectedMnemonicLength != 24) {
-    throw new Error("expected mnemonic length can't be other than 12 or 24");
+    throw new Error('expected mnemonic length can\'t be other than 12 or 24');
   }
 
   // Check if amount of words separated by whitespaces matches
   // the expected mnemonic length
   if (potentialMnemonic.length !== expectedMnemonicLength) {
-    throw new Error("mnemonic doesn't match expected length");
+    throw new Error('mnemonic doesn\'t match expected length');
   }
 
   const concatenatedPotentialMnemonic = potentialMnemonic.join(' ');
   if (concatenatedPotentialMnemonic.toLowerCase() != concatenatedPotentialMnemonic) {
-    throw new Error("mnemonic words can't be in upper register");
+    throw new Error('mnemonic words can\'t be in upper register');
   }
 
   // Validate if mnemonic contains only allowed words
