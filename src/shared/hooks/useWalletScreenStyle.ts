@@ -293,13 +293,6 @@ export const useWalletScreenStyles = () => {
         }),
       },
 
-      userGraph: {
-        height: getResponsiveClassName(size, {
-          small: 'h-[130px]',
-          medium: 'h-[170px]',
-        }),
-      },
-
       mnemonicWord: {
         container: getResponsiveClassName(size, {
           small: 'px-1 p-2 my-0.5',

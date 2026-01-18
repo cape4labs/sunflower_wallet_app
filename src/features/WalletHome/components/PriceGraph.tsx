@@ -1,33 +1,11 @@
 import { View } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
-
 type PriceGraphType = {
-  lineData: { value: number }[] | null;
+  lineData?: { value: number }[];
 };
 
 export default function PriceGraph({ lineData }: PriceGraphType) {
-  // Default graph
-  if (!lineData) {
-    lineData = [
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-      { value: 50 },
-    ];
-  }
-
-  const styles = useWalletScreenStyles();
-
   return (
     <View className="bg-custom_complement rounded-xl p-0">
       <LineChart
@@ -41,7 +19,7 @@ export default function PriceGraph({ lineData }: PriceGraphType) {
         hideYAxisText={true}
         hideAxesAndRules
         color="#FF5500"
-        height={parseInt(styles.userGraph.height.replace(/[^\d]/g, ''))}
+        height={130}
         initialSpacing={0}
         endSpacing={0}
         dataPointsRadius={0}
