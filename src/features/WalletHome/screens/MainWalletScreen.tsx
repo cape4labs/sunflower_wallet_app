@@ -2,7 +2,7 @@ import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/nativ
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Copy, RefreshCcw } from 'lucide-react-native';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Image, Pressable, View } from 'react-native';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import type { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { useWalletContext } from '../../../providers/WalletContext';
@@ -11,14 +11,13 @@ import TextWithFont from '../../../shared/components/TextWithFont';
 import { TokenList } from '../../../shared/components/TokenList';
 import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import type { Token } from '../../../shared/types/Token';
 import { copyTextToClipboard } from '../../../shared/utils/clipboard';
 import shortenAddress from '../../../shared/utils/shortAddress';
 import PriceGraph from '../components/PriceGraph';
 import { SelectWallet } from '../components/SelectWallet';
-import ActionsTab from '../components/Tabs/ActionsTab';
-import NftTab from '../components/Tabs/NftTab';
+import ActionsTab from '../components/tabs/ActionsTab';
+import NftTab from '../components/tabs/NftTab';
 import usePriceHistory from '../hooks/usePriceHistory';
 import useWalletList from '../hooks/useWalletList';
 import useWalletTokens from '../hooks/useWalletTokens';
@@ -58,9 +57,6 @@ export default function MainWalletScreen() {
   const priceHistoryForGraph = preparePricesForGraph(priceHistory.data, filteredTokens);
   const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens');
 
-  const globalStyles = useWalletScreenStyles().global;
-  const screenStyles = useWalletScreenStyles().mainWalletScreen;
-
   useEffect(() => {
     if (selectedWallet) setWalletName(selectedWallet);
   }, [selectedWallet]);
@@ -82,13 +78,9 @@ export default function MainWalletScreen() {
   return (
     <Wrapper>
       <View className="flex-col flex-1 w-full">
-        <View className={`flex-row justify-around items-center ${screenStyles.headerGap}`}>
+        <View className="flex-row justify-around items-center">
           <Pressable onPress={() => fetchTokensCosts()}>
-            <RefreshCcw
-              size={parseInt(globalStyles.refreshIconSize)}
-              color="#fff"
-              strokeWidth={1.5}
-            />
+            <RefreshCcw size={25} color="#fff" strokeWidth={1.5} />
           </Pressable>
           <SelectWallet
             selectedWallet={selectedWallet}
@@ -98,11 +90,9 @@ export default function MainWalletScreen() {
           <View />
         </View>
 
-        <View
-          className={`w-full ${screenStyles.containerPadding} mt-0 bg-custom_border relative rounded-lg`}
-        >
+        <View className="w-full p-1 mt-0 bg-custom_border relative rounded-lg">
           <PriceGraph lineData={priceHistoryForGraph.data} />
-          <View className={`flex-row ${screenStyles.sendReceiveButtonGap}`}>
+          <View className="flex-row sm:gap-0.5 md:gap-1">
             <Button
               text="Send"
               onPress={() => handleSend(filteredTokens)}
@@ -125,22 +115,22 @@ export default function MainWalletScreen() {
           </View>
 
           <View className="absolute p-6 left-3 flex-col w-full items-center justify-center">
-            <TextWithFont customStyle={`${screenStyles.balanceText} text-white font-bold`}>
+            <TextWithFont customStyle="text-2xl text-white font-bold">
               ${walletBalance || '0.00'}
             </TextWithFont>
             <Pressable
               onPress={() => copyTextToClipboard(walletData?.stxAddress || null)}
               className="flex-row gap-2 justify-center items-center"
             >
-              <TextWithFont customStyle={`${screenStyles.addressText} text-yellow-50`}>
+              <TextWithFont customStyle="sm:text-xs md:text-sm text-yellow-50">
                 {shortenAddress(walletData?.stxAddress)}
               </TextWithFont>
-              <Copy size={screenStyles.addressCopyIcon} color={'#fff'} />
+              <Copy size={12} color={'#fff'} />
             </Pressable>
           </View>
         </View>
 
-        <View className={`flex-row ${globalStyles.containerPadding}`}>
+        <View className="flex-row p-5">
           {['Tokens', 'Actions', 'NFT'].map(tab => (
             <Button
               key={tab}
@@ -152,7 +142,7 @@ export default function MainWalletScreen() {
           ))}
         </View>
 
-        <View className={screenStyles.tabsMargin}>
+        <View className="sm:mt-2 md:mt-3">
           {isLoadingWalletData ? (
             <ActivityIndicator size="large" color="#fff" />
           ) : error ? (
@@ -165,7 +155,7 @@ export default function MainWalletScreen() {
               customStyle="h-full"
             />
           ) : activeTab === 'Actions' ? (
-            <ActionsTab actionsHeight={screenStyles.actionsHeight} walletName={selectedWallet} />
+            <ActionsTab actionsHeight="h-2/3" walletName={selectedWallet} />
           ) : (
             <NftTab />
           )}

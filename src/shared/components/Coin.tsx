@@ -37,9 +37,6 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
 
   const localIcon = getLocalIcon(token.symbol);
 
-  // Potential remote icon URL (e.g. from a public repo or service)
-  // TODO fix token names
-
   const renderIcon = () => {
     if (localIcon) {
       return (
