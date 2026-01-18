@@ -6,8 +6,6 @@ import TextWithFont from '../../../shared/components/TextWithFont';
 type MiniTabButtonProps = {
   title: string;
   value: string;
-  isFirst?: boolean;
-  isLast?: boolean;
   iconName: string;
   withToggle?: boolean;
 };
@@ -15,9 +13,6 @@ type MiniTabButtonProps = {
 export default function MiniTabButton({
   title,
   value,
-  // TODO why unused vars?
-  isFirst,
-  isLast,
   withToggle = false,
   iconName,
 }: MiniTabButtonProps) {
