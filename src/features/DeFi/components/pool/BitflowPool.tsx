@@ -3,9 +3,7 @@ import {
   PostConditionMode,
   broadcastTransaction,
   contractPrincipalCV,
-  cvToJSON,
   makeContractCall,
-  principalCV,
   uintCV,
 } from '@stacks/transactions';
 import { useEffect, useState } from 'react';

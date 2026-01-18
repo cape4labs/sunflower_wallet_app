@@ -3,14 +3,12 @@ import {
   PostConditionMode,
   broadcastTransaction,
   contractPrincipalCV,
-  fetchCallReadOnlyFunction,
   makeContractCall,
   noneCV,
-  standardPrincipalCV,
   uintCV,
 } from '@stacks/transactions';
-import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, TextInput, View } from 'react-native';
 
 import TextWithFont from '../../../../shared/components/TextWithFont';
 import { useWalletData, useWalletPrivateData } from '../../../../shared/hooks/useWalletData';
@@ -68,7 +66,6 @@ export default function StackingDaoCard({ walletName }: StackingDaoCardProps) {
     setIsStacking(true);
     try {
       const amountMicroSTX = BigInt(Math.floor(Number(amount) * 1_000_000));
-      //@ts-ignore
       const stxPostCondition = Pc.principal(walletData.stxAddress)
         .willSendEq(amountMicroSTX)
         .ustx();
@@ -88,13 +85,12 @@ export default function StackingDaoCard({ walletName }: StackingDaoCardProps) {
         ],
         senderKey: privateData.stxPrivateKey,
         validateWithAbi: true,
-        network: 'mainnet',
+        network: 'mainnet' as 'mainnet',
         anchorMode: 1,
         postConditionMode: PostConditionMode.Deny,
         postConditions: [stxPostCondition],
       };
 
-      // @ts-ignore
       const transaction = await makeContractCall(txOptions);
       const broadcastResponse = await broadcastTransaction({ transaction, network: 'mainnet' });
 
