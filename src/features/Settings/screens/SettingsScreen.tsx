@@ -12,7 +12,6 @@ import NetworkToggleRow from '../components/NetworkToggleRow';
 export default function SettingsScreen() {
   const styles = useWalletScreenStyles();
   const globalStyles = styles.global;
-  const screenStyles = styles.settingsScreen;
 
   const [openId, setOpenId] = useState<string | null>(null);
   type AccordionId = 'display' | 'security' | 'networks' | 'help' | 'wallet';
@@ -72,7 +71,6 @@ export default function SettingsScreen() {
             title="Wallets and accounts"
             subtitle="Add, configure and remove"
             iconName="User"
-            isFirst
             direction="rigth"
             onToggle={() => {}}
             onLayoutHeight={() => {}}
@@ -120,13 +118,12 @@ export default function SettingsScreen() {
               onLayoutHeight={h => setHeight('display', h)}
             >
               <View className="gap-4 py-3">
-                <MiniTabButton title="Theme" value="Dark" iconName="Image" isFirst />
+                <MiniTabButton title="Theme" value="Dark" iconName="Image" />
                 <MiniTabButton title="Conversion unit" value="USD - $" iconName="Image" />
                 <MiniTabButton
                   title="Account identifier"
                   value="Native Segwit addresst"
                   iconName="Image"
-                  isLast
                 />
               </View>
             </AccordionItem>
@@ -196,7 +193,6 @@ export default function SettingsScreen() {
                 <MiniTabButton
                   title="Contact us"
                   value="Get support or provide feedback"
-                  isFirst
                   iconName="AtSign"
                 />
                 <MiniTabButton title="Guides" value="Dive into feature details" iconName="Plane" />
@@ -209,7 +205,6 @@ export default function SettingsScreen() {
                   title="Official links"
                   value="Sunflower Wallet official links"
                   iconName="Link"
-                  isLast
                 />
               </View>
             </AccordionItem>

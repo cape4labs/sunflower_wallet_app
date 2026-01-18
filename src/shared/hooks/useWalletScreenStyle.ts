@@ -53,28 +53,6 @@ export const useWalletScreenStyles = () => {
 
     return {
       global,
-
-      // === Screens ===
-      mainWalletScreen: {
-        containerPadding: padding(1, 1),
-        headerGap: gap(4, 10),
-        balanceText: textSize('text-3xl', 'text-4xl'),
-        addressText: textSize('text-xs', 'text-sm'),
-        addressCopyIcon: iconSize(12, 15),
-        actionsHeight: getResponsiveClassName(size, {
-          small: 'h-[64%]',
-          medium: 'h-[65%]',
-        }),
-        sendReceiveButtonGap: getResponsiveClassName(size, {
-          small: 'mt-0.5',
-          medium: 'mt-1',
-        }),
-        tabsMargin: getResponsiveClassName(size, {
-          small: 'mt-1',
-          medium: 'mt-2',
-        }),
-      },
-
       historyScreen: {
         containerPadding: global.containerPadding,
         headerTitle: global.title,
