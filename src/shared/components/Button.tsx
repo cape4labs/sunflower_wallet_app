@@ -1,8 +1,16 @@
-import { Book } from 'lucide-react-native';
-import { Pressable, View } from 'react-native';
+import { Pressable } from 'react-native';
 
 import getIconComponent from './GetIcon';
 import TextWithFont from './TextWithFont';
+
+type iconNameType =
+  | 'Send'
+  | 'Upload'
+  | 'Settings'
+  | 'RefreshCw'
+  | 'DatabaseIcon'
+  | 'PlusCircle'
+  | 'ArrowRightLeft';
 
 type ButtonType = {
   onPress: () => void;
@@ -10,14 +18,8 @@ type ButtonType = {
   customStyle?: string;
   accent?: boolean;
   disabled?: boolean;
-  iconName?:
-    | 'Send'
-    | 'Upload'
-    | 'Settings'
-    | 'RefreshCw'
-    | 'DatabaseIcon'
-    | 'PlusCircle'
-    | 'ArrowRightLeft';
+  sectionButton?: boolean;
+  iconName?: iconNameType;
 };
 
 export function Button({
@@ -26,36 +28,44 @@ export function Button({
   customStyle,
   accent = false,
   disabled = false,
+  sectionButton = false,
   iconName,
 }: ButtonType) {
-  let isIcon = false;
+  let Icon = null;
 
   if (iconName) {
-    isIcon = true;
-    var Icon: CallableFunction = () => getIconComponent(iconName);
-  } else {
-    var Icon: CallableFunction = () => null;
+    Icon = getIconComponent(iconName);
   }
 
   return (
     <Pressable
       onPress={onPress}
-      className={`justify-center items-center relative overflow-hidden border-custom_border py-2 px-5 border-2 rounded-xl md:py-3 md:px-14 md:rounded-2xl ${
-        accent ? 'bg-custom_accent' : 'bg-custom_complement'
-      } ${customStyle ?? ''}`}
+      className={`justify-center flex flex-row gap-3 items-center
+                  relative overflow-hidden py-2 px-5
+                    md:py-3 md:px-14 border-b-2
+                  ${
+                    sectionButton
+                      ? `${accent ? 'border-white' : 'border-gray-500'}`
+                      : `border-2 rounded-xl md:rounded-2xl border-custom_border ${accent ? 'bg-custom_accent' : 'bg-custom_complement'}`
+                  }
+                  ${customStyle}
+                `}
       disabled={disabled}
     >
       <TextWithFont
-        customStyle={`text-base md:text-lg ${accent ? 'text-black' : 'text-white'} z-10`}
+        customStyle={`text-base md:text-lg z-10
+                      ${sectionButton ? (accent ? 'text-custom_accent' : 'text-white') : accent ? 'text-black' : 'text-white'}
+                    `}
       >
         {text}
       </TextWithFont>
-      {isIcon ??
-        Icon({
-          className: 'sm:h-[12px] md:h-[24px]',
-          strokeWidth: 2,
-          color: accent ? 'black' : 'white',
-        })}
+      {Icon ? (
+        <Icon
+          className={'sm:h-[12px] md:h-[24px]'}
+          strokeWidth={2}
+          color={accent ? 'black' : 'white'}
+        />
+      ) : null}
     </Pressable>
   );
 }
