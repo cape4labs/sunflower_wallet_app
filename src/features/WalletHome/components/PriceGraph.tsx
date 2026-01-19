@@ -7,7 +7,7 @@ type PriceGraphType = {
 
 export default function PriceGraph({ lineData }: PriceGraphType) {
   return (
-    <View className="bg-custom_complement rounded-xl p-0">
+    <View className="bg-custom_complement rounded-xl p-0 mb-1">
       <LineChart
         data={lineData}
         spacing={1.85}

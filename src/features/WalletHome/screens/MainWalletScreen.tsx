@@ -33,6 +33,8 @@ type RouteParams = {
   walletName?: string;
 };
 
+type CategoryButtonsType = 'Tokens' | 'Actions' | 'NFT';
+
 export default function MainWalletScreen() {
   const navigation = useNavigation<MainWalletScreenProp>();
   const route = useRoute();
@@ -43,6 +45,8 @@ export default function MainWalletScreen() {
   const [selectedWallet, setSelectedWallet] = useState<string | null>(
     initialWalletName || walletName || null,
   );
+
+  const [activeTab, setActiveTab] = useState<CategoryButtonsType>('Tokens');
 
   const { walletList, error } = useWalletList(selectedWallet, setSelectedWallet);
   const { walletData, isLoadingWalletData } = useWalletData(selectedWallet);
@@ -55,7 +59,6 @@ export default function MainWalletScreen() {
 
   const filteredTokens = useMemo(() => tokens.filter(t => !t.isDeFi), [tokens]);
   const priceHistoryForGraph = preparePricesForGraph(priceHistory.data, filteredTokens);
-  const [activeTab, setActiveTab] = useState<'Tokens' | 'Actions' | 'NFT'>('Tokens');
 
   useEffect(() => {
     if (selectedWallet) setWalletName(selectedWallet);
@@ -115,7 +118,7 @@ export default function MainWalletScreen() {
           </View>
 
           <View className="absolute p-6 left-3 flex-col w-full items-center justify-center">
-            <TextWithFont customStyle="text-2xl text-white font-bold">
+            <TextWithFont customStyle="text-3xl text-white font-bold">
               ${walletBalance || '0.00'}
             </TextWithFont>
             <Pressable
@@ -130,17 +133,10 @@ export default function MainWalletScreen() {
           </View>
         </View>
 
-        <View className="flex-row p-5">
-          {['Tokens', 'Actions', 'NFT'].map(tab => (
-            <Button
-              key={tab}
-              text={tab}
-              customStyle="w-1/3"
-              accent={activeTab === tab}
-              onPress={() => setActiveTab(tab as any)}
-            />
-          ))}
-        </View>
+        <CategoryButtons
+          activeTab={activeTab}
+          setActiveTab={e => setActiveTab(e as CategoryButtonsType)}
+        />
 
         <View className="sm:mt-2 md:mt-3">
           {isLoadingWalletData ? (
@@ -162,5 +158,30 @@ export default function MainWalletScreen() {
         </View>
       </View>
     </Wrapper>
+  );
+}
+
+function CategoryButtons({
+  activeTab,
+  setActiveTab,
+}: {
+  activeTab: CategoryButtonsType;
+  setActiveTab: (x: CategoryButtonsType) => void;
+}) {
+  return (
+    <>
+      <View className="flex-row p-5">
+        {['Tokens', 'Actions', 'NFT'].map(tab => (
+          <Button
+            key={tab}
+            text={tab}
+            customStyle="w-1/3"
+            sectionButton={true}
+            accent={activeTab == tab}
+            onPress={() => setActiveTab(tab as CategoryButtonsType)}
+          />
+        ))}
+      </View>
+    </>
   );
 }
