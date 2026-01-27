@@ -58,17 +58,17 @@ const NetworkToggleRow = ({
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={isEnabled ? onToggle : undefined}
-      className="flex-row items-center w-full py-2.5"
+      className="flex-row items-center w-full py-2.5 md:py-3.5"
       disabled={!isEnabled}
     >
       <View className="flex-row items-center flex-1">
-        <View className="w-8 h-8 rounded-full border border-gray-600 bg-[#1a1a1a] items-center justify-center mr-3">
+        <View className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-600 bg-[#1a1a1a] items-center justify-center mr-3 md:mr-4">
           <IconComponent size={16} color="#fff" strokeWidth={0.8} />
         </View>
 
         <View className="flex-1">
-          <TextWithFont customStyle="text-white text-base">{title}</TextWithFont>
-          <TextWithFont customStyle="text-gray-500 text-sm mt-0.5">{value}</TextWithFont>
+          <TextWithFont customStyle="text-white text-sm md:text-base">{title}</TextWithFont>
+          <TextWithFont customStyle="text-gray-500 text-xs md:text-sm mt-0.5">{value}</TextWithFont>
         </View>
       </View>
 

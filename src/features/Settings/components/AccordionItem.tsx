@@ -40,7 +40,7 @@ export default function AccordionItem({
       if (isOpen) {
         Animated.timing(animatedHeight, {
           toValue: height,
-          duration: 300,
+          duration: 200,
           useNativeDriver: false,
         }).start();
       }
@@ -48,7 +48,7 @@ export default function AccordionItem({
   };
 
   return (
-    <View className="my-3">
+    <View className="my-1">
       {direction === 'up' ? (
         <Animated.View
           style={{
@@ -64,14 +64,14 @@ export default function AccordionItem({
         <></>
       )}
 
-      <Pressable onPress={onToggle} className="flex-row items-center justify-between py-3">
-        <View className="flex-row items-center gap-3 flex-1">
-          <View className="bg-[#202020] rounded-full h-14 w-14 items-center justify-center border border-gray-400">
-            <IconComponent size={30} color="#fff" strokeWidth={1} />
+      <Pressable onPress={onToggle} className="flex-row items-center justify-between py-3 md:py-4">
+        <View className="flex-row items-center gap-3 md:gap-4 flex-1">
+          <View className="bg-[#202020] rounded-full h-10 w-10 md:h-16 md:w-16 items-center justify-center border border-gray-400">
+            <IconComponent color="#fff" strokeWidth={1} className="h-10 w-10 md:h-16 md:w-16" />
           </View>
           <View className="flex-1">
-            <TextWithFont customStyle="text-xl text-white">{title}</TextWithFont>
-            <TextWithFont customStyle="text-sm text-gray-400">{subtitle}</TextWithFont>
+            <TextWithFont customStyle="text-sm md:text-2xl text-white">{title}</TextWithFont>
+            <TextWithFont customStyle="text-xs md:text-base text-gray-400">{subtitle}</TextWithFont>
           </View>
         </View>
 
