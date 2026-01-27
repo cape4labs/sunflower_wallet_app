@@ -1,14 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useRef, useState } from 'react';
-import { Animated, View } from 'react-native';
+import { Alert, Animated, View } from 'react-native';
 
+import { RootNavigatorTypeParamListType } from '../../../navigation/types';
+import { useWalletContext } from '../../../providers/WalletContext';
 import { Button } from '../../../shared/components/Button';
 import Wrapper from '../../../shared/components/Wrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import AccordionItem from '../components/AccordionItem';
 import MiniTabButton from '../components/MiniTabButton';
 import NetworkToggleRow from '../components/NetworkToggleRow';
+import { clearWallet } from '../../../shared/walletPersitance';
 
 export default function SettingsScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootNavigatorTypeParamListType>>();
+  const { walletName } = useWalletContext();
   const [openId, setOpenId] = useState<string | null>(null);
   type AccordionId = 'display' | 'security' | 'networks' | 'help' | 'wallet';
 
@@ -68,7 +75,7 @@ export default function SettingsScreen() {
             subtitle="Add, configure and remove"
             iconName="User"
             direction="rigth"
-            onToggle={() => { }}
+            onToggle={() => navigation.navigate('WalletAnalyticsScreen')}
             onLayoutHeight={() => { }}
             animatedHeight={animatedValues.wallet}
           />
@@ -226,7 +233,34 @@ export default function SettingsScreen() {
             <Button
               text="Lock app"
               customStyle="w-2/3 rounded-2xl md:p-3"
-              onPress={() => { }}
+              onPress={() => {
+                if (!walletName) {
+                  Alert.alert('Error', 'No wallet selected');
+                  return;
+                }
+                Alert.alert(
+                  'Delete Wallet',
+                  `Are you sure you want to delete "${walletName}" from this device? This action cannot be undone.`,
+                  [
+                    { text: 'Cancel', style: 'cancel' },
+                    {
+                      text: 'Delete',
+                      style: 'destructive',
+                      onPress: async () => {
+                        try {
+                          await clearWallet(walletName);
+                          navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'LogoScreen' }],
+                          });
+                        } catch (error) {
+                          Alert.alert('Error', 'Failed to delete wallet');
+                        }
+                      },
+                    },
+                  ],
+                );
+              }}
             />
           </View>
         </View>

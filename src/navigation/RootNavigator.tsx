@@ -14,6 +14,7 @@ import ReceiveScreen from '../features/Transfers/screens/ReceiveScreen.tsx';
 import SendInfoScreen from '../features/Transfers/screens/SendInfoScreen.tsx';
 import SendScreen from '../features/Transfers/screens/SendScreen.tsx';
 import { WalletTabs } from '../features/WalletHome/navigation/WalletBottomNavigation.tsx';
+import WalletAnalyticsScreen from '../features/WalletHome/screens/WalletAnalyticsScreen.tsx';
 import { RootNavigatorTypeParamListType } from './types';
 
 const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>({
@@ -34,6 +35,7 @@ const RootNavigator = createNativeStackNavigator<RootNavigatorTypeParamListType>
     SendScreen: SendScreen,
     SendInfoScreen: SendInfoScreen,
     ReceiveScreen: ReceiveScreen,
+    WalletAnalyticsScreen: WalletAnalyticsScreen,
     MainBTCfiScreen: MainBTCfiScreen,
   },
   screenOptions: {
