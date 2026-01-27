@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Animated, View } from 'react-native';
 
 import { Button } from '../../../shared/components/Button';
-import ScrollableWrapper from '../../../shared/components/ScrollableWrapper';
+import Wrapper from '../../../shared/components/Wrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import AccordionItem from '../components/AccordionItem';
 import MiniTabButton from '../components/MiniTabButton';
@@ -54,14 +54,14 @@ export default function SettingsScreen() {
   };
 
   return (
-    <ScrollableWrapper>
+    <Wrapper>
       <View className="flex-1 w-full">
         <View className="flex-row justify-between items-center pb-4 border-b-2 border-gray-500">
           <TextWithFont customStyle={`text-xl md:text-3xl font-bold text-white`}>
             Settings
           </TextWithFont>
         </View>
-        <View className="mt-4 mb-2">
+        <View className="md:mt-4 md:mb-2">
           <AccordionItem
             id="wallet"
             title="Wallets and accounts"
@@ -73,7 +73,7 @@ export default function SettingsScreen() {
             animatedHeight={animatedValues.wallet}
           />
         </View>
-        <View className="border-t-2 border-gray-400 my-4" />
+        <View className="border-t-2 border-gray-400 md:my-4" />
         <View className="max-h-[370px] overflow-hidden">
           <Animated.View
             style={{
@@ -82,8 +82,8 @@ export default function SettingsScreen() {
                   translateY: Animated.add(
                     Animated.add(
                       animatedValues.security.interpolate({
-                        inputRange: [0, 200],
-                        outputRange: [0, -90],
+                        inputRange: [0, 250],
+                        outputRange: [0, -80],
                         extrapolate: 'clamp',
                       }),
                       animatedValues.networks.interpolate({
@@ -207,22 +207,30 @@ export default function SettingsScreen() {
           </Animated.View>
         </View>
 
-        <View className="border-b-2 border-gray-400 pt-6 mt-auto">
+        <View className="border-b-2 border-gray-400 md:pt-4 mt-auto pb-1 md:pb-4">
           <View className="mb-4">
-            <TextWithFont customStyle="text-white">Version</TextWithFont>
-            <TextWithFont customStyle="text-gray-400">0.2.0 / 16.01.2026</TextWithFont>
+            <TextWithFont customStyle="text-white text-sm md:text-base">Version</TextWithFont>
+            <TextWithFont customStyle="text-gray-400 text-xs md:text-sm">
+              0.2.0 / 16.01.2026
+            </TextWithFont>
           </View>
           <View className="mb-6">
-            <TextWithFont customStyle="text-white">Device ID</TextWithFont>
-            <TextWithFont customStyle="text-gray-400">KJEHB_#WEJMKLJKJE-JK#EOEJ</TextWithFont>
+            <TextWithFont customStyle="text-white text-sm md:text-base">Device ID</TextWithFont>
+            <TextWithFont customStyle="text-gray-400 text-xs md:text-sm">
+              KJEHB_#WEJMKLJKJE-JK#EOEJ
+            </TextWithFont>
           </View>
         </View>
         <View className="mt-4">
           <View className="items-center">
-            <Button text="Lock app" customStyle="w-2/3 rounded-2xl" onPress={() => { }} />
+            <Button
+              text="Lock app"
+              customStyle="w-2/3 rounded-2xl md:p-3"
+              onPress={() => { }}
+            />
           </View>
         </View>
       </View>
-    </ScrollableWrapper>
+    </Wrapper>
   );
 }
