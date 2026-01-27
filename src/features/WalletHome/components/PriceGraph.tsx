@@ -14,7 +14,7 @@ export default function PriceGraph({ lineData }: PriceGraphType) {
       <LineChart
         data={lineData}
         spacing={1.85}
-        maxValue={100}
+        maxValue={200}
         thickness={3}
         curved={true}
         curvature={0.2}
