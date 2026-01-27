@@ -118,17 +118,17 @@ export default function MainWalletScreen() {
           </View>
 
           <View className="absolute p-6 left-3 flex-col w-full items-center justify-center">
-            <TextWithFont customStyle="text-3xl text-white font-bold">
+            <TextWithFont customStyle="text-2xl md:text-4xl text-white font-bold">
               ${walletBalance || '0.00'}
             </TextWithFont>
             <Pressable
               onPress={() => copyTextToClipboard(walletData?.stxAddress || null)}
-              className="flex-row gap-2 justify-center items-center"
+              className="flex-row gap-2 justify-center items-center mt-2"
             >
-              <TextWithFont customStyle="sm:text-xs md:text-sm text-yellow-50">
+              <TextWithFont customStyle="text-xs md:text-base text-yellow-50">
                 {shortenAddress(walletData?.stxAddress)}
               </TextWithFont>
-              <Copy size={12} color={'#fff'} />
+              <Copy color={'#fff'} className="w-1 h-1 md:w-2 md:h-2" />
             </Pressable>
           </View>
         </View>

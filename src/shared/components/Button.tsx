@@ -42,12 +42,11 @@ export function Button({
       onPress={onPress}
       className={`justify-center flex flex-row gap-3 items-center
                   relative overflow-hidden py-2 px-5
-                    md:py-3 md:px-14 border-b-2
-                  ${
-                    sectionButton
-                      ? `${accent ? 'border-white' : 'border-gray-500'}`
-                      : `border-2 rounded-xl md:rounded-2xl border-custom_border ${accent ? 'bg-custom_accent' : 'bg-custom_complement'}`
-                  }
+                  border-b-2
+                  ${sectionButton
+          ? `${accent ? 'border-white' : 'border-gray-500'}`
+          : `border-2 rounded-xl md:rounded-2xl border-custom_border ${accent ? 'bg-custom_accent' : 'bg-custom_complement'}`
+        }
                   ${customStyle}
                 `}
       disabled={disabled}

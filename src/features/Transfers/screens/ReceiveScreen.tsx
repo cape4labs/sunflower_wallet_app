@@ -1,13 +1,12 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowLeft, ChevronDown, ChevronLeft, Copy } from 'lucide-react-native';
 import { useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, Pressable, View } from 'react-native';
+import { Animated, Dimensions, Pressable, useWindowDimensions, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 
 import Coin from '../../../shared/components/Coin';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { Token } from '../../../shared/types/Token';
 import { copyTextToClipboard } from '../../../shared/utils/clipboard';
 import { getWalletData } from '../../../shared/walletPersitance';
@@ -24,16 +23,19 @@ export default function ReceiveScreen() {
   const route = useRoute();
   const navigation = useNavigation();
   const { walletName, tokens } = route.params as RouteParams;
-  const styles = useWalletScreenStyles().receiveScreen;
   const [openAsset, setOpenAsset] = useState<'stx' | 'btc' | null>(null);
   const [addresses, setAddresses] = useState({ stx: '', btc: '' });
   const [error, setError] = useState('');
+  const { height } = useWindowDimensions();
 
   const stxToken = tokens.find(t => t.symbol.toUpperCase() === 'STX');
   const btcToken = tokens.find(t => t.symbol.toUpperCase() === 'BTC');
 
   const heightAnimSTX = useRef(new Animated.Value(0)).current;
   const heightAnimBTC = useRef(new Animated.Value(0)).current;
+
+  // Replicate original responsive logic for QRCode size
+  const qrSize = height < 900 ? 100 : 200;
 
   useEffect(() => {
     const fetchAddresses = async () => {
@@ -97,11 +99,11 @@ export default function ReceiveScreen() {
           {isOpen && (
             <View className="px-4 pb-6 pt-2">
               <View className="items-center mb-5 bg-white p-5 rounded-xl self-center">
-                <QRCode value={address} size={parseInt(styles.qrSize)} />
+                <QRCode value={address} size={qrSize} />
               </View>
 
               <View className="items-center mb-3">
-                <TextWithFont customStyle="text-gray-400 text-sm">
+                <TextWithFont customStyle="text-gray-400 text-sm md:text-base">
                   Public address:{' '}
                   <TextWithFont customStyle="text-white font-medium">
                     {asset === 'stx' ? 'Stacks' : 'Native Segwit'}
@@ -110,9 +112,11 @@ export default function ReceiveScreen() {
               </View>
 
               <View className="flex-row items-center justify-between">
-                <TextWithFont customStyle="text-white text-sm flex-1 mr-3">{address}</TextWithFont>
+                <TextWithFont customStyle="text-white text-xs md:text-sm flex-1 mr-3">
+                  {address}
+                </TextWithFont>
                 <Pressable onPress={() => copyTextToClipboard(address)} className="">
-                  <Copy size={styles.copyIconSize} color={'#fff'} />
+                  <Copy color={'#fff'} className="w-3 h-3 md:w-[15px] md:h-[15px]" />
                 </Pressable>
               </View>
             </View>
@@ -127,15 +131,15 @@ export default function ReceiveScreen() {
       <View className={'flex-col w-full h-full'}>
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
+            <ArrowLeft color={'#FF5500'} className="w-[25px] h-[25px] md:w-[30px] md:h-[30px]" />
           </Pressable>
-          <TextWithFont customStyle={`text-white ${styles.titleSize}`}>Receive</TextWithFont>
+          <TextWithFont customStyle={`text-white text-xl md:text-3xl`}>Receive</TextWithFont>
           <View />
         </View>
 
         <View className="flex-1 mt-10">
           {renderAssetBlock(btcToken, 'btc', addresses.btc)}
-          <View className={`w-full h-1 border-t-2 border-white ${styles.dividerMargin}`} />
+          <View className={`w-full h-1 border-t-2 border-white m-4 md:m-6`} />
           {renderAssetBlock(stxToken, 'stx', addresses.stx)}
         </View>
       </View>

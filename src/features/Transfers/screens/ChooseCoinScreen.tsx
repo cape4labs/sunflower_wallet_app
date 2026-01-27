@@ -9,7 +9,6 @@ import TextWithFont from '../../../shared/components/TextWithFont';
 import { TokenList } from '../../../shared/components/TokenList';
 import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { Token } from '../../../shared/types/Token';
 import useWalletTokens from '../../WalletHome/hooks/useWalletTokens';
 
@@ -28,7 +27,10 @@ export default function ChooseCoinScreen() {
   const route = useRoute();
   const { tokens: initialTokens, walletName } = (route.params || {}) as RouteParams;
   const { walletData, isLoadingWalletData, errorWalletData } = useWalletData(walletName);
-  const styles = useWalletScreenStyles().chooseCoinScreen;
+
+  const l1Tokens = useMemo(() => {
+    return initialTokens?.filter(t => !t.isDeFi) || [];
+  }, [initialTokens]);
 
   const { tokens, tokenLoading, tokenError } = useWalletTokens(
     null,
@@ -36,7 +38,10 @@ export default function ChooseCoinScreen() {
     walletData?.btcAddress,
   );
 
-  const filteredTokens = useMemo(() => tokens.filter(t => !t.isDeFi), [tokens]);
+  const displayTokens = useMemo(
+    () => (l1Tokens.length > 0 ? l1Tokens : tokens.filter(t => !t.isDeFi)),
+    [l1Tokens, tokens],
+  );
 
   const handleTokenSelect = (token: Token) => {
     if (!walletName) {
@@ -46,7 +51,7 @@ export default function ChooseCoinScreen() {
     navigation.navigate('SendScreen', { token, walletName });
   };
 
-  if (!filteredTokens || filteredTokens.length === 0) {
+  if (!displayTokens || displayTokens.length === 0) {
     if (tokenLoading) {
       return (
         <Wrapper>
@@ -73,9 +78,9 @@ export default function ChooseCoinScreen() {
       <View className="flex-col w-full h-full">
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
+            <ArrowLeft color={'#FF5500'} className="w-[25px] h-[25px] md:w-[30px] md:h-[30px]" />
           </Pressable>
-          <TextWithFont customStyle={`text-white ${styles.titleSize}`}>Choose crypto</TextWithFont>
+          <TextWithFont customStyle={`text-white text-xl md:text-3xl`}>Choose crypto</TextWithFont>
           <TextWithFont customStyle="" />
         </View>
         {isLoadingWalletData ? (
@@ -94,12 +99,12 @@ export default function ChooseCoinScreen() {
           </View>
         ) : (
           <TokenList
-            tokens={filteredTokens}
+            tokens={displayTokens}
             isLoading={tokenLoading}
             error={tokenError}
             onTokenPress={handleTokenSelect}
             inMainScreen={false}
-            customStyle={`h-auto ${styles.tokenListMargin}`}
+            customStyle={`h-auto mt-6 md:mt-10`}
           />
         )}
       </View>

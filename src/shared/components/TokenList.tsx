@@ -1,6 +1,5 @@
 import { ActivityIndicator, FlatList, Pressable, View } from 'react-native';
 
-import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 import { Token } from '../types/Token';
 import Coin from './Coin';
 import TextWithFont from './TextWithFont';
@@ -22,20 +21,18 @@ export function TokenList({
   inMainScreen = true,
   customStyle,
 }: TokenListProps) {
-  const styles = useWalletScreenStyles().tokenList;
-
   if (isLoading) return <ActivityIndicator size="large" color="#fff" className="mt-5" />;
   if (error) return <TextWithFont customStyle="text-red-500">{error}</TextWithFont>;
 
   return (
     <View
-      className={`flex-col w-full bg-custom_complement border-custom_border rounded-2xl ${styles.container} ${customStyle}`}
+      className={`flex-col w-full bg-custom_complement border-custom_border rounded-2xl p-3 border-2 md:p-4 ${customStyle}`}
     >
       <FlatList
         data={tokens}
         keyExtractor={item => item.symbol}
         renderItem={({ item }) => (
-          <Pressable onPress={() => onTokenPress?.(item)} className={styles.item}>
+          <Pressable onPress={() => onTokenPress?.(item)} className="m-1 md:m-2">
             <Coin token={item} inMainScreen={inMainScreen} />
           </Pressable>
         )}

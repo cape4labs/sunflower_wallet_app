@@ -15,7 +15,6 @@ import { useWalletContext } from '../../../providers/WalletContext';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { copyTextToClipboard } from '../../../shared/utils/clipboard';
 
 interface Transaction {
@@ -53,9 +52,6 @@ export default function HistoryScreen() {
   const [isLoadingTransactions, setIsLoadingTransactions] = useState(false);
   const [errorTransactions, setErrorTransactions] = useState<string | null>(null);
   const [expandedTxId, setExpandedTxId] = useState<string | null>(null);
-
-  const globalStyles = useWalletScreenStyles().global;
-  const screenStyles = useWalletScreenStyles().historyScreen;
 
   const fetchTransactions = async () => {
     if (!walletData?.stxAddress) return;
@@ -195,33 +191,31 @@ export default function HistoryScreen() {
       <View className="w-full mb-2">
         <Pressable
           onPress={() => setExpandedTxId(isExpanded ? null : item.tx_id)}
-          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${
-            isExpanded ? 'border-b-0 rounded-b-none' : ''
-          } ${screenStyles.txContainer}`}
+          className={`flex-row justify-between items-center w-full bg-custom_complement rounded-lg border-2 border-custom_border ${isExpanded ? 'border-b-0 rounded-b-none' : ''
+            } p-3 md:p-4`}
         >
           <View className="flex-row items-center">
             <IconComponent
               color="white"
-              size={parseInt(screenStyles.txIconSize)}
+              className="w-3 h-3 md:w-[15px] md:h-[15px]"
               strokeWidth={1.5}
             />
             <View className="ml-2">
-              <TextWithFont customStyle={`text-white ${screenStyles.txAmount}`}>
+              <TextWithFont customStyle={`text-white text-sm md:text-base`}>
                 {label}
               </TextWithFont>
-              <TextWithFont customStyle={`text-gray-400 ${screenStyles.txAddress}`}>
+              <TextWithFont customStyle={`text-gray-400 text-xs md:text-sm`}>
                 {getTransactionDetails(item).subLabel}
               </TextWithFont>
             </View>
           </View>
           <View className="flex-col items-end">
-            <TextWithFont customStyle={`text-white ${screenStyles.txAmount}`}>
+            <TextWithFont customStyle={`text-white text-sm md:text-base`}>
               {item.amount}
             </TextWithFont>
             <TextWithFont
-              customStyle={`${screenStyles.txStatus} ${
-                item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
-              }`}
+              customStyle={`text-xs md:text-sm ${item.tx_status === 'success' ? 'text-green-500' : 'text-yellow-500'
+                }`}
             >
               {item.tx_status}
             </TextWithFont>
@@ -230,14 +224,14 @@ export default function HistoryScreen() {
 
         {isExpanded && (
           <View
-            className={`bg-custom_complement rounded-lg rounded-t-none border-t-0 border-2 border-custom_border ${screenStyles.expandedTx}`}
+            className={`bg-custom_complement rounded-lg rounded-t-none border-t-0 border-2 border-custom_border p-2 md:p-4`}
           >
             <View className="flex-row items-center justify-between">
-              <TextWithFont customStyle="text-sm text-white">
+              <TextWithFont customStyle="text-xs md:text-sm text-white">
                 TXid: {shortenTxId(item.tx_id)}
               </TextWithFont>
               <Pressable onPress={() => copyTextToClipboard(item.tx_id)} className="p-1">
-                <Copy color="white" size={parseInt(screenStyles.copyIconSize)} strokeWidth={1.5} />
+                <Copy color="white" className="w-[15px] h-[15px] md:w-[17px] md:h-[17px]" strokeWidth={1.5} />
               </Pressable>
             </View>
           </View>
@@ -247,7 +241,7 @@ export default function HistoryScreen() {
   };
 
   const renderSectionHeader = ({ section }: { section: { title: string } }) => (
-    <TextWithFont customStyle={`${screenStyles.sectionTitle} font-semibold text-white`}>
+    <TextWithFont customStyle={`text-base md:text-lg font-semibold text-white`}>
       {section.title}
     </TextWithFont>
   );
@@ -256,17 +250,16 @@ export default function HistoryScreen() {
     <Wrapper>
       <View className={'flex-1 w-full h-full'}>
         <View className="flex-row justify-between items-center mb-4 border-b-2 border-gray-500 ">
-          <TextWithFont customStyle={`${screenStyles.headerTitle} font-bold text-white mb-2`}>
+          <TextWithFont customStyle={`text-xl md:text-3xl font-bold text-white mb-2`}>
             History
           </TextWithFont>
           <Pressable
             onPress={refreshTransactions}
-            className={`rounded-full ${globalStyles.refreshIconSize}`}
+            className={`rounded-full w-5 h-5 md:w-[25px] md:h-[25px]`}
           >
             <RefreshCw
               color="#FF4800"
-              size={parseInt(globalStyles.refreshIconSize)}
-              className="mb-2"
+              className="mb-2 w-5 h-5 md:w-[25px] md:h-[25px]"
             />
           </Pressable>
         </View>
@@ -282,7 +275,7 @@ export default function HistoryScreen() {
             </TextWithFont>
             <Pressable
               onPress={refreshTransactions}
-              className={`mt-4 rounded-lg ${screenStyles.retryButton}`}
+              className={`mt-4 rounded-lg p-1.5 md:p-2`}
             >
               <TextWithFont customStyle="text-white">Retry</TextWithFont>
             </Pressable>
