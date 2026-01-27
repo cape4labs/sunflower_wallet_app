@@ -6,7 +6,6 @@ import { Image, View } from 'react-native';
 import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { StepIndicator } from '../components/StepIndicator';
 
 type RouteParams = {
@@ -22,8 +21,6 @@ export default function SuccessScreen() {
   const route = useRoute();
   const { walletName } = route.params as RouteParams;
   const navigation = useNavigation<SuccessScreenNavigationProp>();
-  const styles = useWalletScreenStyles();
-  const newWalletScreens = styles.newWalletScreens;
 
   useEffect(() => {
     const navigateWithWalletData = async () => {
@@ -46,11 +43,11 @@ export default function SuccessScreen() {
     <Wrapper>
       <View className="flex-1">
         <TextWithFont
-          customStyle={`${newWalletScreens.titleSize} text-white text-center font-bold mt-5`}
+          customStyle={`text-xl md:text-3xl text-white text-center font-bold mt-5`}
         >
           Success!
         </TextWithFont>
-        <TextWithFont customStyle={`text-white text-center mt-2 ${newWalletScreens.subtitleSize}`}>
+        <TextWithFont customStyle={`text-white text-center mt-2 text-sm md:text-base`}>
           Welcome to the: {walletName}
         </TextWithFont>
       </View>

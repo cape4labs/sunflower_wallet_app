@@ -4,15 +4,11 @@ import { Animated, View } from 'react-native';
 import { Button } from '../../../shared/components/Button';
 import ScrollableWrapper from '../../../shared/components/ScrollableWrapper';
 import TextWithFont from '../../../shared/components/TextWithFont';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import AccordionItem from '../components/AccordionItem';
 import MiniTabButton from '../components/MiniTabButton';
 import NetworkToggleRow from '../components/NetworkToggleRow';
 
 export default function SettingsScreen() {
-  const styles = useWalletScreenStyles();
-  const globalStyles = styles.global;
-
   const [openId, setOpenId] = useState<string | null>(null);
   type AccordionId = 'display' | 'security' | 'networks' | 'help' | 'wallet';
 
@@ -61,7 +57,7 @@ export default function SettingsScreen() {
     <ScrollableWrapper>
       <View className="flex-1 w-full">
         <View className="flex-row justify-between items-center pb-4 border-b-2 border-gray-500">
-          <TextWithFont customStyle={`${globalStyles.title} font-bold text-white`}>
+          <TextWithFont customStyle={`text-xl md:text-3xl font-bold text-white`}>
             Settings
           </TextWithFont>
         </View>
@@ -72,8 +68,8 @@ export default function SettingsScreen() {
             subtitle="Add, configure and remove"
             iconName="User"
             direction="rigth"
-            onToggle={() => {}}
-            onLayoutHeight={() => {}}
+            onToggle={() => { }}
+            onLayoutHeight={() => { }}
             animatedHeight={animatedValues.wallet}
           />
         </View>
@@ -223,7 +219,7 @@ export default function SettingsScreen() {
         </View>
         <View className="mt-4">
           <View className="items-center">
-            <Button text="Lock app" customStyle="w-2/3 rounded-2xl" onPress={() => {}} />
+            <Button text="Lock app" customStyle="w-2/3 rounded-2xl" onPress={() => { }} />
           </View>
         </View>
       </View>

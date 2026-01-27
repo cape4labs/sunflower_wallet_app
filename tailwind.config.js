@@ -5,6 +5,9 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      screens: {
+        md: { raw: '(min-height: 800px)' },
+      },
       colors: {
         custom_background: '#292928',
         custom_accent: '#FF5500',

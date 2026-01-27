@@ -1,8 +1,8 @@
+
 import { useState } from 'react';
 import { Image, View } from 'react-native';
 
 import formatNumber from '../../shared/utils/formatNumber';
-import { useWalletScreenStyles } from '../hooks/useWalletScreenStyle';
 import { Token } from '../types/Token';
 import TextWithFont from './TextWithFont';
 
@@ -32,7 +32,6 @@ type CoinProp = {
 };
 
 export default function Coin({ token, inMainScreen }: CoinProp) {
-  const styles = useWalletScreenStyles().coin;
   const [iconError, setIconError] = useState(false);
 
   const localIcon = getLocalIcon(token.symbol);
@@ -40,7 +39,11 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
   const renderIcon = () => {
     if (localIcon) {
       return (
-        <Image source={localIcon} className={styles.iconSize} onError={() => setIconError(true)} />
+        <Image
+          source={localIcon}
+          className="w-6 h-6 md:w-8 md:h-8"
+          onError={() => setIconError(true)}
+        />
       );
     }
 
@@ -51,7 +54,7 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
 
     return (
       <View
-        className={`${styles.iconSize} rounded-full items-center justify-center`}
+        className="w-6 h-6 md:w-8 md:h-8 rounded-full items-center justify-center"
         style={{ backgroundColor: colors[colorIndex] }}
       >
         <TextWithFont customStyle="text-white font-bold text-xs">{firstLetter}</TextWithFont>
@@ -60,12 +63,12 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
   };
 
   return (
-    <View className={`flex-row justify-between items-center w-full ${styles.container}`}>
+    <View className={`flex-row justify-between items-center w-full gap-2 md:gap-3`}>
       <View className="flex-row items-center">
         {renderIcon()}
         <View className="ml-2">
           <View className="flex-row items-center">
-            <TextWithFont customStyle={`text-white ${styles.nameText}`}>{token.name}</TextWithFont>
+            <TextWithFont customStyle={`text-white text-lg md:text-2xl`}>{token.name}</TextWithFont>
             {inMainScreen &&
               (token.diff == null ? (
                 <TextWithFont customStyle={'text-white-500 ml-1'} />
@@ -77,16 +80,16 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
                 </TextWithFont>
               ))}
           </View>
-          <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>
+          <TextWithFont customStyle={`text-gray-400 text-sm md:text-base`}>
             ${formatNumber(token.balanceUsd)}
           </TextWithFont>
         </View>
       </View>
       <View className="items-end">
-        <TextWithFont customStyle={`text-white ${styles.balanceText}`}>
+        <TextWithFont customStyle={`text-white text-lg md:text-2xl`}>
           {formatNumber(token.balance)} {token.symbol}
         </TextWithFont>
-        <TextWithFont customStyle={`text-gray-400 ${styles.costText}`}>
+        <TextWithFont customStyle={`text-gray-400 text-sm md:text-base`}>
           ${formatNumber(token.cost)}
         </TextWithFont>
       </View>

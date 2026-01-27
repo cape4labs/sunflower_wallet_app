@@ -6,7 +6,6 @@ import { RootNavigatorTypeParamListType } from '../../../navigation/types';
 import { Button } from '../../../shared/components/Button';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { StepIndicator } from '../components/StepIndicator';
 
 type ChooseLengthScreenNavigationProp = NativeStackNavigationProp<
@@ -16,15 +15,14 @@ type ChooseLengthScreenNavigationProp = NativeStackNavigationProp<
 
 export default function ChooseLengthScreen() {
   const navigation = useNavigation<ChooseLengthScreenNavigationProp>();
-  const styles = useWalletScreenStyles().newWalletScreens;
 
   return (
     <Wrapper>
       <View className="flex-col">
-        <TextWithFont customStyle={`${styles.titleSize} text-white text-center font-bold`}>
+        <TextWithFont customStyle={`text-xl md:text-3xl text-white text-center font-bold`}>
           Choose the length for
         </TextWithFont>
-        <TextWithFont customStyle={`${styles.titleSize} text-white text-center font-bold`}>
+        <TextWithFont customStyle={`text-xl md:text-3xl text-white text-center font-bold`}>
           the seed phrase
         </TextWithFont>
       </View>
@@ -36,7 +34,7 @@ export default function ChooseLengthScreen() {
             })
           }
           text="12 words"
-          customStyle={styles.buttonMargin}
+          customStyle={'m-1 md:m-2'}
         />
         <Button
           onPress={() =>
@@ -45,11 +43,11 @@ export default function ChooseLengthScreen() {
             })
           }
           text="24 words"
-          customStyle={styles.buttonMargin}
+          customStyle={'m-1 md:m-2'}
         />
-        <View className={`flex-row justify-center items-center ${styles.infoGap} mt-5`}>
+        <View className={`flex-row justify-center items-center gap-2 md:gap-3 mt-5`}>
           <Image source={require('../../../../assets/icons/info.png')} className="w-10 h-10" />
-          <TextWithFont customStyle={`text-white font-light ${styles.infoText}`}>
+          <TextWithFont customStyle={`text-white font-light text-xs md:text-sm`}>
             {'Select the appropriate number of \nwords that were in your seed phrase.'}
           </TextWithFont>
         </View>

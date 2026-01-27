@@ -9,7 +9,6 @@ import { Button } from '../../../shared/components/Button';
 import Coin from '../../../shared/components/Coin';
 import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
-import { useWalletScreenStyles } from '../../../shared/hooks/useWalletScreenStyle';
 import { Token } from '../../../shared/types/Token';
 
 type SendScreenProp = NativeStackNavigationProp<RootNavigatorTypeParamListType, 'SendScreen'>;
@@ -26,7 +25,6 @@ export default function SendScreen() {
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [sendError, setSendError] = useState<string | null>(null);
-  const styles = useWalletScreenStyles().sendScreen;
 
   if (!token || !walletName) {
     return (
@@ -74,24 +72,24 @@ export default function SendScreen() {
       <View className={'flex-col w-full h-full'}>
         <View className="flex-row items-center justify-between">
           <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft color={'#FF5500'} size={parseInt(styles.arrowSize)} />
+            <ArrowLeft color={'#FF5500'} className="w-[25px] h-[25px] md:w-[30px] md:h-[30px]" />
           </Pressable>
-          <TextWithFont customStyle={`${styles.titleSize} text-white`}>Send</TextWithFont>
+          <TextWithFont customStyle={`text-xl md:text-3xl text-white`}>Send</TextWithFont>
           <View />
         </View>
 
         <View
-          className={`${styles.coinsMargin} bg-custom_complement rounded-xl rounded-b-none border-custom_border ${styles.coinCard}`}
+          className={`mt-6 md:mt-10 bg-custom_complement rounded-xl rounded-b-none border-custom_border p-3 border-2 md:p-5`}
         >
           <Coin token={token} />
         </View>
 
         <View
-          className={`bg-custom_complement rounded-lg rounded-t-none border-custom_border border-t-0 mb-3 ${styles.coinCard}`}
+          className={`bg-custom_complement rounded-lg rounded-t-none border-custom_border border-t-0 mb-3 p-3 border-2 md:p-5`}
         >
           <View className="flex-row justify-between w-full">
             <TextInput
-              className={`text-white flex-1 ${styles.amountInput}`}
+              className={`text-white flex-1 text-2xl md:text-4xl`}
               placeholder="0"
               placeholderTextColor="#fff"
               keyboardType="numeric"
@@ -103,17 +101,17 @@ export default function SendScreen() {
               }}
             />
             <Pressable onPress={() => setAmount(token.balance)}>
-              <TextWithFont customStyle={`text-white ${styles.maxButton}`}>MAX</TextWithFont>
+              <TextWithFont customStyle={`text-white text-sm md:text-base`}>MAX</TextWithFont>
             </Pressable>
           </View>
-          <TextWithFont customStyle={`text-gray-400 ${styles.usdText}`}>${usdAmount}</TextWithFont>
+          <TextWithFont customStyle={`text-gray-400 text-sm md:text-base`}>${usdAmount}</TextWithFont>
         </View>
 
         <View
-          className={`bg-custom_complement rounded-xl mb-5 w-full border-custom_border ${styles.coinCard}`}
+          className={`bg-custom_complement rounded-xl mb-5 w-full border-custom_border p-3 border-2 md:p-5`}
         >
           <TextInput
-            className={`text-gray-400 w-full ${styles.recipientInput}`}
+            className={`text-gray-400 w-full text-base md:text-lg`}
             placeholder="Enter recipient"
             placeholderTextColor="#9ca3af"
             value={recipient}
@@ -122,7 +120,7 @@ export default function SendScreen() {
         </View>
 
         {sendError ? (
-          <TextWithFont customStyle={`text-red-500 mt-4 text-center ${styles.errorText}`}>
+          <TextWithFont customStyle={`text-red-500 mt-4 text-center text-xs md:text-sm`}>
             {sendError}
           </TextWithFont>
         ) : (
