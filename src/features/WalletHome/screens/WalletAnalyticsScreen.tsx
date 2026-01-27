@@ -82,7 +82,7 @@ export default function WalletAnalyticsScreen() {
                     <Pressable onPress={() => navigation.goBack()}>
                         <ArrowLeft color="#FF5500" size={24} />
                     </Pressable>
-                    <TextWithFont customStyle="text-xl md:text-3xl font-bold text-white">
+                    <TextWithFont customStyle="text-xl md:text-3xl text-white">
                         Wallets
                     </TextWithFont>
                     <View className="w-6" />
@@ -120,7 +120,6 @@ interface WalletCardContainerProps {
     onBalanceLoaded: (balance: number) => void;
 }
 
-// Container that loads real data for each wallet
 function WalletCardContainer({ walletName, isExpanded, onToggle, onBalanceLoaded }: WalletCardContainerProps) {
     const { walletData, isLoadingWalletData } = useWalletData(walletName);
     const priceHistory = usePriceHistory();
@@ -212,7 +211,7 @@ function WalletCard({ name, address, total, tokens, isExpanded, onToggle }: Wall
             </Pressable>
 
             {/* Wallet Content Card */}
-            <View className="bg-custom_complement rounded-2xl p-3 md:p-4 border-2 border-custom_border">
+            <View className="bg-[#202020] rounded-2xl p-3 md:p-4 border-2 border-white">
                 <View className="flex-row items-center">
                     {/* Pie Chart */}
                     <View className="mr-3 md:mr-4">
@@ -220,8 +219,8 @@ function WalletCard({ name, address, total, tokens, isExpanded, onToggle }: Wall
                             <PieChart
                                 data={pieData}
                                 donut
-                                radius={isExpanded ? 50 : 35}
-                                innerRadius={isExpanded ? 32 : 22}
+                                radius={isExpanded ? 50 : 22}
+                                innerRadius={isExpanded ? 32 : 12}
                                 innerCircleColor="#3E3632"
                                 strokeColor="#3E3632"
                                 strokeWidth={2}
@@ -229,7 +228,7 @@ function WalletCard({ name, address, total, tokens, isExpanded, onToggle }: Wall
                         ) : (
                             <View
                                 className="rounded-full bg-gray-600"
-                                style={{ width: isExpanded ? 100 : 70, height: isExpanded ? 100 : 70 }}
+                                style={{ width: isExpanded ? 100 : 34, height: isExpanded ? 100 : 34 }}
                             />
                         )}
                     </View>
@@ -248,7 +247,7 @@ function WalletCard({ name, address, total, tokens, isExpanded, onToggle }: Wall
                                         <TextWithFont customStyle="text-white text-xs md:text-sm flex-1">
                                             {token.name}
                                         </TextWithFont>
-                                        <TextWithFont customStyle="text-gray-400 text-xs md:text-sm mr-3">
+                                        <TextWithFont customStyle="text-white text-xs md:text-sm mr-3">
                                             {token.percentage}%
                                         </TextWithFont>
                                         <TextWithFont customStyle="text-white text-xs md:text-sm">
@@ -266,7 +265,7 @@ function WalletCard({ name, address, total, tokens, isExpanded, onToggle }: Wall
                                             className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full mr-1"
                                             style={{ backgroundColor: token.color }}
                                         />
-                                        <TextWithFont customStyle="text-gray-300 text-xs md:text-sm">
+                                        <TextWithFont customStyle="text-white text-xs md:text-sm">
                                             ${token.amount.toFixed(0)}
                                         </TextWithFont>
                                     </View>
@@ -277,7 +276,7 @@ function WalletCard({ name, address, total, tokens, isExpanded, onToggle }: Wall
 
                     {/* Right Side: Address + Total */}
                     <View className="items-end ml-3">
-                        <TextWithFont customStyle="text-gray-500 text-[10px] md:text-xs mb-1">
+                        <TextWithFont customStyle="text-white text-[10px] md:text-xs mb-1">
                             {shortenAddress(address)}
                         </TextWithFont>
                         <TextWithFont customStyle="text-white text-sm md:text-base font-semibold">
