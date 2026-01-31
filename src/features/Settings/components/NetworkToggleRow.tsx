@@ -1,4 +1,3 @@
-// components/NetworkToggleRow.tsx
 import React, { useEffect, useRef } from 'react';
 import { Animated, TouchableOpacity, View } from 'react-native';
 

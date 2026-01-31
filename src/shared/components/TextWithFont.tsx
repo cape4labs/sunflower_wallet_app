@@ -1,11 +1,12 @@
 import { Text } from 'react-native';
 
-type WrapperType = {
+// TODO: rename it to just Text because we don't use Text from React
+export default function TextWithFont({
+  children,
+  customStyle,
+}: {
   children?: React.ReactNode;
   customStyle?: string;
-};
-
-// TODO rename it to just Text because we don't use Text from React
-export default function TextWithFont({ children, customStyle }: WrapperType) {
+}): React.ReactNode {
   return <Text className={`font-[spacegrotesk] ${customStyle}`}>{children}</Text>;
 }

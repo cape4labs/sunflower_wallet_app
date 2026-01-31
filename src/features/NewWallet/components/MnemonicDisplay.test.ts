@@ -3,7 +3,7 @@ import { render } from '@testing-library/react-native';
 import { MnemonicDisplay, MnemonicWord } from './MnemonicDisplay';
 
 it('MnemonicDisplay snapshot', () => {
-  // TODO replace it with Array.from
+  // TODO: replace it with Array.from
   const mnemonic = Array.from({ length: 12 })
     .map((_, __) => {
       return 'word';

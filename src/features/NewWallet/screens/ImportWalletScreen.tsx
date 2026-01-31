@@ -37,7 +37,7 @@ export default function ImportWalletScreen() {
   const handleNext = async () => {
     if (isAllFilled) {
       try {
-        // TODO remove this
+        // TODO: remove this
         const fullMnemonic = mnemonic.join(' ');
         navigation.navigate('NameWalletScreen', {
           mnemonic: fullMnemonic,

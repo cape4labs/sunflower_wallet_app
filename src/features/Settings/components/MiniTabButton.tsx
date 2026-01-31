@@ -36,7 +36,7 @@ export default function MiniTabButton({
         ) : null}
       </View>
 
-      {/*TODO*/}
+      {/*TODO: */}
       {withToggle ? <></> : <></>}
     </View>
   );

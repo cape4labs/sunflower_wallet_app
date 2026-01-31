@@ -15,7 +15,6 @@ type Props = {
   direction?: 'rigth' | 'left' | 'up';
   animatedHeight: Animated.Value;
   onLayoutHeight: (height: number) => void;
-  isFirst?: boolean;
 };
 
 export default function AccordionItem({

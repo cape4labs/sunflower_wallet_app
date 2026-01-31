@@ -14,12 +14,13 @@ import { Button } from '../../../../shared/components/Button';
 import TextWithFont from '../../../../shared/components/TextWithFont';
 import { useWalletData, useWalletPrivateData } from '../../../../shared/hooks/useWalletData';
 import useWalletTokens from '../../../WalletHome/hooks/useWalletTokens';
+import useStakeDaoAPY from './useStakeDaoAPY';
 
 type StackingDaoCardProps = {
   walletName: string;
 };
 
-// I think need to move this to config
+// TODO: consider moving constants to a dedicated config
 const STACKING_DAO_ADDRESS = 'SP4SZE494VC2YC5JYG7AYFQ44F5Q4PYV7DVMDPBG';
 const CORE_CONTRACT = 'stacking-dao-core-v6';
 
@@ -29,13 +30,10 @@ export default function StackingDaoCard({ walletName }: StackingDaoCardProps) {
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [stxBalance, setStxBalance] = useState('0.00');
   const [stStxBalance, setStStxBalance] = useState('0.00');
-  const [exchangeRate, setExchangeRate] = useState('1.00'); // stSTX per STX
   const [isWithdrawMode, setIsWithdrawMode] = useState(false);
+  const [stSTXPerSTXExchangeRate, setStSTXPerSTXExchangeRate] = useState('1.00');
+  const APY = useStakeDaoAPY();
 
-  // I don't know where this is coming from
-  const [apy, setApy] = useState('~8.81%');
-
-  const { privateData } = useWalletPrivateData(walletName);
   const { walletData } = useWalletData(walletName);
 
   const { tokens } = useWalletTokens(null, walletData?.stxAddress || null, null);
@@ -57,6 +55,9 @@ export default function StackingDaoCard({ walletName }: StackingDaoCardProps) {
       Alert.alert('Insufficient Balance', 'You do not have enough STX');
       return;
     }
+
+    const { privateData } = useWalletPrivateData(walletName);
+
     if (!privateData?.stxPrivateKey || !walletData?.stxAddress) {
       Alert.alert('Error', 'Wallet data or private key not found');
       return;
@@ -84,7 +85,7 @@ export default function StackingDaoCard({ walletName }: StackingDaoCardProps) {
         ],
         senderKey: privateData.stxPrivateKey,
         validateWithAbi: true,
-        network: 'mainnet' as 'mainnet',
+        network: 'mainnet' as const,
         anchorMode: 1,
         postConditionMode: PostConditionMode.Allow,
         postConditions: [stxPostCondition],
@@ -173,7 +174,7 @@ export default function StackingDaoCard({ walletName }: StackingDaoCardProps) {
       <View className="flex-row justify-between mb-4">
         <View>
           <TextWithFont customStyle="text-white text-sm">APY</TextWithFont>
-          <TextWithFont customStyle="text-green-400 text-lg font-bold">{apy}</TextWithFont>
+          <TextWithFont customStyle="text-green-400 text-lg font-bold">{APY}%</TextWithFont>
         </View>
         <View>
           <TextWithFont customStyle="text-white text-sm text-right">Holdings</TextWithFont>
@@ -209,7 +210,7 @@ export default function StackingDaoCard({ walletName }: StackingDaoCardProps) {
       <View className="flex-row items-center space-x-2 mb-4">
         <TextInput
           className="flex-1 bg-custom_background text-white p-3 rounded-lg border border-custom_border"
-          placeholder="0.0"
+          placeholder="0"
           placeholderTextColor="#666"
           keyboardType="numeric"
           value={amount}
@@ -238,7 +239,7 @@ export default function StackingDaoCard({ walletName }: StackingDaoCardProps) {
       )}
 
       <TextWithFont customStyle="text-gray-400 text-xs mt-2 text-center">
-        1 stSTX = {exchangeRate} STX
+        1 stSTX = {stSTXPerSTXExchangeRate} STX
       </TextWithFont>
     </View>
   );

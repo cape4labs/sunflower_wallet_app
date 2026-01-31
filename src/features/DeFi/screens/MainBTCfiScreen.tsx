@@ -24,7 +24,7 @@ const STAKING_PROTOCOLS = [
     id: 'stacking-dao',
     name: 'Stacking DAO',
     icon: 'Layers',
-    apy: '~8.81%',
+    apy: 'Fixed',
     description: 'Liquid Staking for STX',
   },
 ];
