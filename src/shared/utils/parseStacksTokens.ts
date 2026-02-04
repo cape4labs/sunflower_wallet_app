@@ -1,4 +1,5 @@
 import { TOKEN_REGISTRY } from '../types/tokenRegistry';
+import { TokenPriceUtils } from './tokenPriceUtils';
 
 // Parsing all tokens that includes at TOKEN_REGISTRY
 export function parseStacksTokens(fungibleTokens: Record<string, any>) {
@@ -10,7 +11,7 @@ export function parseStacksTokens(fungibleTokens: Record<string, any>) {
       const raw = Number(value.balance);
       if (raw <= 0) return null; // Delete all 0 values
 
-      const balance = (raw / 10 ** config.decimals).toFixed(config.decimals);
+      const balance = TokenPriceUtils.formatRawBalance(raw, config.decimals);
 
       return {
         key,

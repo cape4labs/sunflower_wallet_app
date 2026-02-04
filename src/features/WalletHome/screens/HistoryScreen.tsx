@@ -16,6 +16,7 @@ import TextWithFont from '../../../shared/components/TextWithFont';
 import Wrapper from '../../../shared/components/Wrapper';
 import { useWalletData } from '../../../shared/hooks/useWalletData';
 import { copyTextToClipboard } from '../../../shared/utils/clipboard';
+import { TokenPriceUtils } from '../../../shared/utils/tokenPriceUtils';
 
 interface Transaction {
   tx_id: string;
@@ -80,7 +81,7 @@ export default function HistoryScreen() {
 
         let amount = '0 STX';
         if (tx.tx_type === 'token_transfer') {
-          amount = `${(Number(tx.token_transfer.amount || 0) / 1e6).toFixed(2)} STX`;
+          amount = TokenPriceUtils.formatAmountAndSymbol(tx.token_transfer.amount || 0, 'STX', 6);
         } else if (tx.tx_type === 'contract_call') {
           // Check for FT transfers within contract call
           const ftTransfer = tx.ft_transfers?.[0];
@@ -88,7 +89,7 @@ export default function HistoryScreen() {
             const assetId = ftTransfer.asset_identifier;
             const assetName = assetId.split('::')[1] || 'FT';
             const decimals = assetId.includes('token-alex') ? 8 : 6;
-            amount = `${(Number(ftTransfer.amount || 0) / Math.pow(10, decimals)).toFixed(2)} ${assetName}`;
+            amount = TokenPriceUtils.formatAmountAndSymbol(ftTransfer.amount || 0, assetName, decimals);
           } else if (tx.fee_rate && tx.sender_address === walletData?.stxAddress) {
             amount = 'Contract Call';
           }
@@ -231,7 +232,7 @@ export default function HistoryScreen() {
                 TXid: {shortenTxId(item.tx_id)}
               </TextWithFont>
               <Pressable onPress={() => copyTextToClipboard(item.tx_id)} className="p-1">
-                <Copy color="white" className="w-[15px] h-[15px] md:w-[17px] md:h-[17px]" strokeWidth={1.5} />
+                <Copy color="white" size={15} strokeWidth={1.5} />
               </Pressable>
             </View>
           </View>

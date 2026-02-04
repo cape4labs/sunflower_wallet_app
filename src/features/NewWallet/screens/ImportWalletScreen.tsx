@@ -69,7 +69,7 @@ export default function ImportWalletScreen() {
         <MnemonicDisplayInput mnemonic={mnemonic} setMnemonic={setMnemonic} />
 
         <Pressable onPress={handlePaste} className="flex-row gap-1 items-center">
-          <Image source={require('../../../../assets/icons/copy.png')} />
+          <Image source={require('../../../../assets/icons/copy.png')} className="w-[15px] h-[15px]" />
           <TextWithFont customStyle="font-bold text-white">Paste</TextWithFont>
         </Pressable>
 

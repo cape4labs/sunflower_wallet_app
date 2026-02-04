@@ -18,7 +18,7 @@ export default function calculatePriceDiff(data: PriceEntry): CalculatePriceDiff
   }
 
   // Default time period since diff calculated
-  const inSeconds = 3600;
+  const inSeconds = 86400; // 24 hours
 
   // In coingecko api, the first value has the smallest timestamp
   for (let i = data.length - 1; i > 0; i--) {

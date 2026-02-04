@@ -84,7 +84,7 @@ export function CreateWalletScreen() {
                 >
                   <Image
                     source={require('../../../../assets/icons/copy.png')}
-                    className={`w-3 h-3 md:w-4 md:h-4`}
+                    className="w-[15px] h-[15px]"
                   />
                   <TextWithFont customStyle={`text-white text-base md:text-lg`}>Copy</TextWithFont>
                 </Pressable>

@@ -116,7 +116,7 @@ export default function ReceiveScreen() {
                   {address}
                 </TextWithFont>
                 <Pressable onPress={() => copyTextToClipboard(address)} className="">
-                  <Copy color={'#fff'} className="w-3 h-3 md:w-[15px] md:h-[15px]" />
+                  <Copy color={'#fff'} size={15} />
                 </Pressable>
               </View>
             </View>

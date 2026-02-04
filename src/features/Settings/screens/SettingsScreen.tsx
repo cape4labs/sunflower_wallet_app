@@ -218,7 +218,7 @@ export default function SettingsScreen() {
           <View className="mb-4">
             <TextWithFont customStyle="text-white text-sm md:text-base">Version</TextWithFont>
             <TextWithFont customStyle="text-gray-400 text-xs md:text-sm">
-              0.2.0 / 16.01.2026
+              0.3.0 | 04.02.2026
             </TextWithFont>
           </View>
           <View className="mb-6">

@@ -57,7 +57,10 @@ export default function MainWalletScreen() {
     walletData?.btcAddress,
   );
 
-  const filteredTokens = useMemo(() => tokens.filter(t => !t.isDeFi), [tokens]);
+  const filteredTokens = useMemo(
+    () => tokens.filter(t => !t.isDeFi || t.symbol === 'stSTX'),
+    [tokens],
+  );
   const priceHistoryForGraph = preparePricesForGraph(priceHistory.data, filteredTokens);
 
   useEffect(() => {
@@ -128,7 +131,7 @@ export default function MainWalletScreen() {
               <TextWithFont customStyle="text-xs md:text-base text-yellow-50">
                 {shortenAddress(walletData?.stxAddress)}
               </TextWithFont>
-              <Copy color={'#fff'} className="w-1 h-1 md:w-2 md:h-2" />
+              <Copy color={'#fff'} size={15} />
             </Pressable>
           </View>
         </View>

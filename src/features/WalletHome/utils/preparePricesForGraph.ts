@@ -10,50 +10,43 @@ export default function preparePricesForGraph(
   prices?: PricesData,
   tokens?: Token[],
 ): preparePricesForGraphReturn {
-  if (!tokens) {
-    return {
-      error: 'Tokens are required',
-    };
+  if (!tokens || !prices) {
+    return { error: 'Tokens and prices are required' };
   }
 
-  if (!prices) {
-    return {
-      error: 'Prices are required',
-    };
-  }
+  const shortest = Math.min(...Object.values(prices).map(p => p.length));
+  if (shortest === 0) return { data: [] };
 
-  const stxToken = tokens.find(t => t.symbol === 'STX');
-  const btcToken = tokens.find(t => t.symbol === 'BTC');
+  const combined: number[] = new Array(shortest).fill(0);
 
-  const stxAmount = stxToken ? Number(stxToken.balance) : 0;
-  const btcAmount = btcToken ? Number(btcToken.balance) : 0;
+  tokens.forEach(token => {
+    const symbol = token.symbol.toLowerCase();
+    const history = (prices as any)[symbol];
 
-  // Align price arrays
-  const shortest = Math.min(prices.stx.length, prices.btc.length);
-  const combined: number[] = [];
-
-  for (let i = 0; i < shortest; i++) {
-    const stxPrice = Number(prices.stx[i][1]);
-    const btcPrice = Number(prices.btc[i][1]);
-    combined[i] = stxPrice * stxAmount + btcPrice * btcAmount;
-  }
-
-  // Process values for using in the graph
-  const min = Math.min(...combined);
-  const range = Math.max(...combined) - min;
-  const processed = combined.map((v: number) => {
-    if (range !== 0) {
-      return {
-        value: ((v - min) / range) * 100,
-      };
-    } else {
-      return {
-        value: 0,
-      };
+    if (history && history.length >= shortest) {
+      const amount = Number(token.balance);
+      for (let i = 0; i < shortest; i++) {
+        combined[i] += Number(history[i][1]) * amount;
+      }
+    } else if (token.isDeFi && token.symbol === 'stSTX' && prices.stx) {
+      const amount = Number(token.balance);
+      for (let i = 0; i < shortest; i++) {
+        combined[i] += Number(prices.stx[i][1]) * amount;
+      }
     }
   });
 
-  return {
-    data: processed,
-  };
+  if (combined.every(v => v === 0)) {
+    return { data: [] };
+  }
+
+  const min = Math.min(...combined);
+  const max = Math.max(...combined);
+  const range = max - min;
+
+  const processed = combined.map((v: number) => ({
+    value: range !== 0 ? ((v - min) / range) * 100 : 50,
+  }));
+
+  return { data: processed };
 }

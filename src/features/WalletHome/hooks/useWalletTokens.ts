@@ -8,6 +8,7 @@ import {
 import { Token } from '../../../shared/types/Token';
 import { TOKEN_REGISTRY } from '../../../shared/types/tokenRegistry';
 import { parseStacksTokens } from '../../../shared/utils/parseStacksTokens';
+import { TokenPriceUtils } from '../../../shared/utils/tokenPriceUtils';
 import { PricesData } from '../types/wallet';
 import calculatePriceDiff from '../utils/calculatePriceDiff';
 
@@ -62,54 +63,38 @@ export default function useWalletTokens(
 
     // Combine Stacks data (STX + SIP-010) with prices
     if (stacksData && prices) {
-      const stxRaw = Number(stacksData.stx.balance);
-      const stxBalance = (stxRaw / 1e6).toFixed(6);
-      const stxPrice = prices.blockstack?.usd ?? 0;
-      const stxUsd = Number(stxBalance) * stxPrice;
+      // 1. Stacks (STX)
+      result.push(
+        TokenPriceUtils.createTokenData({
+          configKey: 'STX',
+          rawBalance: stacksData.stx.balance,
+          prices,
+          historyDiff: calculatePriceDiff(priceHistory?.stx).data,
+        })
+      );
 
-      result.push({
-        name: 'Stacks',
-        symbol: 'STX',
-        balance: stxBalance,
-        cost: stxPrice.toString(),
-        balanceUsd: stxUsd.toFixed(2),
-        diff: calculatePriceDiff(priceHistory?.stx).data,
-        coingeckoId: 'blockstack',
-      });
-
-      // Map Fungible Tokens (SIP-010)
+      // 2. Fungible Tokens (SIP-010)
       for (const t of parsedTokens) {
-        if (!t) continue; // Safety check for TypeScript
-        const price = prices[t.coingeckoId!]?.usd ?? 0;
-        const usd = Number(t.balance) * price;
-
-        result.push({
-          name: t.name,
-          symbol: t.symbol,
-          balance: t.balance,
-          cost: price.toString(),
-          balanceUsd: usd.toFixed(2),
-          key: t.key,
-          isDeFi: t.isDeFi,
-          coingeckoId: t.coingeckoId,
-        });
+        if (!t) continue;
+        result.push(
+          TokenPriceUtils.createTokenData({
+            configKey: t.key,
+            rawBalance: stacksData.fungible_tokens[t.key].balance,
+            prices,
+          })
+        );
       }
     }
 
-    // Add Bitcoin balance derived from blockstream.info + bitcoin coingecko price
+    // 3. Bitcoin
     if (btcBalance && prices) {
-      const btcPrice = prices.bitcoin?.usd ?? 0;
-      const usd = Number(btcBalance) * btcPrice;
-
-      result.push({
-        name: 'Bitcoin',
-        symbol: 'BTC',
-        balance: btcBalance,
-        cost: btcPrice.toString(),
-        balanceUsd: usd.toFixed(2),
-        diff: calculatePriceDiff(priceHistory?.btc).data,
-        coingeckoId: 'bitcoin',
-      });
+      result.push(
+        TokenPriceUtils.createBtcData(
+          btcBalance,
+          prices.bitcoin?.usd ?? 0,
+          calculatePriceDiff(priceHistory?.btc).data
+        )
+      );
     }
 
     return result;

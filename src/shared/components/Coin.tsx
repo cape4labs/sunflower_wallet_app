@@ -68,7 +68,7 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
         {renderIcon()}
         <View className="ml-2">
           <View className="flex-row items-center">
-            <TextWithFont customStyle={`text-white text-lg md:text-2xl`}>{token.name}</TextWithFont>
+            <TextWithFont customStyle={`text-white text-lg md:text-xl`}>{token.name}</TextWithFont>
             {inMainScreen &&
               (token.diff == null ? (
                 <TextWithFont customStyle={'text-white-500 ml-1'} />
@@ -86,7 +86,7 @@ export default function Coin({ token, inMainScreen }: CoinProp) {
         </View>
       </View>
       <View className="items-end">
-        <TextWithFont customStyle={`text-white text-lg md:text-2xl`}>
+        <TextWithFont customStyle={`text-white text-lg md:text-xl`}>
           {formatNumber(token.balance)} {token.symbol}
         </TextWithFont>
         <TextWithFont customStyle={`text-gray-400 text-sm md:text-base`}>
