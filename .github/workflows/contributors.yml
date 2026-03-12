@@ -3,7 +3,7 @@ on:
     branches: ['main', 'dev', 'contributors']
 
 jobs:
-  readme-contributors:
+  contrib-readme-job:
     runs-on: ubuntu-latest
     name: A job that automates adding contributors to README.md
     permissions:
