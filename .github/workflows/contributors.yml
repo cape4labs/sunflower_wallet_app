@@ -1,6 +1,6 @@
 on:
   push:
-    branches: ['main', 'dev', 'contributors']
+    branches: ['dev', 'contributors']
 
 jobs:
   contrib-readme-job:
