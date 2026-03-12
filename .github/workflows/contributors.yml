@@ -1,0 +1,16 @@
+on:
+  push:
+    branches: ['main', 'dev', 'contributors']
+
+jobs:
+  readme-contributors:
+    runs-on: ubuntu-latest
+    name: A job that automates adding contributors to README.md
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Contribute List
+        uses: akhilmhdh/contributors-readme-action@v2.3.11
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
