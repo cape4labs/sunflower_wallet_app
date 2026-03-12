@@ -37,4 +37,24 @@ npx react-native-rename "NEW APP TITLE"
 ## Our Contributors
 
 <!-- readme: collaborators,contributors -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/QwaQ-dev">
+                    <img src="https://avatars.githubusercontent.com/u/77898947?v=4" width="100;" alt="QwaQ-dev"/>
+                    <br />
+                    <sub><b>Yegor Sheiko</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/isgin01">
+                    <img src="https://avatars.githubusercontent.com/u/157279130?v=4" width="100;" alt="isgin01"/>
+                    <br />
+                    <sub><b>isgin01</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
 <!-- readme: collaborators,contributors -end -->
