@@ -33,3 +33,11 @@ Before starting, make sure you have completed the [React Native environment setu
 ```bash
 npx react-native-rename "NEW APP TITLE"
 ```
+
+## Our Contributors
+
+Thanks for all your hard work!
+
+<a href="https://github.com/cape4labs/sunflower_wallet_app/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=cape4labs/sunflower_wallet_app" />
+</a>
