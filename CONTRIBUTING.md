@@ -2,28 +2,28 @@
 
 Before starting, make sure you have completed the [React Native environment setup](https://reactnative.dev/docs/set-up-your-environment).
 
-1. Install dependencies:
+1. Install dependencies (you may need to do it `mobile` too):
 
    ```bash
-   npm install
+   pnpm i
    ```
 
 2. Start the Metro bundler:
 
    ```bash
-   npm run start
+   pnpm run start
    ```
 
 3. Run for android. Make sure you have an emulator installed or a physical phone connected.
 
    ```bash
-   npm start android
+   pnpm start android
    ```
 
 ### Miscellaneous
 
 - Install pre-commit hooks:
 
-   ```bash
-   npm run prepare
-   ```
+  ```bash
+  pnpm run prepare
+  ```

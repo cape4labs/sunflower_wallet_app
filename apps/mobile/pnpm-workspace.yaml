@@ -1,0 +1,2 @@
+# React Native works poorly with symlinks, so we turn them off here
+nodeLinker: hoisted

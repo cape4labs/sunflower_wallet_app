@@ -1,17 +1,16 @@
-name: Tests
+name: Test
 
 on:
-  pull_request:
+  push:
     branches: ['dev', 'release']
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +18,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm i
-      - run: npm run check
-      - run: npm test
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          cache: true
+
+      - run: pnpm i
+      - run: pnpm run test:mobile
