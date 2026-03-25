@@ -23,7 +23,7 @@
     "pnpm": ">=10",
     "runtime": {
       "name": "node",
-      "version": ">=22.21.1"
+      "version": ">=24"
     }
   },
   "devDependencies": {
