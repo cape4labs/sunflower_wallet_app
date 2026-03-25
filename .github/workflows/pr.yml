@@ -1,7 +1,7 @@
 name: Test
 
 on:
-  # TODO: push is temp; PR
+  pull_request:
   push:
     branches: ['dev', 'release']
 
@@ -11,20 +11,24 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.14.0]
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
-          version: 10
-          cache: true
+          version: 10.22.0
 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          # cache: "pnpm"
+
+      # TODO: jest behaves weirdly without working-directory set
       - run: pnpm i
-      - run: pnpm run test:mobile
+        working-directory: ./apps/mobile
+      - run: pnpm run test
+        working-directory: ./apps/mobile

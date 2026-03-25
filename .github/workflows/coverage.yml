@@ -14,11 +14,11 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [22.x]
+        node-version: [24.14.0]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -28,19 +28,21 @@ jobs:
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
-          version: 10
-          cache: true
+          version: 10.22.0
 
+      # TODO: jest behaves weirdly without working-directory set
       - run: pnpm i
+        working-directory: ./apps/mobile
 
       - name: Get coverage and update readme
+        working-directory: ./apps/mobile
         run: |
-          pnpm run test:mobile --coverage --coverageDirectory="${{ runner.temp }}" --coverageReporters="json-summary"
+          pnpm run test --coverage --coverageDirectory="${{ runner.temp }}" --coverageReporters="json-summary"
           total_cov="$(jq .total.lines.pct ${{ runner.temp }}/coverage-summary.json)"
-          sed -i "s/coverage-\(.*\)%/coverage-${total_cov}%/" ./README.md
+          sed -i "s/coverage-\(.*\)%/coverage-${total_cov}%/" ../../README.md
 
       - name: Commit and push changes if README.md was changed by the previous step.
-        if: contains(github.event.push.changed_files, 'README.md')
+        if: contains(github.event.push.changed_files, '../../README.md')
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@${{ github.actor.email}}"

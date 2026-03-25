@@ -6,7 +6,7 @@
   "scripts": {
     "start:android": "pnpm --filter sunflower-mobile run start",
     "build:android": "pnpm --filter sunflower-mobile run android",
-    "test:mobile": "pnpm --filter sunflower-mobile run test",
+    "test:mobile": "pnpm --filter sunflower-mobile run test -c apps/mobile/jest.config.js",
     "prepare": "husky",
     "lint": "pnpm dlx eslint . --fix",
     "format": "pnpm dlx prettier -w .",
@@ -20,10 +20,10 @@
   "author": "cape4labs",
   "license": "MIT",
   "engines": {
-    "pnpm": ">=10",
+    "pnpm": "10.22.0",
     "runtime": {
       "name": "node",
-      "version": ">=24"
+      "version": "24.14.0"
     }
   },
   "devDependencies": {
