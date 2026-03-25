@@ -1,8 +1,8 @@
 ### Setup Instructions
 
-Before starting, make sure you have completed the [React Native environment setup](https://reactnative.dev/docs/set-up-your-environment).
+Before starting, make sure you have completed the [React Native environment setup](https://reactnative.dev/docs/set-up-your-environment). You must also have pnpm of version 10 or higher installed on your machine.
 
-1. Install dependencies (you may need to do it `mobile` too):
+1. Install dependencies in the root directory:
 
    ```bash
    pnpm i
@@ -11,13 +11,13 @@ Before starting, make sure you have completed the [React Native environment setu
 2. Start the Metro bundler:
 
    ```bash
-   pnpm run start
+   pnpm run start:mobile
    ```
 
-3. Run for android. Make sure you have an emulator installed or a physical phone connected.
+3. Build for android. Make sure you have an emulator installed or a physical android phone connected.
 
    ```bash
-   pnpm start android
+   pnpm build:mobile
    ```
 
 ### Miscellaneous
@@ -26,4 +26,10 @@ Before starting, make sure you have completed the [React Native environment setu
 
   ```bash
   pnpm run prepare
+  ```
+
+- Run tests
+
+  ```bash
+  pnpm run test:mobile
   ```
